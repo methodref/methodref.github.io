@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>methodrefBlog</title>
+  
+  <subtitle>methodref-test</subtitle>
+  <link href="http://192.168.31.128:4000/atom.xml" rel="self"/>
+  
+  <link href="http://192.168.31.128:4000/"/>
+  <updated>2021-05-03T08:00:48.000Z</updated>
+  <id>http://192.168.31.128:4000/</id>
+  
+  <author>
+    <name>methodref</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>template测试文件呵呵哒你知道这个施舍什么内容吗测试文件呵呵哒</title>
+    <link href="http://192.168.31.128:4000/2021/05/02/template/"/>
+    <id>http://192.168.31.128:4000/2021/05/02/template/</id>
+    <published>2021-05-02T08:49:27.000Z</published>
+    <updated>2021-05-03T08:00:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- excerpt -->]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;测试描述文件呵呵哒&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Android" scheme="http://192.168.31.128:4000/tags/Android/"/>
+    
+    <category term="前端" scheme="http://192.168.31.128:4000/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>template测试文件呵呵哒你知道这个施舍什么内容吗测试文件呵呵哒</title>
+    <link href="http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC3/"/>
+    <id>http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC3/</id>
+    <published>2021-05-02T08:49:27.000Z</published>
+    <updated>2021-05-03T08:01:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- excerpt -->]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;测试描述文件呵呵哒&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Android" scheme="http://192.168.31.128:4000/tags/Android/"/>
+    
+    <category term="前端" scheme="http://192.168.31.128:4000/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>template测试文件呵呵哒你知道这个施舍什么内容吗测试文件呵呵哒</title>
+    <link href="http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC5/"/>
+    <id>http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC5/</id>
+    <published>2021-05-02T08:49:27.000Z</published>
+    <updated>2021-05-03T08:01:16.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- excerpt -->]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;测试描述文件呵呵哒&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Android" scheme="http://192.168.31.128:4000/tags/Android/"/>
+    
+    <category term="前端" scheme="http://192.168.31.128:4000/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>template测试文件呵呵哒你知道这个施舍什么内容吗测试文件呵呵哒</title>
+    <link href="http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC7/"/>
+    <id>http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC7/</id>
+    <published>2021-05-02T08:49:27.000Z</published>
+    <updated>2021-05-03T08:01:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- excerpt -->]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;测试描述文件呵呵哒&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Android" scheme="http://192.168.31.128:4000/tags/Android/"/>
+    
+    <category term="前端" scheme="http://192.168.31.128:4000/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>template测试文件呵呵哒你知道这个施舍什么内容吗测试文件呵呵哒</title>
+    <link href="http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC2/"/>
+    <id>http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC2/</id>
+    <published>2021-05-02T08:49:27.000Z</published>
+    <updated>2021-05-03T08:01:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- excerpt -->]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;测试描述文件呵呵哒&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Android" scheme="http://192.168.31.128:4000/tags/Android/"/>
+    
+    <category term="前端" scheme="http://192.168.31.128:4000/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>template测试文件呵呵哒你知道这个施舍什么内容吗测试文件呵呵哒</title>
+    <link href="http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC4/"/>
+    <id>http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC4/</id>
+    <published>2021-05-02T08:49:27.000Z</published>
+    <updated>2021-05-03T08:01:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- excerpt -->]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;测试描述文件呵呵哒&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Android" scheme="http://192.168.31.128:4000/tags/Android/"/>
+    
+    <category term="前端" scheme="http://192.168.31.128:4000/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>template测试文件呵呵哒你知道这个施舍什么内容吗测试文件呵呵哒</title>
+    <link href="http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC6/"/>
+    <id>http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC6/</id>
+    <published>2021-05-02T08:49:27.000Z</published>
+    <updated>2021-05-03T08:01:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- excerpt -->]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;测试描述文件呵呵哒&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Android" scheme="http://192.168.31.128:4000/tags/Android/"/>
+    
+    <category term="前端" scheme="http://192.168.31.128:4000/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>template测试文件呵呵哒你知道这个施舍什么内容吗测试文件呵呵哒</title>
+    <link href="http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC8/"/>
+    <id>http://192.168.31.128:4000/2021/05/02/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC8/</id>
+    <published>2021-05-02T08:49:27.000Z</published>
+    <updated>2021-05-03T08:01:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- excerpt -->]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;测试描述文件呵呵哒&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Android" scheme="http://192.168.31.128:4000/tags/Android/"/>
+    
+    <category term="前端" scheme="http://192.168.31.128:4000/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2018-02-05-测试文章</title>
+    <link href="http://192.168.31.128:4000/2018/02/06/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC/"/>
+    <id>http://192.168.31.128:4000/2018/02/06/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90%E7%9A%84%E5%89%AF%E6%9C%AC/</id>
+    <published>2018-02-06T02:13:19.000Z</published>
+    <updated>2021-05-03T08:28:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这里是文章的概览，显示在主页缩略内容上面 测试</p><span id="more"></span><p>这里是自动生成的文章目录</p><!-- toc --><blockquote><p>CSDN的发布流程烂到家了，只能自己动手搭建技术博客</p></blockquote><h1 id="这是大标题"><a href="#这是大标题" class="headerlink" title="这是大标题"></a>这是大标题</h1><h2 id="这是二级标题"><a href="#这是二级标题" class="headerlink" title="这是二级标题"></a>这是二级标题</h2><h2 id="这里有个本地图片"><a href="#这里有个本地图片" class="headerlink" title="这里有个本地图片"></a>这里有个本地图片</h2><p><img src="title_image.jpg"></p><h2 id="这里有个网络图片"><a href="#这里有个网络图片" class="headerlink" title="这里有个网络图片"></a>这里有个网络图片</h2><p><img src="http://ww3.sinaimg.cn/large/006tNc79gw1fb0neee6mlj30dw0aldgf.jpg"></p><h2 id="文章结束"><a href="#文章结束" class="headerlink" title="文章结束"></a>文章结束</h2><p>————————————————</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;这里是文章的概览，显示在主页缩略内容上面 测试&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="world" scheme="http://192.168.31.128:4000/categories/world/"/>
+    
+    
+    <category term="Android" scheme="http://192.168.31.128:4000/tags/Android/"/>
+    
+    <category term="前端" scheme="http://192.168.31.128:4000/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>书籍推荐</title>
+    <link href="http://192.168.31.128:4000/1970/01/01/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/"/>
+    <id>http://192.168.31.128:4000/1970/01/01/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/</id>
+    <published>1970-01-01T00:00:00.000Z</published>
+    <updated>2021-05-02T08:27:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="书籍推荐-链接"><a href="#书籍推荐-链接" class="headerlink" title="书籍推荐 链接"></a>书籍推荐 <a href="https://www.zhihu.com/question/22794831/answer/832104960">链接</a></h3><blockquote><ol><li><strong>&lt;&lt;认知天性&gt;&gt;</strong></li></ol><p>&nbsp;<img src="/Users/zhangbei/Documents/TyporaFile/v2-6c7da53e14fdf18d830659e4525dc9d4_720w.jpg" alt="认知天性"></p><p>​    <strong>看书名下的一句话介绍，你大概就明白这是一本怎样的书籍。</strong></p><p>​    这本书解决的我在学习上遇到的大部分问题，以前只有人教会我，某某题该怎么做，却从来没有人教我，在学习的过程中怎么和自己相处。</p><p>​    <strong>在这本书中，你将掌握学习领域的终极规律。</strong></p><p>​    其实心理学是一个很有趣的科目，心理学比我们想象的要有趣的多，可以让你更好的了解自己。</p><p>​    看心理学之前，以为心理学是那种，电视剧中的心理医生那种戴着眼镜，来和我聊一聊，教你怎么探究人的本质，天啊，当时觉得应该比数学还要枯燥让人    烦。</p><p>​    看心理学之后，哇！天啊！竟然有专业的书籍教我怎么处理生活上的事情！我偷懒原来不怪我自己，原来人都是这样的哈哈哈哈，我好开心。（小声BB突    然对心理医生印象好转）</p><ol start="2"><li><p><strong>&lt;&lt;拖延心理学&gt;&gt;</strong></p><p>&nbsp;<img src="/Users/zhangbei/Documents/TyporaFile/v2-d4e35c318b70beef74d59b43342a93f6_720w.jpg" alt="img">)</p><p><strong>如果你不能解决拖延，拖延这件事，会顽固的跟随我们一辈子，并且会毁掉我们的一生。</strong></p><p>我大概在大二下半年的时候接触到这本书，我发现！原来！我之所以拖延！有这么多原因影响我！！拖延不单单怪我自己！哈哈哈哈</p><p>瞬间不会因为自己的拖延而感到内疚，这是一件很普通的事情，我学会了该如何和他相处。</p><p>这本书彻底的让我了解到，我为什么会拖延，我该如何面对自己的拖延，并且努力克服他。</p><p>这本书真的可以为拖延的你，提供很大的帮助，并且可以给到你不少的实用性建议！！</p></li><li><p><strong>&lt;&lt;搞定&gt;&gt;</strong></p><p><img src="https://pic3.zhimg.com/80/v2-eabb88a5df7cdf3f797e72185fd8ce1a_720w.jpg" alt="img">&nbsp;</p><p>教完你如何学习，如何解决拖延之后，就该教你如何管理自己的时间了，以前的我，对时间丝毫没有任何概念，每次工作还会拖延，天啊，我要疯了。</p><p>直到我接触了GTD时间管理，这是一本教你如何把控自己的工作节奏，自己如何每天与时间相处的一本书籍。</p><p>这本书的目标是让你，解除精神上的负担，并把事情做好，因为只有轻松，才能高效。</p><p><strong>你想啊，有人教你如何管理自己的时间，这也太棒了吧！！！</strong></p><p>还有一个很重要的就是不管你每天多累，真的真的都别忘了提升自己，不止是领域内专业能力的提升，更重要的是提升认知啊，转变自己对各种事物的看法。这么长时间以来，我整理归纳了一些提升认知的经验和方法，<strong>如果你想提升认知却不知道如何下手的话，可以关注我的公众号「一杯仙气」我把我这些经验分享给你，</strong>可以作为你平时的参照。</p></li></ol></blockquote><blockquote><p><strong>04.《富爸爸穷爸爸》</strong></p><p><img src="https://pic2.zhimg.com/80/v2-8de6215970c42caa591e94c467612e9d_720w.jpg" alt="img"> </p><p>教完你如何学习如何管理自己之后，该教你如何让自己变的有钱了哈哈哈</p><p>作为一本入门理财的书籍，可能很多人都有看到过这本书，真的是经典中的经典。</p><p>我大概是在大三的时候看的这本书，当时看完这本书，觉得，天啊，这些观念自己以前从来没有想过，也没有人和我讲过，因为我的家庭也是一个很普通很普通的家庭，父母的思想和观念和对于金钱的理念，也达不到很高的层次。</p><p>我很幸运自己看了这本书，让我对于金钱和自己的人生有了更深刻的理解。</p><p>我相信你看完之后，对于钱的理解，会颠覆你现在的认知。</p><p><strong>也会对穷人为钱工作，富人让钱为自己工作，这句话有深层次的理解。</strong></p><p><strong>原来赚钱真的没有那么难</strong></p><p><strong>05.《重塑心灵》</strong></p><p><img src="https://pic1.zhimg.com/v2-d35beed502190f78f4ae8dbfca6d5bc8_b.jpg" alt="img"><img src="https://pic1.zhimg.com/80/v2-d35beed502190f78f4ae8dbfca6d5bc8_720w.jpg" alt="img"></p><p>教完你如何学习如何管理自己如何让自己变的有钱之后，该告诉你如何让自己变的快乐了。</p><p><strong>《重塑心灵》这本书，教会了我怎样与自己相处，自己怎样可以变得更快乐。</strong></p><p>我相信大家都有浮躁，生气，什么事情都不想做的时候，而处理这些情绪都是有方法的，你本可以很快乐。</p><p>阅读这本书，你可以学会做自己情绪的主人，如何恰当处理自己的情绪，等等。</p><p>并且潜移默化的会改变你与人的沟通方式，会改善你自己的人际关系网络等。</p><p>让你变得更快乐！！</p><p><strong>06.《卓有成效的管理者》</strong></p><p>&nbsp;<img src="https://pic4.zhimg.com/v2-fe8592f04c7fa0ea829ba51cc5490b0b_b.jpg" alt="img"></p><p>以上推荐的书籍，有教你如何学习的，如何生活的，那这本书是教你如何当老板的。</p><p>这本书属于管理学的范畴，真的！也很！有趣！</p><p>他会教你怎么管理人，怎么让别人开心的为你工作！</p><p>如果你当老板，这本书对你太太有用了！如果你不当老板，好了，你可以通过这本书，知道老板的小心思！哈哈哈哈，一秒看穿你的领导是不是好老板！！</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;书籍推荐-链接&quot;&gt;&lt;a href=&quot;#书籍推荐-链接&quot; class=&quot;headerlink&quot; title=&quot;书籍推荐 链接&quot;&gt;&lt;/a&gt;书籍推荐 &lt;a href=&quot;https://www.zhihu.com/question/22794831/answer/8321</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://192.168.31.128:4000/1970/01/01/hello-world/"/>
+    <id>http://192.168.31.128:4000/1970/01/01/hello-world/</id>
+    <published>1970-01-01T00:00:00.000Z</published>
+    <updated>2021-05-03T08:01:56.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- excerpt --><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;HelloWorld!&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+</feed>
