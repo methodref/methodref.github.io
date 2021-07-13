@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Methodref的博客">
-    <title>all-archives - Methodref的博客</title>
+    <title>博客的搭建 - Methodref的博客</title>
     <meta name="author" content="Methodref">
     
     
@@ -17,17 +17,18 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Website","@id":"https://blog.methodref.top","author":{"@type":"Person","name":"Methodref","sameAs":["https://github.com/methodref","mailto:methodref@163.com"],"image":"picture.png"},"name":"Methodref的博客","description":"博客.","url":"https://blog.methodref.top"}</script>
-    <meta name="description" content="博客.">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Methodref","sameAs":["https://github.com/methodref","mailto:methodref@163.com"],"image":"picture.png"},"articleBody":"博客的建立记录。\n\n\n\n\n搭建方式的选择 ​开始准备搭建博客的时候，初步的了解了下搭建个人博客几种方式：\n\n自行开发一个简单的博客平台，自己写前后端代码，开发完成后部署到一台服务器上。\nHexo(基于js)，配置好后一键生成静态页面，使用起来比较简单，部署也比较方便，可以部署到Github提供的GitPages免费服务器，也可以自行购入服务器进行部署。\nJekyll(基于RubyGems)，支持生成静态页面，部署的方式和Hexo一致。\nHugo(基于GO)，支持生成静态页面，部署的方式和Hexo一致。\nSolo(基于Java)，支持生成静态页面，部署的方式和Hexo一致。\n\n经过对比最终选择了Hexo因为它是一款开源的博客框架，且使用的人数比较多，出现问题比较容易找到对应的解决方案。最重要的是简单易用。\n基于Hexo简单搭建步骤方便起见建议使用Liux系统进行安装操作，你可以使用虚拟机的形式安装一个Liux系统或者采用Docker容器的方式安装Linux系统。\n\n使用yum安装Node.js 版本安装稳定版即可.windows系统建议使用官网下载安装包的方式进行安装.macos建议使用brew进行安装.安装完成后使用node -v命令查看node.js版本再使用npm -v查看包管理器版本确定是否安装成功。\n1yum install nodejs12\n使用Node.js的包管理工具npm全局的形式安装hexo. 使用hexo -v查看hexo版本确定是否安装成功。\n1npm install hexo-cli -g\n安装hexo成功后cd进入当前用户目录下创建一个文件夹进入文件夹后使用hexo命令来初始化这个文件夹使其成为hexo的项目结构，~博客根目录。\n1hexo init\n至此一个博客框架的雏形便搭建完成了，接下来需要做的就是去看Hexo的官网文档熟悉Hexo的操作命令部署指南即可。常用命令如下\n\nhexo s启动hexo服务\nhexo g generate生成静态页面\nhexo clean 删除生成的静态页面\nhexo new &#39;newBlogName&#39; 生成新的博客页面\nhexo d 以博客根目录下_config.yml中deploy配置的部署方式进行部署\n\n博客根目录下_config.yml是你博客的主要配置信息常用的配置如下\n1234567891011title: 标题author: 作者language: 语言&lt;一般使用主题包中提供的语言信息&gt;url: 博客根访问路径作为一个环境变量theme: 选择的主题名称plugins:  - 插件名称 &lt;-格式表示是一个数组形式的属性&gt;deploy: deploy:  type: 部署方式  repo: 部署路径\n\nHexo简单的部署使用hexo g 命令生成静态页面，你会在博客根目录下看到生成了一个public文件夹.文件夹内存储的就是博客的静态页面.你可以使用这个简单的静态页面部署至你购买服务器的web容器中去.常见的有Tomcat Jboss Nginx.配置好环境变量后就可以进行访问。\n本质上来说Hexo博客框架的作用，就是把你所写的Markdown格式的博客，以静态页面的形式生成出来。\n","dateCreated":"2020-09-17T00:00:00+08:00","dateModified":"2021-06-03T11:26:46+08:00","datePublished":"2020-09-17T00:00:00+08:00","description":"博客的建立记录。","headline":"博客的搭建","image":["https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg","https://i.loli.net/2021/05/05/HlyQfdkGYBRhD7u.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/"},"publisher":{"@type":"Organization","name":"Methodref","sameAs":["https://github.com/methodref","mailto:methodref@163.com"],"image":"picture.png","logo":{"@type":"ImageObject","url":"picture.png"}},"url":"https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/","keywords":"博客相关","thumbnailUrl":"https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"}</script>
+    <meta name="description" content="博客的建立记录。">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="all-archives">
-<meta property="og:url" content="https://blog.methodref.top/all-archives/index.html">
+<meta property="og:title" content="博客的搭建">
+<meta property="og:url" content="https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/index.html">
 <meta property="og:site_name" content="Methodref的博客">
-<meta property="og:description" content="博客.">
+<meta property="og:description" content="博客的建立记录。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-03T08:14:44.000Z">
-<meta property="article:modified_time" content="2021-05-03T08:14:44.000Z">
+<meta property="article:published_time" content="2020-09-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-03T03:26:46.000Z">
 <meta property="article:author" content="Methodref">
+<meta property="article:tag" content="博客相关">
 <meta name="twitter:card" content="summary">
     
     
@@ -37,6 +38,12 @@
         <meta property="og:image" content="https://blog.methodref.top/assets/images/picture.png"/>
     
     
+        <meta property="og:image" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+    
+    
+        <meta property="og:image" content="https://i.loli.net/2021/05/05/HlyQfdkGYBRhD7u.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://i.loli.net/2021/05/05/HlyQfdkGYBRhD7u.jpg"/>
     
     
     <!--STYLES-->
@@ -48,6 +55,12 @@
 
     
 
+    
+        
+            
+<link rel="stylesheet" href="/assets/css/gitalk.css">
+
+        
     
 </head>
 
@@ -62,7 +75,7 @@
         
     
 
-<header id="header" data-behavior="1">
+<header id="header" data-behavior="4">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a
@@ -95,7 +108,7 @@
         
     
 
-<nav id="sidebar" data-behavior="1">
+<nav id="sidebar" data-behavior="4">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -259,145 +272,208 @@
 </nav>
 
             
-            <div id="main" data-behavior="1"
-                 class="
-                        hasCoverMetaIn
-                        ">
+        <div class="post-header-cover
+                    text-center
+                    post-header-cover--full"
+             style="background-image:url('https://i.loli.net/2021/05/05/HlyQfdkGYBRhD7u.jpg');"
+             data-behavior="4">
+            
+        </div>
+
+            <div id="main" data-behavior="4"
+                 class="hasCover
+                        hasCoverMetaOut
+                        hasCoverCaption">
                 
-<div id="archives" class="main-content-wrap">
-    <form id="filter-form" action="#">
-        <input name="date" type="text" class="form-control input--xlarge" placeholder="搜索日期 (YYYY/MM/DD)" autofocus="autofocus">
-    </form>
-    <h5 class="archive-result text-color-base text-xlarge"
-        data-message-zero="没有找到文章"
-        data-message-one="找到 1 篇文章"
-        data-message-other="找到 {n} 篇文章"></h5>
-    <section class="boxes">
+<article class="post">
+    
+        <span class="post-header-cover-caption caption">author:HOMEROS STUDIO</span>
+    
+    
+        <div class="post-header main-content-wrap text-center">
+    
+        <h1 class="post-title">
+            博客的搭建
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-09-17T00:00:00+08:00">
+	
+		    2020/09/17
+    	
+    </time>
+    
+        <span>发布在 </span>
         
-            
-            
-            
-                
-                
-                <div class="archive archive-year box" data-date="2020">
-                    <h4 class="archive-title">
-                        <a class="link-unstyled" href="/archives/2020">2020</a>
-                    </h4>
-            
-            
-                
-                <ul class="archive-posts archive-month" data-date="202010">
-                    <h5 class="archive-title">
-                        <a class="link-unstyled" href="/archives/2020/10">十月</a>
-                    </h5>
-                
-            
-            <li class="archive-post archive-day" data-date="20201022">
-                <a class="archive-post-title" href="/2020/10/22/9.%E5%A4%84%E7%90%86%E4%B8%AA%E4%BA%BA%E4%BA%8B%E5%8A%A1%E5%B7%A5%E4%BD%9C%E6%B5%81/">处理个人事务工作流</a>
-                <span class="archive-post-date"> - 2020/10/22</span>
-            </li>
-        
-            
-            
-            
-            
-            <li class="archive-post archive-day" data-date="20201018">
-                <a class="archive-post-title" href="/2020/10/18/8.%E6%94%B9%E5%8F%98%E4%B9%A0%E6%83%AF%E7%9A%84%E6%AD%A5%E9%AA%A4%E6%96%B9%E6%B3%95/">改变习惯的步骤方法</a>
-                <span class="archive-post-date"> - 2020/10/18</span>
-            </li>
-        
-            
-            
-            
-            
-            <li class="archive-post archive-day" data-date="20201012">
-                <a class="archive-post-title" href="/2020/10/12/7.%E3%80%8A%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">《代码整洁之道》阅读笔记</a>
-                <span class="archive-post-date"> - 2020/10/12</span>
-            </li>
-        
-            
-            
-            
-            
-            <li class="archive-post archive-day" data-date="20201005">
-                <a class="archive-post-title" href="/2020/10/05/6.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%BA%8C%3E/">经典排序算法图解&lt;二&gt;</a>
-                <span class="archive-post-date"> - 2020/10/05</span>
-            </li>
-        
-            
-            
-            
-            
-            <li class="archive-post archive-day" data-date="20201002">
-                <a class="archive-post-title" href="/2020/10/02/5.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%B8%80%3E/">经典排序算法图解&lt;一&gt;</a>
-                <span class="archive-post-date"> - 2020/10/02</span>
-            </li>
-        
-            
-            
-            
-            
-                
-                    </ul>
-                
-                <ul class="archive-posts archive-month" data-date="202009">
-                    <h5 class="archive-title">
-                        <a class="link-unstyled" href="/archives/2020/09">九月</a>
-                    </h5>
-                
-            
-            <li class="archive-post archive-day" data-date="20200925">
-                <a class="archive-post-title" href="/2020/09/25/4.%E5%8D%9A%E5%AE%A2%E6%8F%92%E4%BB%B6hexo-algoliasearch/">博客插件hexo-algoliasearch</a>
-                <span class="archive-post-date"> - 2020/09/25</span>
-            </li>
-        
-            
-            
-            
-            
-            <li class="archive-post archive-day" data-date="20200921">
-                <a class="archive-post-title" href="/2020/09/21/3.%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98Tranquilpeak/">博客主题Tranquilpeak</a>
-                <span class="archive-post-date"> - 2020/09/21</span>
-            </li>
-        
-            
-            
-            
-            
-            <li class="archive-post archive-day" data-date="20200917">
-                <a class="archive-post-title" href="/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/">博客的搭建</a>
-                <span class="archive-post-date"> - 2020/09/17</span>
-            </li>
-        
-            
-            
-            
-            
-            <li class="archive-post archive-day" data-date="20200914">
-                <a class="archive-post-title" href="/2020/09/14/1.%E5%8D%9A%E5%AE%A2%E4%BC%8A%E5%A7%8B/">博客伊始</a>
-                <span class="archive-post-date"> - 2020/09/14</span>
-            </li>
-        
-            
-            
-            
-            
-                
-                    </ul>
-                
-                <ul class="archive-posts archive-month" data-date="202005">
-                    <h5 class="archive-title">
-                        <a class="link-unstyled" href="/archives/2020/05">五月</a>
-                    </h5>
-                
-            
-            <li class="archive-post archive-day" data-date="20200502">
-                <a class="archive-post-title" href="/2020/05/02/template/">template</a>
-                <span class="archive-post-date"> - 2020/05/02</span>
-            </li>
-        
-    </section>
+    <a class="category-link" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a>
+
+
+    
 </div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>博客的建立记录。</p>
+<span id="more"></span>
+
+<h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E6%96%B9%E5%BC%8F%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text">搭建方式的选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EHexo%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4"><span class="toc-text">基于Hexo简单搭建步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hexo%E7%AE%80%E5%8D%95%E7%9A%84%E9%83%A8%E7%BD%B2"><span class="toc-text">Hexo简单的部署</span></a></li></ol>
+
+<h4 id="搭建方式的选择"><a href="#搭建方式的选择" class="headerlink" title="搭建方式的选择"></a>搭建方式的选择</h4><p> ​开始准备搭建博客的时候，初步的了解了下搭建个人博客几种方式：</p>
+<ol>
+<li>自行开发一个简单的博客平台，自己写前后端代码，开发完成后部署到一台服务器上。</li>
+<li><a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>(基于js)，配置好后一键生成静态页面，使用起来比较简单，部署也比较方便，可以部署到Github提供的<a target="_blank" rel="noopener" href="https://pages.github.com/">GitPages</a>免费服务器，也可以自行购入服务器进行部署。</li>
+<li><a target="_blank" rel="noopener" href="https://jekyllrb.com/">Jekyll</a>(基于RubyGems)，支持生成静态页面，部署的方式和Hexo一致。</li>
+<li><a target="_blank" rel="noopener" href="https://www.gohugo.org/">Hugo</a>(基于GO)，支持生成静态页面，部署的方式和Hexo一致。</li>
+<li><a target="_blank" rel="noopener" href="https://b3log.org/solo/">Solo</a>(基于Java)，支持生成静态页面，部署的方式和Hexo一致。</li>
+</ol>
+<p>经过对比最终选择了Hexo因为它是一款开源的博客框架，且使用的人数比较多，出现问题比较容易找到对应的解决方案。最重要的是简单易用。</p>
+<h4 id="基于Hexo简单搭建步骤"><a href="#基于Hexo简单搭建步骤" class="headerlink" title="基于Hexo简单搭建步骤"></a>基于Hexo简单搭建步骤</h4><p>方便起见建议使用Liux系统进行安装操作，你可以使用虚拟机的形式安装一个Liux系统或者采用Docker容器的方式安装Linux系统。</p>
+<ol>
+<li><p>使用yum安装Node.js 版本安装稳定版即可.windows系统建议使用官网下载安装包的方式进行安装.macos建议使用brew进行安装.<br>安装完成后使用<code>node -v</code>命令查看node.js版本再使用<code>npm -v</code>查看包管理器版本确定是否安装成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install nodejs12</span><br></pre></td></tr></table></figure></li>
+<li><p>使用Node.js的包管理工具npm全局的形式安装hexo. 使用<code>hexo -v</code>查看hexo版本确定是否安装成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure></li>
+<li><p>安装hexo成功后cd进入当前用户目录下创建一个文件夹进入文件夹后使用hexo命令来初始化这个文件夹使其成为hexo的项目结构，~博客根目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure></li>
+<li><p>至此一个博客框架的雏形便搭建完成了，接下来需要做的就是去看<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/commands">Hexo的官网文档</a>熟悉Hexo的操作命令部署指南即可。<br>常用命令如下</p>
+<ul>
+<li><code>hexo s</code>启动hexo服务</li>
+<li><code>hexo g</code> generate生成静态页面</li>
+<li><code>hexo clean</code> 删除生成的静态页面</li>
+<li><code>hexo new &#39;newBlogName&#39;</code> 生成新的博客页面</li>
+<li><code>hexo d</code> 以博客根目录下_config.yml中deploy配置的部署方式进行部署</li>
+</ul>
+<p>博客根目录下_config.yml是你博客的主要配置信息常用的配置如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">title: 标题</span><br><span class="line">author: 作者</span><br><span class="line">language: 语言&lt;一般使用主题包中提供的语言信息&gt;</span><br><span class="line">url: 博客根访问路径作为一个环境变量</span><br><span class="line">theme: 选择的主题名称</span><br><span class="line">plugins:</span><br><span class="line">  - 插件名称 &lt;-格式表示是一个数组形式的属性&gt;</span><br><span class="line">deploy: </span><br><span class="line">deploy:</span><br><span class="line">  type: 部署方式</span><br><span class="line">  repo: 部署路径</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Hexo简单的部署"><a href="#Hexo简单的部署" class="headerlink" title="Hexo简单的部署"></a>Hexo简单的部署</h4><p>使用<code>hexo g</code> 命令生成静态页面，你会在博客根目录下看到生成了一个<code>public</code>文件夹.文件夹内存储的就是博客的静态页面.你可以使用这个简单的静态页面部署至你购买服务器的web容器中去.常见的有Tomcat Jboss Nginx.配置好环境变量后就可以进行访问。</p>
+<p>本质上来说Hexo博客框架的作用，就是把你所写的Markdown格式的博客，以静态页面的形式生成出来。</p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3/" rel="tag">博客相关</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/21/3.%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98Tranquilpeak/"
+                    data-tooltip="博客主题Tranquilpeak"
+                    aria-label="上一篇: 博客主题Tranquilpeak"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/14/1.%E5%8D%9A%E5%AE%A2%E4%BC%8A%E5%A7%8B/"
+                    data-tooltip="博客伊始"
+                    aria-label="下一篇: 博客伊始"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/"
+                    title="分享到 Weibo"
+                    aria-label="分享到 Weibo"
+                >
+                    <i class="fab fa-weibo" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/&amp;title=博客的搭建"
+                    title="分享到 QQ"
+                    aria-label="分享到 QQ"
+                >
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a
+                        class="post-action-btn btn btn--default"
+                        href="#gitalk"
+                        aria-label="Leave a comment"
+                    >
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="gitalk"></div>
+
+            
+        
+    </div>
+</article>
+
+
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
@@ -406,6 +482,138 @@
 </footer>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/21/3.%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98Tranquilpeak/"
+                    data-tooltip="博客主题Tranquilpeak"
+                    aria-label="上一篇: 博客主题Tranquilpeak"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/14/1.%E5%8D%9A%E5%AE%A2%E4%BC%8A%E5%A7%8B/"
+                    data-tooltip="博客伊始"
+                    aria-label="下一篇: 博客伊始"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/"
+                    title="分享到 Weibo"
+                    aria-label="分享到 Weibo"
+                >
+                    <i class="fab fa-weibo" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/&amp;title=博客的搭建"
+                    title="分享到 QQ"
+                    aria-label="分享到 QQ"
+                >
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a
+                        class="post-action-btn btn btn--default"
+                        href="#gitalk"
+                        aria-label="Leave a comment"
+                    >
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="http://service.weibo.com/share/share.php?&amp;title=https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/"
+                        aria-label="分享到 Weibo"
+                    >
+                        <i class="fab fa-weibo" aria-hidden="true"></i><span>分享到 Weibo</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/&amp;title=博客的搭建"
+                        aria-label="分享到 QQ"
+                    >
+                        <i class="fab fa-qq" aria-hidden="true"></i><span>分享到 QQ</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
             
         </div>
         
@@ -816,6 +1024,26 @@
 
 <!--SCRIPTS END-->
 
+
+    
+        
+<script src="/assets/js/gitalk.js"></script>
+
+        <script type="text/javascript">
+          (function() {
+            new Gitalk({
+              clientID: '9f386ddb2c535689c1de',
+              proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
+              clientSecret: 'fa42778427082cb68137f95c2f4882fa705e0855',
+              repo: 'blog-gitalk-comment',
+              owner: 'methodref',
+              admin: ['methodref'],
+              id: '2020/09/17/2.博客的建立/',
+              ...{"language":"en","perPage":10,"distractionFreeMode":false,"enableHotKey":true,"pagerDirection":"first"}
+            }).render('gitalk')
+          })()
+        </script>
+    
 
 
 

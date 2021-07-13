@@ -1,0 +1,864 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Methodref的博客">
+    <title>经典排序算法图解&lt;一&gt; - Methodref的博客</title>
+    <meta name="author" content="Methodref">
+    
+    
+        <link rel="icon" href="https://blog.methodref.top/assets/images/cat.ico">
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Methodref","sameAs":["https://github.com/methodref","mailto:methodref@163.com"],"image":"picture.png"},"articleBody":"基于&lt;&lt;算法 第四版&gt;中标准绘图库stdDraw实现的算法图解。\n简单：冒泡排序、选择排序、插入排序\n\n\n\n\n前述早些时候阅读&lt;&lt;算法 第四版&gt;&gt;时，第一章基础中stdDraw标准绘图库工具时做过一些小的demo觉得挺有趣，于是产生了完成一个解释排序算法图解的一个想法，直至今日，开始写博客时才付诸于行动去实现这个功能。\n先实现了几个简单的排序算法图解，后续再去补充其他的排序算法。\n算法分类\n比较类排序：通过比较来决定元素间的相对次序，由于其时间复杂度不能突破O(nlogn)，因此也称为非线性时间比较类排序\n\n非比较类排序：不通过比较来决定元素间的相对次序，它可以突破基于比较排序的时间下界，以线性时间运行，因此也称为线性时间非比较类排序。\n\n\n\n算法复杂度\n相关概念\n\n稳定：如果a原本在b前面，而a=b，排序之后a仍然在b的前面。\n不稳定：如果a原本在b的前面，而a=b，排序之后 a 可能会出现在 b 的后面。\n时间复杂度：对排序数据的总的操作次数。反映当n变化时，操作次数呈现什么规律。\n空间复杂度：是指算法在计算机内执行时所需存储空间的度量，它也是数据规模n的函数。\n\n冒泡排序冒泡排序是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。 \n算法描述\n比较相邻的元素。如果第一个比第二个大，就交换它们两个；\n对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对，这样在最后的元素应该会是最大的数；\n针对所有的元素重复以上的步骤，除了最后一个；\n重复步骤1~3，直到排序完成。\n\n动图展示\n\n代码实现123456789101112private static void bubbleSort(int[] array) &#123;    for (int i = array.length; i &gt; 0; i--) &#123;        StdDrawUtil.refreshArray(array, 200, -1);        for (int j = 0; j &lt; i - 1; j++) &#123;            if (array[j] &gt; array[j + 1]) &#123;                int i1 = array[j];                array[j] = array[j + 1];                array[j + 1] = i1;            &#125;        &#125;    &#125;&#125;\n\n\n选择排序选择排序(Selection-sort)是一种简单直观的排序算法。它的工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。\n算法描述n个记录的直接选择排序可经过n-1趟直接选择排序得到有序结果。具体算法描述如下：\n\n初始状态：无序区为R[1..n]，有序区为空；\n第i趟排序(i=1,2,3…n-1)开始时，当前有序区和无序区分别为R[1..i-1]和R(i..n）。该趟排序从当前无序区中-选出关键字最小的记录 R[k]，将它与无序区的第1个记录R交换，使R[1..i]和R[i+1..n)分别变为记录个数增加1个的新有序区和记录个数减少1个的新无序区；\nn-1趟结束，数组有序化了。\n\n动图展示\n\n代码实现12345678910111213public static void selectionSort(int[] array) &#123;    for (int i = 0; i &lt; array.length; i++) &#123;        int index = i;        for (int j = i + 1; j &lt; array.length; j++) &#123;            if (array[index] &gt; array[j]) &#123;                index = j;            &#125;        &#125;        int i1 = array[i];        array[i] = array[index];        array[index] = i1;    &#125;&#125;\n\n\n插入排序插入排序（Insertion-Sort）的算法描述是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。\n算法描述一般来说，插入排序都采用in-place在数组上实现。具体算法描述如下：\n\n从第一个元素开始，该元素可以认为已经被排序；\n取出下一个元素，在已经排序的元素序列中从后向前扫描；\n如果该元素（已排序）大于新元素，将该元素移到下一位置；\n重复步骤3，直到找到已排序的元素小于或者等于新元素的位置；\n将新元素插入到该位置后；\n重复步骤2~5。\n\n动图展示\n\n代码实现123456789101112131415public static void insertionSort(int[] array) &#123;    for (int i = 1; i &lt; array.length; i++) &#123;        int current = array[i];        int preIndex = i;        for (int j = i - 1; j &gt;= 0; j--) &#123;            if (current &lt; array[j]) &#123;                array[preIndex] = array[j];                preIndex = j;            &#125; else &#123;                break;            &#125;        &#125;        array[preIndex] = current;    &#125;&#125;\n\n\n动图实现代码依赖 《算法 第四版》提供的工具包 algs4.jar，可去《算法 第四版》提供的资源 Java算法和客户端 去下载。\nJava算法和客户端 提供的下载链接： algs4.jar。\n后续实现的排序算法动图基于这些代码基础上，进行修改追加。\n可以直接这个系列最后一篇下载所有的排序动画排序代码。\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171package demo.sort;import edu.princeton.cs.algs4.StdDraw;import java.awt.Color;import java.util.Arrays;import java.util.Random;/** * @program: DemoProject * @description: * @author: Methodref * @create: 2020-10-02 14:34 **/public class SortDemo &#123;    // X轴比例尺    private static final int X_SCALE = 45;    // Y轴比例尺    private static final int Y_SCALE = 50;    // 默认窗口宽度    private static final int CANVAS_WIDTH = X_SCALE * 20;    // 默认窗口高度    private static final int CANVAS_HEIGHT = Y_SCALE * 20;    // 数组大小    private static final int ARRAY_SIZE = 15;   // 窗口大小设置最适合的数字    // 数组最小值    private static final int ARRAY_MIN_VALUE = 4; // 防止出现0导致的图形展示异常    // 默认矩形颜色//    private static final Color defaultColor = new Color(163, 84, 88);    private static final Color defaultColor = new Color(216, 216, 216);    private static final Color orderlyGroupColor = new Color(161, 186, 176, 255);    private static final Color compareColor = new Color(88, 254, 219, 128);    // 索引颜色    private static final Color indexColor = new Color(86, 245, 105, 144);    public static void main(String[] args) &#123;        // 初始化画布        initCanvas();        int[] array = getRandomArray(ARRAY_SIZE);        System.out.println(Arrays.toString(array));        insertionSort(array); // 插入排序//        selectionSort(array); // 选择排序//        bubbleSort(array); // 冒泡排序        System.out.println(Arrays.toString(array));    &#125;    // 插入排序图形化    public static void insertionSort(int[] array) &#123;        for (int i = 0; i &lt; array.length; i++) &#123;            int index = i;            // 有序组            int[] group = getOrderlyGroup(i);            StdDrawUtil.refreshArray(array, defaultColor, -1);            StdDrawUtil.markRectangles(array, group, orderlyGroupColor, -1);            StdDrawUtil.markRectangle(array, index, indexColor, &quot;P&quot;, 500);            if (index &gt; 0 &amp;&amp; array[index] &gt;= array[index - 1])                StdDrawUtil.markRectangle(array, index - 1, compareColor, &quot;C&quot;, 200);            while (index &gt; 0 &amp;&amp; array[index] &lt; array[index - 1]) &#123;                StdDrawUtil.markRectangle(array, index, indexColor, &quot;P&quot;, 200);                StdDrawUtil.markRectangle(array, index - 1, compareColor, &quot;C&quot;, 500);                StdDrawUtil.exchangeAnimation(array, index, indexColor, index - 1, compareColor);                int i1 = array[index];                array[index] = array[index - 1];                array[index - 1] = i1;                index--;            &#125;        &#125;        int[] group = getOrderlyGroup(array.length);        StdDrawUtil.refreshArray(array, defaultColor, -1);        StdDrawUtil.markRectangles(array, group, orderlyGroupColor, 500);    &#125;    // 选择排序图形化    public static void selectionSort(int[] array) &#123;        for (int i = 0; i &lt; array.length; i++) &#123;            // 刷新页面            int index = i;            int[] group = getOrderlyGroup(i);            StdDrawUtil.refreshArray(array, defaultColor, -1);            StdDrawUtil.markRectangles(array, group, orderlyGroupColor, 1);            for (int j = i + 1; j &lt; array.length; j++) &#123;                StdDrawUtil.refreshArray(array, defaultColor, -1);                StdDrawUtil.markRectangles(array, group, orderlyGroupColor, -1);                StdDrawUtil.markRectangle(array, index, indexColor, &quot;P&quot;, -1);                StdDrawUtil.markRectangle(array, j, compareColor, &quot;C&quot;, 500);                if (array[index] &gt; array[j]) &#123;                    index = j;                    StdDrawUtil.refreshArray(array, defaultColor, -1);                    StdDrawUtil.markRectangles(array, group, orderlyGroupColor, -1);                    StdDrawUtil.markRectangle(array, index, indexColor, &quot;P&quot;, 500);                &#125;            &#125;            // 渲染交换动画效果            StdDrawUtil.exchangeAnimation(array, i, defaultColor, index, indexColor);            int i1 = array[i];            array[i] = array[index];            array[index] = i1;        &#125;        int[] group = getOrderlyGroup(array.length);        StdDrawUtil.refreshArray(array, defaultColor, -1);        StdDrawUtil.markRectangles(array, group, orderlyGroupColor, 0);    &#125;    // 冒泡排序图形化    private static void bubbleSort(int[] array) &#123;        for (int i = array.length; i &gt; 0; i--) &#123;            // 刷新页面            int[] group = getBubbleSortOrderlyGroup(i, array.length);            for (int j = 0; j &lt; i - 1; j++) &#123;                StdDrawUtil.refreshArray(array, defaultColor, -1);                StdDrawUtil.markRectangles(array, group, orderlyGroupColor, -1);                StdDrawUtil.markRectangle(array, j, indexColor, &quot;P&quot;, 200);                StdDrawUtil.markRectangle(array, j + 1, compareColor, &quot;C&quot;, 200);                if (array[j] &gt; array[j + 1]) &#123;                    // 渲染交换动画效果                    StdDrawUtil.exchangeAnimation(array, j, indexColor, j + 1, compareColor);                    int i1 = array[j];                    array[j] = array[j + 1];                    array[j + 1] = i1;                &#125;            &#125;        &#125;        int[] group = getOrderlyGroup(array.length);        StdDrawUtil.refreshArray(array, defaultColor, -1);        StdDrawUtil.markRectangles(array, group, orderlyGroupColor, 0);    &#125;    private static int[] getOrderlyGroup(int i) &#123;        int[] group = new int[i];        for (int j = 0; j &lt; group.length; j++) &#123;            group[j] = j;        &#125;        return group;    &#125;    private static int[] getBubbleSortOrderlyGroup(int i, int length) &#123;        int[] ints = new int[length - i];        for (int j = 0; j &lt; ints.length; j++) &#123;            ints[j] = --length;        &#125;        return ints;    &#125;    /**     * 初始化画布和比例尺     */    private static void initCanvas() &#123;        StdDraw.setCanvasSize(CANVAS_WIDTH, CANVAS_HEIGHT);        StdDraw.setXscale(-2, X_SCALE); // -2 是为了美观        StdDraw.setYscale(0, Y_SCALE);        StdDraw.show();    &#125;    /**     * 获取随机数组     *     * @param length     */    private static int[] getRandomArray(int length) &#123;        int[] array = new int[length];        Random random = new Random();        for (int i = 0; i &lt; array.length; i++) &#123;            array[i] = random.nextInt(Y_SCALE - ARRAY_MIN_VALUE) + ARRAY_MIN_VALUE - 2;        &#125;        return array;    &#125;&#125;\n\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188package demo.sort;import edu.princeton.cs.algs4.StdDraw;import java.awt.Color;/** * @program: DemoProject * @description: 排序绘制工具类 * @author: Methodref * @create: 2020-10-02 14:39 **/public class StdDrawUtil &#123;    // 间距    private static final int INTERVAL = 3;    // 矩形宽度    private static final int RECTANGLE_WIDTH = 1;    // X轴比例尺    private static final int X_SCALE = 45;    // Y轴比例尺    private static final int Y_SCALE = 50;    // 默认窗口宽度    private static final int CANVAS_WIDTH = X_SCALE * 20;    // 默认窗口高度    private static final int CANVAS_HEIGHT = 60 * 20;    // 数组大小    private static final int ARRAY_SIZE = 2;   // 窗口大小设置最适合的数字    // 数组最小值    private static final int ARRAY_MIN_VALUE = 4; // 防止出现0导致的图形展示异常    // 默认矩形颜色//    private static final Color defaultColor = new Color(216, 216, 216);    private static final Color defaultColor = new Color(216, 216, 216);    private static final Color textColor = new Color(8, 8, 8);    /**     * 画矩形     *     * @param index     * @param value     * @param color     */    public static void drawRectangle(int index, int value, Color color) &#123;        StdDraw.setPenColor(color);        StdDraw.filledRectangle(index * INTERVAL, 0, RECTANGLE_WIDTH, value);    &#125;    /**     * 填充数值     *     * @param index     * @param value     * @param color     */    public static void drawNum(double index, int value, Color color) &#123;        StdDraw.setPenColor(color);        StdDraw.text(index * INTERVAL, value / 2, String.valueOf(value));    &#125;    /**     * 填充字符串     *     * @param index     * @param value     * @param color     */    public static void drawString(double index, int value, String string, Color color) &#123;        StdDraw.setPenColor(color);        StdDraw.text(index * INTERVAL, value / 2 + 1, string);    &#125;    /**     * 交互动画     *     * @param array     * @param indexA     * @param indexB     */    public static void exchangeAnimation(int[] array, int indexA, Color changeColorA, int indexB, Color changeColorB) &#123;        int speed = 15; // 交换渲染次数        double abs = (double) Math.abs(indexA - indexB) / speed;        for (int i = 1; i &lt; speed; i++) &#123;            StdDraw.clear();            for (int j = 0; j &lt; array.length; j++) &#123;                if (j == indexA) &#123;                    double aX;                    double bX;                    if (indexA &gt; indexB) &#123;                        aX = (indexA - i * abs) * INTERVAL;                        bX = (indexB + i * abs) * INTERVAL;                    &#125; else &#123;                        aX = (indexA + i * abs) * INTERVAL;                        bX = (indexB - i * abs) * INTERVAL;                    &#125;                    StdDraw.setPenColor(changeColorA);                    StdDraw.filledRectangle(aX, 0, RECTANGLE_WIDTH, array[indexA]);                    StdDraw.setPenColor(changeColorB);                    StdDraw.filledRectangle(bX, 0, RECTANGLE_WIDTH, array[indexB]);                &#125; else if (j != indexB) &#123;                    drawRectangle(j, array[j], defaultColor);                    drawNum(j, array[j], textColor);                &#125;            &#125;            StdDraw.enableDoubleBuffering();            StdDraw.show();            StdDraw.pause(10);        &#125;    &#125;    /**     * 写标题     *     * @param x     * @param y     * @param color     * @param title     */    public static void drawTitle(int x, int y, Color color, String title) &#123;        StdDraw.setPenColor(color);        StdDraw.text(x, y, String.valueOf(title));        StdDraw.show();    &#125;    /**     * 画比例尺     */    public static void drawScale() &#123;        for (int i = 1; i &lt; 50; i++) &#123;            StdDraw.text(1, i, String.valueOf(i));            StdDraw.text(i, 1, String.valueOf(i));        &#125;    &#125;    /**     * 通过下标数组标记矩形     *     * @param array     * @param t     * @param indexes     */    public static void markRectangles(int[] array, int[] indexes, Color markColor, int t) &#123;        for (int index : indexes) &#123;            if (index &gt; -1) &#123;                drawRectangle(index, array[index], markColor);                drawNum(index, array[index], textColor);            &#125;        &#125;        setDisplayTime(t);    &#125;    /**     * 刷新数组矩形展示     *     * @param array     * @param defaultColor     * @param t     */    public static void refreshArray(int[] array, Color defaultColor, int t) &#123;        StdDraw.clear();        for (int j = 0; j &lt; array.length; j++) &#123;            drawRectangle(j, array[j], defaultColor);            drawNum(j, array[j], textColor);        &#125;        setDisplayTime(t);    &#125;    public static void markRectangle(int[] array, int index, Color color, String tip, int t) &#123;        drawRectangle(index, array[index], color);        if (tip != null)            drawString(index, array[index], tip, textColor);        drawNum(index, array[index], textColor);        setDisplayTime(t);    &#125;    private static void setDisplayTime(int t) &#123;        if (t &gt; -1) &#123;            StdDraw.enableDoubleBuffering();            StdDraw.show();            StdDraw.pause(t);        &#125;    &#125;    public static void waitRefresh(int t) &#123;        StdDraw.pause(t);    &#125;&#125;","dateCreated":"2020-10-02T00:00:00+08:00","dateModified":"2021-06-14T09:27:50+08:00","datePublished":"2020-10-02T00:00:00+08:00","description":"基于&lt;&lt;算法 第四版&gt;中标准绘图库stdDraw实现的算法图解。\n简单：冒泡排序、选择排序、插入排序","headline":"经典排序算法图解<一>","image":["https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg","https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.methodref.top/2020/10/02/5.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%B8%80%3E/"},"publisher":{"@type":"Organization","name":"Methodref","sameAs":["https://github.com/methodref","mailto:methodref@163.com"],"image":"picture.png","logo":{"@type":"ImageObject","url":"picture.png"}},"url":"https://blog.methodref.top/2020/10/02/5.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%B8%80%3E/","keywords":"算法, 排序算法, 基础算法","thumbnailUrl":"https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"}</script>
+    <meta name="description" content="基于&lt;&lt;算法 第四版&gt;中标准绘图库stdDraw实现的算法图解。 简单：冒泡排序、选择排序、插入排序">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="经典排序算法图解&lt;一&gt;">
+<meta property="og:url" content="https://blog.methodref.top/2020/10/02/5.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%B8%80%3E/index.html">
+<meta property="og:site_name" content="Methodref的博客">
+<meta property="og:description" content="基于&lt;&lt;算法 第四版&gt;中标准绘图库stdDraw实现的算法图解。 简单：冒泡排序、选择排序、插入排序">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/05/12/1a3O6LgkzKnBqEw.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/12/UKhftNrmPbI6yqE.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/11/Wanhkz2ADYloLve.gif">
+<meta property="og:image" content="https://i.loli.net/2021/06/11/GkDYgAx6HcSJEab.gif">
+<meta property="og:image" content="https://i.loli.net/2021/06/11/KH3jnPFR9mxtvzS.gif">
+<meta property="article:published_time" content="2020-10-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-14T01:27:50.000Z">
+<meta property="article:author" content="Methodref">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="排序算法">
+<meta property="article:tag" content="基础算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/05/12/1a3O6LgkzKnBqEw.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://blog.methodref.top/assets/images/picture.png"/>
+    
+    
+        <meta property="og:image" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+    
+    
+        <meta property="og:image" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+    
+    
+        
+            <meta property="og:image" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+            <meta class="swiftype" name="image" data-type="enum" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+        
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-ogag3wfrwdgvkjxqknf6ajrr0sxsmjeygbcizpxjfzeinr5ay8q5hxzegrvd.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Methodref的博客
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="打开链接: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/picture.png" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="阅读有关作者的更多信息"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/picture.png" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">Methodref</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>建立例行公事需要定义精确的行为,并在特定时间执行它们,以深深扎根的价值观为动力.</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="首页"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="分类"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="标签"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="归档"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="搜索"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="关于"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/methodref"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:methodref@163.com"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="邮箱"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+        <div class="post-header-cover
+                    text-center
+                    post-header-cover--full"
+             style="background-image:url('https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg');"
+             data-behavior="4">
+            
+                <div class="post-header main-content-wrap text-center">
+    
+        <h1 class="post-title">
+            经典排序算法图解&lt;一&gt;
+        </h1>
+    
+    
+</div>
+
+            
+        </div>
+
+            <div id="main" data-behavior="4"
+                 class="hasCover
+                        hasCoverMetaIn
+                        hasCoverCaption">
+                
+<article class="post">
+    
+        <span class="post-header-cover-caption caption">图片说明</span>
+    
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>基于&lt;&lt;算法 第四版&gt;中标准绘图库stdDraw实现的算法图解。</p>
+<p>简单：冒泡排序、选择排序、插入排序</p>
+<span id="more"></span>
+
+<h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%BF%B0"><span class="toc-text">前述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="toc-text">算法分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">算法复杂度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-text">冒泡排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%8F%8F%E8%BF%B0"><span class="toc-text">算法描述</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A8%E5%9B%BE%E5%B1%95%E7%A4%BA"><span class="toc-text">动图展示</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="toc-text">选择排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%8F%8F%E8%BF%B0-1"><span class="toc-text">算法描述</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A8%E5%9B%BE%E5%B1%95%E7%A4%BA-1"><span class="toc-text">动图展示</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-text">插入排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%8F%8F%E8%BF%B0-2"><span class="toc-text">算法描述</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A8%E5%9B%BE%E5%B1%95%E7%A4%BA-2"><span class="toc-text">动图展示</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-2"><span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E5%9B%BE%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="toc-text">动图实现代码</span></a></li></ol>
+
+<h4 id="前述"><a href="#前述" class="headerlink" title="前述"></a>前述</h4><p>早些时候阅读&lt;&lt;算法 第四版&gt;&gt;时，第一章基础中stdDraw标准绘图库工具时做过一些小的demo觉得挺有趣，于是产生了完成一个解释排序算法图解的一个想法，直至今日，开始写博客时才付诸于行动去实现这个功能。</p>
+<p>先实现了几个简单的排序算法图解，后续再去补充其他的排序算法。</p>
+<h4 id="算法分类"><a href="#算法分类" class="headerlink" title="算法分类"></a>算法分类</h4><ul>
+<li><p><strong>比较类排序</strong>：通过比较来决定元素间的相对次序，由于其时间复杂度不能突破O(nlogn)，因此也称为非线性时间比较类排序</p>
+</li>
+<li><p><strong>非比较类排序</strong>：不通过比较来决定元素间的相对次序，它可以突破基于比较排序的时间下界，以线性时间运行，因此也称为线性时间非比较类排序。</p>
+<p><img src="https://i.loli.net/2021/05/12/1a3O6LgkzKnBqEw.png" alt="img"></p>
+</li>
+</ul>
+<h4 id="算法复杂度"><a href="#算法复杂度" class="headerlink" title="算法复杂度"></a>算法复杂度</h4><p><img src="https://i.loli.net/2021/05/12/UKhftNrmPbI6yqE.png" alt="img"></p>
+<p><strong>相关概念</strong></p>
+<ul>
+<li><strong>稳定</strong>：如果a原本在b前面，而a=b，排序之后a仍然在b的前面。</li>
+<li><strong>不稳定</strong>：如果a原本在b的前面，而a=b，排序之后 a 可能会出现在 b 的后面。</li>
+<li><strong>时间复杂度</strong>：对排序数据的总的操作次数。反映当n变化时，操作次数呈现什么规律。</li>
+<li><strong>空间复杂度：</strong>是指算法在计算机内执行时所需存储空间的度量，它也是数据规模n的函数。</li>
+</ul>
+<h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><p>冒泡排序是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。 </p>
+<h5 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h5><ul>
+<li>比较相邻的元素。如果第一个比第二个大，就交换它们两个；</li>
+<li>对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对，这样在最后的元素应该会是最大的数；</li>
+<li>针对所有的元素重复以上的步骤，除了最后一个；</li>
+<li>重复步骤1~3，直到排序完成。</li>
+</ul>
+<h5 id="动图展示"><a href="#动图展示" class="headerlink" title="动图展示"></a>动图展示</h5><img src="https://i.loli.net/2021/06/11/Wanhkz2ADYloLve.gif" alt="冒泡排序" style="zoom:75%;" />
+
+<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = array.length; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">        StdDrawUtil.refreshArray(array, <span class="number">200</span>, -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i - <span class="number">1</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (array[j] &gt; array[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="keyword">int</span> i1 = array[j];</span><br><span class="line">                array[j] = array[j + <span class="number">1</span>];</span><br><span class="line">                array[j + <span class="number">1</span>] = i1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><p>选择排序(Selection-sort)是一种简单直观的排序算法。它的工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。</p>
+<h5 id="算法描述-1"><a href="#算法描述-1" class="headerlink" title="算法描述"></a>算法描述</h5><p>n个记录的直接选择排序可经过n-1趟直接选择排序得到有序结果。具体算法描述如下：</p>
+<ul>
+<li>初始状态：无序区为R[1..n]，有序区为空；</li>
+<li>第i趟排序(i=1,2,3…n-1)开始时，当前有序区和无序区分别为R[1..i-1]和R(i..n）。该趟排序从当前无序区中-选出关键字最小的记录 R[k]，将它与无序区的第1个记录R交换，使R[1..i]和R[i+1..n)分别变为记录个数增加1个的新有序区和记录个数减少1个的新无序区；</li>
+<li>n-1趟结束，数组有序化了。</li>
+</ul>
+<h5 id="动图展示-1"><a href="#动图展示-1" class="headerlink" title="动图展示"></a>动图展示</h5><img src="https://i.loli.net/2021/06/11/GkDYgAx6HcSJEab.gif" alt="选择排序" style="zoom:75%;" />
+
+<h5 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectionSort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> index = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; array.length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (array[index] &gt; array[j]) &#123;</span><br><span class="line">                index = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i1 = array[i];</span><br><span class="line">        array[i] = array[index];</span><br><span class="line">        array[index] = i1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><p>插入排序（Insertion-Sort）的算法描述是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。</p>
+<h5 id="算法描述-2"><a href="#算法描述-2" class="headerlink" title="算法描述"></a>算法描述</h5><p>一般来说，插入排序都采用in-place在数组上实现。具体算法描述如下：</p>
+<ul>
+<li>从第一个元素开始，该元素可以认为已经被排序；</li>
+<li>取出下一个元素，在已经排序的元素序列中从后向前扫描；</li>
+<li>如果该元素（已排序）大于新元素，将该元素移到下一位置；</li>
+<li>重复步骤3，直到找到已排序的元素小于或者等于新元素的位置；</li>
+<li>将新元素插入到该位置后；</li>
+<li>重复步骤2~5。</li>
+</ul>
+<h5 id="动图展示-2"><a href="#动图展示-2" class="headerlink" title="动图展示"></a>动图展示</h5><img src="https://i.loli.net/2021/06/11/KH3jnPFR9mxtvzS.gif" alt="插入排序" style="zoom:75%;" />
+
+<h5 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> current = array[i];</span><br><span class="line">        <span class="keyword">int</span> preIndex = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (current &lt; array[j]) &#123;</span><br><span class="line">                array[preIndex] = array[j];</span><br><span class="line">                preIndex = j;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        array[preIndex] = current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="动图实现代码"><a href="#动图实现代码" class="headerlink" title="动图实现代码"></a>动图实现代码</h4><p>依赖 《算法 第四版》提供的工具包 algs4.jar，可去《算法 第四版》提供的资源 <a target="_blank" rel="noopener" href="https://algs4.cs.princeton.edu/code/">Java算法和客户端</a> 去下载。</p>
+<p><a target="_blank" rel="noopener" href="https://algs4.cs.princeton.edu/code/">Java算法和客户端</a> 提供的下载链接： <a target="_blank" rel="noopener" href="https://algs4.cs.princeton.edu/code/algs4.jar">algs4.jar</a>。</p>
+<p>后续实现的排序算法动图基于这些代码基础上，进行修改追加。</p>
+<p>可以直接这个系列最后一篇下载所有的排序动画排序代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> demo.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.StdDraw;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Color;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: DemoProject</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Methodref</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2020-10-02 14:34</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// X轴比例尺</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> X_SCALE = <span class="number">45</span>;</span><br><span class="line">    <span class="comment">// Y轴比例尺</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> Y_SCALE = <span class="number">50</span>;</span><br><span class="line">    <span class="comment">// 默认窗口宽度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CANVAS_WIDTH = X_SCALE * <span class="number">20</span>;</span><br><span class="line">    <span class="comment">// 默认窗口高度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CANVAS_HEIGHT = Y_SCALE * <span class="number">20</span>;</span><br><span class="line">    <span class="comment">// 数组大小</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ARRAY_SIZE = <span class="number">15</span>;   <span class="comment">// 窗口大小设置最适合的数字</span></span><br><span class="line">    <span class="comment">// 数组最小值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ARRAY_MIN_VALUE = <span class="number">4</span>; <span class="comment">// 防止出现0导致的图形展示异常</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 默认矩形颜色</span></span><br><span class="line"><span class="comment">//    private static final Color defaultColor = new Color(163, 84, 88);</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Color defaultColor = <span class="keyword">new</span> Color(<span class="number">216</span>, <span class="number">216</span>, <span class="number">216</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Color orderlyGroupColor = <span class="keyword">new</span> Color(<span class="number">161</span>, <span class="number">186</span>, <span class="number">176</span>, <span class="number">255</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Color compareColor = <span class="keyword">new</span> Color(<span class="number">88</span>, <span class="number">254</span>, <span class="number">219</span>, <span class="number">128</span>);</span><br><span class="line">    <span class="comment">// 索引颜色</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Color indexColor = <span class="keyword">new</span> Color(<span class="number">86</span>, <span class="number">245</span>, <span class="number">105</span>, <span class="number">144</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 初始化画布</span></span><br><span class="line">        initCanvas();</span><br><span class="line">        <span class="keyword">int</span>[] array = getRandomArray(ARRAY_SIZE);</span><br><span class="line">        System.out.println(Arrays.toString(array));</span><br><span class="line">        insertionSort(array); <span class="comment">// 插入排序</span></span><br><span class="line"><span class="comment">//        selectionSort(array); // 选择排序</span></span><br><span class="line"><span class="comment">//        bubbleSort(array); // 冒泡排序</span></span><br><span class="line">        System.out.println(Arrays.toString(array));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 插入排序图形化</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> index = i;</span><br><span class="line">            <span class="comment">// 有序组</span></span><br><span class="line">            <span class="keyword">int</span>[] group = getOrderlyGroup(i);</span><br><span class="line">            StdDrawUtil.refreshArray(array, defaultColor, -<span class="number">1</span>);</span><br><span class="line">            StdDrawUtil.markRectangles(array, group, orderlyGroupColor, -<span class="number">1</span>);</span><br><span class="line">            StdDrawUtil.markRectangle(array, index, indexColor, <span class="string">&quot;P&quot;</span>, <span class="number">500</span>);</span><br><span class="line">            <span class="keyword">if</span> (index &gt; <span class="number">0</span> &amp;&amp; array[index] &gt;= array[index - <span class="number">1</span>])</span><br><span class="line">                StdDrawUtil.markRectangle(array, index - <span class="number">1</span>, compareColor, <span class="string">&quot;C&quot;</span>, <span class="number">200</span>);</span><br><span class="line">            <span class="keyword">while</span> (index &gt; <span class="number">0</span> &amp;&amp; array[index] &lt; array[index - <span class="number">1</span>]) &#123;</span><br><span class="line">                StdDrawUtil.markRectangle(array, index, indexColor, <span class="string">&quot;P&quot;</span>, <span class="number">200</span>);</span><br><span class="line">                StdDrawUtil.markRectangle(array, index - <span class="number">1</span>, compareColor, <span class="string">&quot;C&quot;</span>, <span class="number">500</span>);</span><br><span class="line">                StdDrawUtil.exchangeAnimation(array, index, indexColor, index - <span class="number">1</span>, compareColor);</span><br><span class="line">                <span class="keyword">int</span> i1 = array[index];</span><br><span class="line">                array[index] = array[index - <span class="number">1</span>];</span><br><span class="line">                array[index - <span class="number">1</span>] = i1;</span><br><span class="line">                index--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] group = getOrderlyGroup(array.length);</span><br><span class="line">        StdDrawUtil.refreshArray(array, defaultColor, -<span class="number">1</span>);</span><br><span class="line">        StdDrawUtil.markRectangles(array, group, orderlyGroupColor, <span class="number">500</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 选择排序图形化</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectionSort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">            <span class="comment">// 刷新页面</span></span><br><span class="line">            <span class="keyword">int</span> index = i;</span><br><span class="line">            <span class="keyword">int</span>[] group = getOrderlyGroup(i);</span><br><span class="line">            StdDrawUtil.refreshArray(array, defaultColor, -<span class="number">1</span>);</span><br><span class="line">            StdDrawUtil.markRectangles(array, group, orderlyGroupColor, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; array.length; j++) &#123;</span><br><span class="line">                StdDrawUtil.refreshArray(array, defaultColor, -<span class="number">1</span>);</span><br><span class="line">                StdDrawUtil.markRectangles(array, group, orderlyGroupColor, -<span class="number">1</span>);</span><br><span class="line">                StdDrawUtil.markRectangle(array, index, indexColor, <span class="string">&quot;P&quot;</span>, -<span class="number">1</span>);</span><br><span class="line">                StdDrawUtil.markRectangle(array, j, compareColor, <span class="string">&quot;C&quot;</span>, <span class="number">500</span>);</span><br><span class="line">                <span class="keyword">if</span> (array[index] &gt; array[j]) &#123;</span><br><span class="line">                    index = j;</span><br><span class="line">                    StdDrawUtil.refreshArray(array, defaultColor, -<span class="number">1</span>);</span><br><span class="line">                    StdDrawUtil.markRectangles(array, group, orderlyGroupColor, -<span class="number">1</span>);</span><br><span class="line">                    StdDrawUtil.markRectangle(array, index, indexColor, <span class="string">&quot;P&quot;</span>, <span class="number">500</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 渲染交换动画效果</span></span><br><span class="line">            StdDrawUtil.exchangeAnimation(array, i, defaultColor, index, indexColor);</span><br><span class="line">            <span class="keyword">int</span> i1 = array[i];</span><br><span class="line">            array[i] = array[index];</span><br><span class="line">            array[index] = i1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] group = getOrderlyGroup(array.length);</span><br><span class="line">        StdDrawUtil.refreshArray(array, defaultColor, -<span class="number">1</span>);</span><br><span class="line">        StdDrawUtil.markRectangles(array, group, orderlyGroupColor, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 冒泡排序图形化</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = array.length; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="comment">// 刷新页面</span></span><br><span class="line">            <span class="keyword">int</span>[] group = getBubbleSortOrderlyGroup(i, array.length);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i - <span class="number">1</span>; j++) &#123;</span><br><span class="line">                StdDrawUtil.refreshArray(array, defaultColor, -<span class="number">1</span>);</span><br><span class="line">                StdDrawUtil.markRectangles(array, group, orderlyGroupColor, -<span class="number">1</span>);</span><br><span class="line">                StdDrawUtil.markRectangle(array, j, indexColor, <span class="string">&quot;P&quot;</span>, <span class="number">200</span>);</span><br><span class="line">                StdDrawUtil.markRectangle(array, j + <span class="number">1</span>, compareColor, <span class="string">&quot;C&quot;</span>, <span class="number">200</span>);</span><br><span class="line">                <span class="keyword">if</span> (array[j] &gt; array[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="comment">// 渲染交换动画效果</span></span><br><span class="line">                    StdDrawUtil.exchangeAnimation(array, j, indexColor, j + <span class="number">1</span>, compareColor);</span><br><span class="line">                    <span class="keyword">int</span> i1 = array[j];</span><br><span class="line">                    array[j] = array[j + <span class="number">1</span>];</span><br><span class="line">                    array[j + <span class="number">1</span>] = i1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] group = getOrderlyGroup(array.length);</span><br><span class="line">        StdDrawUtil.refreshArray(array, defaultColor, -<span class="number">1</span>);</span><br><span class="line">        StdDrawUtil.markRectangles(array, group, orderlyGroupColor, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] getOrderlyGroup(<span class="keyword">int</span> i) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] group = <span class="keyword">new</span> <span class="keyword">int</span>[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; group.length; j++) &#123;</span><br><span class="line">            group[j] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> group;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] getBubbleSortOrderlyGroup(<span class="keyword">int</span> i, <span class="keyword">int</span> length) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] ints = <span class="keyword">new</span> <span class="keyword">int</span>[length - i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; ints.length; j++) &#123;</span><br><span class="line">            ints[j] = --length;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ints;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化画布和比例尺</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initCanvas</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StdDraw.setCanvasSize(CANVAS_WIDTH, CANVAS_HEIGHT);</span><br><span class="line">        StdDraw.setXscale(-<span class="number">2</span>, X_SCALE); <span class="comment">// -2 是为了美观</span></span><br><span class="line">        StdDraw.setYscale(<span class="number">0</span>, Y_SCALE);</span><br><span class="line">        StdDraw.show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取随机数组</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> length</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] getRandomArray(<span class="keyword">int</span> length) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[length];</span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">            array[i] = random.nextInt(Y_SCALE - ARRAY_MIN_VALUE) + ARRAY_MIN_VALUE - <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> demo.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.StdDraw;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Color;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: DemoProject</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 排序绘制工具类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: Methodref</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2020-10-02 14:39</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StdDrawUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 间距</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> INTERVAL = <span class="number">3</span>;</span><br><span class="line">    <span class="comment">// 矩形宽度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RECTANGLE_WIDTH = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// X轴比例尺</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> X_SCALE = <span class="number">45</span>;</span><br><span class="line">    <span class="comment">// Y轴比例尺</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> Y_SCALE = <span class="number">50</span>;</span><br><span class="line">    <span class="comment">// 默认窗口宽度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CANVAS_WIDTH = X_SCALE * <span class="number">20</span>;</span><br><span class="line">    <span class="comment">// 默认窗口高度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CANVAS_HEIGHT = <span class="number">60</span> * <span class="number">20</span>;</span><br><span class="line">    <span class="comment">// 数组大小</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ARRAY_SIZE = <span class="number">2</span>;   <span class="comment">// 窗口大小设置最适合的数字</span></span><br><span class="line">    <span class="comment">// 数组最小值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ARRAY_MIN_VALUE = <span class="number">4</span>; <span class="comment">// 防止出现0导致的图形展示异常</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 默认矩形颜色</span></span><br><span class="line"><span class="comment">//    private static final Color defaultColor = new Color(216, 216, 216);</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Color defaultColor = <span class="keyword">new</span> Color(<span class="number">216</span>, <span class="number">216</span>, <span class="number">216</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Color textColor = <span class="keyword">new</span> Color(<span class="number">8</span>, <span class="number">8</span>, <span class="number">8</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 画矩形</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> color</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">drawRectangle</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> value, Color color)</span> </span>&#123;</span><br><span class="line">        StdDraw.setPenColor(color);</span><br><span class="line">        StdDraw.filledRectangle(index * INTERVAL, <span class="number">0</span>, RECTANGLE_WIDTH, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 填充数值</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> color</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">drawNum</span><span class="params">(<span class="keyword">double</span> index, <span class="keyword">int</span> value, Color color)</span> </span>&#123;</span><br><span class="line">        StdDraw.setPenColor(color);</span><br><span class="line">        StdDraw.text(index * INTERVAL, value / <span class="number">2</span>, String.valueOf(value));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 填充字符串</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> color</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">drawString</span><span class="params">(<span class="keyword">double</span> index, <span class="keyword">int</span> value, String string, Color color)</span> </span>&#123;</span><br><span class="line">        StdDraw.setPenColor(color);</span><br><span class="line">        StdDraw.text(index * INTERVAL, value / <span class="number">2</span> + <span class="number">1</span>, string);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 交互动画</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> indexA</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> indexB</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">exchangeAnimation</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> indexA, Color changeColorA, <span class="keyword">int</span> indexB, Color changeColorB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> speed = <span class="number">15</span>; <span class="comment">// 交换渲染次数</span></span><br><span class="line">        <span class="keyword">double</span> abs = (<span class="keyword">double</span>) Math.abs(indexA - indexB) / speed;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; speed; i++) &#123;</span><br><span class="line">            StdDraw.clear();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; array.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (j == indexA) &#123;</span><br><span class="line">                    <span class="keyword">double</span> aX;</span><br><span class="line">                    <span class="keyword">double</span> bX;</span><br><span class="line">                    <span class="keyword">if</span> (indexA &gt; indexB) &#123;</span><br><span class="line">                        aX = (indexA - i * abs) * INTERVAL;</span><br><span class="line">                        bX = (indexB + i * abs) * INTERVAL;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        aX = (indexA + i * abs) * INTERVAL;</span><br><span class="line">                        bX = (indexB - i * abs) * INTERVAL;</span><br><span class="line">                    &#125;</span><br><span class="line">                    StdDraw.setPenColor(changeColorA);</span><br><span class="line">                    StdDraw.filledRectangle(aX, <span class="number">0</span>, RECTANGLE_WIDTH, array[indexA]);</span><br><span class="line">                    StdDraw.setPenColor(changeColorB);</span><br><span class="line">                    StdDraw.filledRectangle(bX, <span class="number">0</span>, RECTANGLE_WIDTH, array[indexB]);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (j != indexB) &#123;</span><br><span class="line">                    drawRectangle(j, array[j], defaultColor);</span><br><span class="line">                    drawNum(j, array[j], textColor);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            StdDraw.enableDoubleBuffering();</span><br><span class="line">            StdDraw.show();</span><br><span class="line">            StdDraw.pause(<span class="number">10</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写标题</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> x</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> y</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> color</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> title</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">drawTitle</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, Color color, String title)</span> </span>&#123;</span><br><span class="line">        StdDraw.setPenColor(color);</span><br><span class="line">        StdDraw.text(x, y, String.valueOf(title));</span><br><span class="line">        StdDraw.show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 画比例尺</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">drawScale</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">50</span>; i++) &#123;</span><br><span class="line">            StdDraw.text(<span class="number">1</span>, i, String.valueOf(i));</span><br><span class="line">            StdDraw.text(i, <span class="number">1</span>, String.valueOf(i));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过下标数组标记矩形</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> indexes</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">markRectangles</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span>[] indexes, Color markColor, <span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index : indexes) &#123;</span><br><span class="line">            <span class="keyword">if</span> (index &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">                drawRectangle(index, array[index], markColor);</span><br><span class="line">                drawNum(index, array[index], textColor);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        setDisplayTime(t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 刷新数组矩形展示</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> defaultColor</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">refreshArray</span><span class="params">(<span class="keyword">int</span>[] array, Color defaultColor, <span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        StdDraw.clear();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; array.length; j++) &#123;</span><br><span class="line">            drawRectangle(j, array[j], defaultColor);</span><br><span class="line">            drawNum(j, array[j], textColor);</span><br><span class="line">        &#125;</span><br><span class="line">        setDisplayTime(t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">markRectangle</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> index, Color color, String tip, <span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        drawRectangle(index, array[index], color);</span><br><span class="line">        <span class="keyword">if</span> (tip != <span class="keyword">null</span>)</span><br><span class="line">            drawString(index, array[index], tip, textColor);</span><br><span class="line">        drawNum(index, array[index], textColor);</span><br><span class="line">        setDisplayTime(t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setDisplayTime</span><span class="params">(<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (t &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">            StdDraw.enableDoubleBuffering();</span><br><span class="line">            StdDraw.show();</span><br><span class="line">            StdDraw.pause(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">waitRefresh</span><span class="params">(<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        StdDraw.pause(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+            
+
+    
+    <div class="image-gallery">
+        <div class="image-gallery-metabar">
+            <span>画廊: 图片</span>
+        </div>
+        <div class="image-gallery-photos ">
+            
+            
+            <div class="photo-box">
+                <a
+                    class="photo-box-inner fancybox"
+                    data-fancybox="gallery-ckr24xitc000q0tpv6qpu77qb"
+                    data-caption="city"
+                    title="city"
+                    target="_blank" rel="noopener" href="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"
+                    aria-label=""
+                >
+                    
+
+                        <img
+                                class="photo" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"
+                        >
+                    
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" rel="tag">基础算法</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="tag">排序算法</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+
+            </div>
+        
+        
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Methodref. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/picture.png" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">Methodref</h4>
+        
+            <div id="about-card-bio"><p>建立例行公事需要定义精确的行为,并在特定时间执行它们,以深深扎根的价值观为动力.</p>
+</div>
+        
+<!--        -->
+<!--            <div id="about-card-job">-->
+<!--                <i class="fa fa-briefcase"></i>-->
+<!--                <br/>-->
+<!--                -->
+<!--            </div>-->
+<!--        -->
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="/assets/images/logo-algolia-nebula-blue-full.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/05/02/template/"
+                            aria-label=": template"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/05/02/template/"
+                            aria-label=": template"
+                        >
+                            <h3 class="media-heading">template</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年5月2日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p><code>&lt;!-- excerpt --&gt;</code></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/14/1.%E5%8D%9A%E5%AE%A2%E4%BC%8A%E5%A7%8B/"
+                            aria-label=": 博客伊始"
+                        >
+                            <img class="media-image" src="https://i.loli.net/2021/05/05/HlyQfdkGYBRhD7u.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/14/1.%E5%8D%9A%E5%AE%A2%E4%BC%8A%E5%A7%8B/"
+                            aria-label=": 博客伊始"
+                        >
+                            <h3 class="media-heading">博客伊始</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年9月14日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>为什么要建立博客和博客的内容。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/"
+                            aria-label=": 博客的搭建"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/"
+                            aria-label=": 博客的搭建"
+                        >
+                            <h3 class="media-heading">博客的搭建</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年9月17日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>博客的建立记录。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/21/3.%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98Tranquilpeak/"
+                            aria-label=": 博客主题Tranquilpeak"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/21/3.%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98Tranquilpeak/"
+                            aria-label=": 博客主题Tranquilpeak"
+                        >
+                            <h3 class="media-heading">博客主题Tranquilpeak</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年9月21日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p><a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak">Tranquilpeak</a> 安装与使用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/25/4.%E5%8D%9A%E5%AE%A2%E6%8F%92%E4%BB%B6hexo-algoliasearch/"
+                            aria-label=": 博客插件hexo-algoliasearch"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/25/4.%E5%8D%9A%E5%AE%A2%E6%8F%92%E4%BB%B6hexo-algoliasearch/"
+                            aria-label=": 博客插件hexo-algoliasearch"
+                        >
+                            <h3 class="media-heading">博客插件hexo-algoliasearch</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年9月25日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Hexo博客的搜索插件<a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/hexo-algoliasearch">hexo-algoliasearch</a>介绍及其安装和使用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/02/5.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%B8%80%3E/"
+                            aria-label=": 经典排序算法图解&lt;一&gt;"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/02/5.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%B8%80%3E/"
+                            aria-label=": 经典排序算法图解&lt;一&gt;"
+                        >
+                            <h3 class="media-heading">经典排序算法图解&lt;一&gt;</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年10月2日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>基于&lt;&lt;算法 第四版&gt;中标准绘图库stdDraw实现的算法图解。</p>
+<p>简单：冒泡排序、选择排序、插入排序</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/05/6.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%BA%8C%3E/"
+                            aria-label=": 经典排序算法图解&lt;二&gt;"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/05/6.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%BA%8C%3E/"
+                            aria-label=": 经典排序算法图解&lt;二&gt;"
+                        >
+                            <h3 class="media-heading">经典排序算法图解&lt;二&gt;</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年10月5日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>基于&lt;&lt;算法 第四版&gt;中标准绘图库stdDraw实现的算法图解。</p>
+<p>进阶：希尔排序、归并排序、快速排序</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/12/7.%E3%80%8A%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+                            aria-label=": 《代码整洁之道》阅读笔记"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/12/7.%E3%80%8A%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+                            aria-label=": 《代码整洁之道》阅读笔记"
+                        >
+                            <h3 class="media-heading">《代码整洁之道》阅读笔记</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年10月12日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><ol>
+<li> 阅读本书有两种原因：第一，你是个程序员；第二，你想成为更好的程序员。</li>
+<li> 这是本有关编写好程序的书。它充斥着代码。我们要从各个方向来考察这些代码。从顶向下,从底往上,从里而外。读完后,就能知道许多关于代码的事了。而且,我们还能说出好代码和糟糕的代码之间的差异。我们将了解到如何写出好代码。我们也会知道,如何将糟糕的代码改成好代码。</li>
+</ol></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/18/8.%E6%94%B9%E5%8F%98%E4%B9%A0%E6%83%AF%E7%9A%84%E6%AD%A5%E9%AA%A4%E6%96%B9%E6%B3%95/"
+                            aria-label=": 改变习惯的步骤方法"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/18/8.%E6%94%B9%E5%8F%98%E4%B9%A0%E6%83%AF%E7%9A%84%E6%AD%A5%E9%AA%A4%E6%96%B9%E6%B3%95/"
+                            aria-label=": 改变习惯的步骤方法"
+                        >
+                            <h3 class="media-heading">改变习惯的步骤方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年10月18日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>来自于《习惯的力量》中改变习惯的步骤和方法。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/22/9.%E5%A4%84%E7%90%86%E4%B8%AA%E4%BA%BA%E4%BA%8B%E5%8A%A1%E5%B7%A5%E4%BD%9C%E6%B5%81/"
+                            aria-label=": 处理个人事务工作流"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/22/9.%E5%A4%84%E7%90%86%E4%B8%AA%E4%BA%BA%E4%BA%8B%E5%8A%A1%E5%B7%A5%E4%BD%9C%E6%B5%81/"
+                            aria-label=": 处理个人事务工作流"
+                        >
+                            <h3 class="media-heading">处理个人事务工作流</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年10月22日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>出自《GTD搞定无压的艺术》横向管理工作流的五个阶段。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 10 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-njw25bucthu2f7qwpa8p9tx7qtm7hhyiws0ncjz3zhbidrhycjkznacvmly7.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+
+
+    
+<script src="/assets/js/moment-with-locales.js"></script>
+
+    
+<script src="/assets/js/algoliasearch.js"></script>
+
+    <script>
+      var algoliaClient = algoliasearch('QCZ8N9HXLU', '4d5e165ab83cea691baf843cf9e470ad');
+      var algoliaIndex = algoliaClient.initIndex('my-hexo-blog');
+    </script>
+
+
+    </body>
+</html>

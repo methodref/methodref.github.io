@@ -1,0 +1,1226 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Methodref的博客">
+    <title>《代码整洁之道》阅读笔记 - Methodref的博客</title>
+    <meta name="author" content="Methodref">
+    
+    
+        <link rel="icon" href="https://blog.methodref.top/assets/images/cat.ico">
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Methodref","sameAs":["https://github.com/methodref","mailto:methodref@163.com"],"image":"picture.png"},"articleBody":"\n 阅读本书有两种原因：第一，你是个程序员；第二，你想成为更好的程序员。\n 这是本有关编写好程序的书。它充斥着代码。我们要从各个方向来考察这些代码。从顶向下,从底往上,从里而外。读完后,就能知道许多关于代码的事了。而且,我们还能说出好代码和糟糕的代码之间的差异。我们将了解到如何写出好代码。我们也会知道,如何将糟糕的代码改成好代码。\n\n\n\n\n\n第1章 整洁代码\n糟糕的代码  你当然曾为糟糕的代码所困扰过。那么-为什么要写糟糕的代码呢?\n  是想快点完成吗?是要赶时间吗?有可能。或许你觉得自己要干好所需的时间不够;假使花时间清理代码,老板就会大发雷霆。或许你只是不耐烦再搞这套程序,期望早点结束。\n  或许你看了看自己承诺要做的其他事,意识到得赶紧弄完手上的东西,好接着做下一件工作。\n  这种事我们都干过。\n  我们都曾经瞟一眼自己亲手造成的混乱,决定弃之而不顾,走向新一天。我们都曾经看到自己的烂程序居然能运行,然后断言能运行的烂程序总比什么都没有强。我们都曾经说过有朝一日再回头清理。当然,在那些日子里,我们都没听过勒布朗(LeBlanc)法则:稍后等于永不 (Later equals never),\n\n混乱的代价  如果代码非常混乱，各种抽象关系、层级依赖关系、调用链混乱，终将导致后期的维护和迭代工作举步维艰。\n  对代码的每次修改都影响到其他两三处代码。修改无小事。每次添加或修改代码,都得对那堆扭纹柴了然于心,这样才能往上扔更多的扭纹柴。这团乱麻越来越大,再也无法理清,最后束手无策。\n  随着混乱的增加,团队生产力也持续下降,趋向于零。当生产力下降时,管理层就只有一独事可做了:增加更多人手到项目中,期望提升生产力。可是新人并不熟悉系统的设计。他们搞不清楚什么样的修改符合设计意图,什么样的修改违背设计意图。而且,他们以及团队中的其他人都背负着提升生产力的可怕压力。于是,他们制造更多的混乱,驱动生产力向零那端不断下降。\n\n整洁代码的艺术  假设你相信混乱的代码是祸首,假设你接受做得快的唯一方法是保持代码整洁的说法,你一定会自问: “我怎么才能写出整洁的代码? ”不过,如果你不明白整洁对代码有何意义,尝试去写整洁代码就毫无所益!\n  坏消息是写整洁代码很像是绘画。多数人都知道一幅画是好还是坏。但能分辨优劣并不表示懂得绘画。能分辨整洁代码和肮脏代码,也不意味着会写整洁代码!\n  写整洁代码,需要遵循大量的小技巧,贯彻刻苦习得的“整洁感”。这种“代码感”就关键所在。有些人生而有之。有些人费点劲才能得到。它不仅让我们看到代码的优劣,还我们以借戒规之力化劣为优的攻略。\n  缺乏“代码感”的程序员,看混乱是混乱,无处着手。有“代码感”的程序员能从混中看出其他的可能与变化。“代码感”帮助程序员选出最好的方案,并指导程序员制订修改行动计划,按图索骥。\n  简言之,编写整洁代码的程序员就像是艺术家,他能用一系列变换把一块白板变作由优雅代码构成的系统。\n\n什么是整洁代码  有多少程序员，就有多少定义。\n  文章截取了多位知名且经验丰富的程序员的描述。\n\nBjarne Stroustrup, C++语言发明者, C++ ProgrammingLanguage (中译版《C++程序设计语言》)一书作者。\n&quot;我喜欢优雅和高效的代码。代码逻辑应当直截了当,叫缺陷难以隐藏;尽量减少依赖关系,使之便于维护;依据某种分层战略完善错误处理代码;性能调至最优,省得引诱别人做没规矩的优化,搞出一堆混乱来。整洁的代码只做好一件事。&quot;\n\n\n  Grady Booch, Object Oriented Analysis and Design with Applications (中译版《面向对象分析与设计》)一书作者。\n    &quot;整洁的代码简单直接。整洁的代码如同优美的散文。整洁的代码从不隐藏设计者的意图,充满了干净利落的抽象和直截了当的控制语句。&quot;\n\n\n“老大” Dave Thomas, OTI公司创始人, Eclipse战略\n&quot;整洁的代码应可由作者之外的开发者阅读和增补。它应有单元测试和验收测试。它使用有意义的命名。它只提供一种而非多种做一件事的途径。它只有尽量少的依赖关系,要明确地定义和提供清晰、尽量少的API.代码应通过其表达含义,因为不同的语言导致并非所有必需信息均可代码自身清晰表达。&quot;\n\n\nMichael Feathers, Working Effectively with LegacyCode (中译版《修改代码的艺术》)一书作者。\n&quot;我可以列出我留意到的整洁代码的所有特点,但其中有一条是根本性的。整洁的代码总是看起来像是某位特别在意它的人写的。几乎没有改进的余地。代码作者什么都想到了,如果你企图改进它,总会回到原点,赞叹某人留给你的代码一全心投入的某人留下的代码。&quot;\n\n\nRon Jeffries, Extreme Programming Installed (中译版《极限编程实施》)以及Extreme ProgrammingAdventures in C# (中译版《C#极限编程探险》)作者。\n​    Ron初入行就在战略空军司令部(Strategic AirCommand)编写Fortran程序,此后几乎在每种机器上编写过每种语言的代码。他的言论值得咀嚼。\n“近年来,我开始研究贝克的简单代码规则,差不多也都琢磨透了。简单代码,依其重要顺序:\n 1.能通过所有测试; 2.没有重复代码; 3.体现系统中的全部设计理念; 4.包括尽量少的实体,比如类、方法、函数等。   在以上诸项中,我最在意代码重复。如果同一段代码反复出现,就表示某种想法未在代码中得到良好的体现。我尽力去找出到底那是什么,然后再尽力更清晰地表达出来。   在我看来,有意义的命名是体现表达力的一种方式,我往往会修改好几次才会定下名字来。借助Eclipse这样的现代编码工具,重命名代价极低,所以我无所顾忌。然而,表达力还不只体现在命名上。我也会检查对象或方法是否想做的事太多。如果对象功能太多,最好是切分为两个或多个对象。如果方法功能太多,我总是使用抽取手段(Extract Method )重构之,从而得到一个能较为清晰地说明自身功能的方法,以及另外数个说明如何实现这些功能的方法。   消除重复和提高表达力让我在整洁代码方面获益良多,只要铭记这两点,改进脏代码时就会大有不同。不过,我时常关注的另一规则就不太好解释了   这么多年下来,我发现所有程序都由极为相似的元素构成。例如“在集合中查找某物”不管是雇员记录数据库还是名-值对哈希表,或者某类条目的数组,我们都会发现自己想要从集合中找到某一特定条目。一旦出现这种情况,我通常会把实现手段封装到更抽象的方法或类中。这样做好处多多。   可以先用某种简单的手段,比如哈希表来实现这一功能, 由于对搜索功能的引用指向了我那个小小的抽象,就能随需应变,修改实现手段。这样就既能快速前进,又能为未来的修改预留余地。   另外,该集合抽象常常提醒我留意“真正”在发生的事,避免随意实现集合行为,因为我真正需要的不过是某种简单的查找手段。   减少重复代码,提高表达力,提早构建简单抽象。这就是我写整洁代码的方法。”\n\n\nWard Cunningham, Wiki发明者, eXtreme Programming(极限编程)的创始人之一, Smalitalk语言和面向对象的思想领袖。所有在意代码者的教父。\n&quot;如果每个例程都让你感到深合己意,那就是整洁代码。如果代码让编程语言看起来像是专为解决那个问题而存在,就可以称之为漂亮的代码。&quot;\n\n\n我们是作者  Javadoc中的@author字段告诉我们自己是什么人。我们是作者。作者都有读者。实际上,作者有责任与读者做良好沟通。下次你写代码的时候,记得自己是作者,要为评判你工作的读者写代码。\n  你或许会问:代码真正“读”的成分有多少呢?难道力量主要不是用在“写”上吗?\n  你是否玩过“编辑器回放” ? 20世纪80、90年代, Emac之类编辑器记录每次击键动作。\n  你可以在一小时工作之后,回放击键过程,就像是看一部高速电影。我这么做过,结果很有趣。\n  回放过程显示,多数时间都是在滚动屏幕、浏览其他模块!\n  12345678910111213鲍勃进入模块。他向下滚动到要修改的函数。他停下来考虑可以做什么。哦,他滚动到模块顶端,检查变量初始化。现在他回到修改处,开始键入。喔，他删掉了键入的内容。他重新键入他又删除了!他键入了一半什么东西，又删除掉。他滚动到调用要修改函数的另一函数,看看是怎么调用的。他回到修改处,重新键入刚才删掉的代码。他停下来。他再一次删掉代码!他打开另一个窗口,查看别的子类。那是个复载函数吗?\n\n  你该明白了。读与写花费时间的比例超过10:1,写新代码时,我们一直在读旧代码。\n  既然比例如此之高,我们就想让读的过程变得轻松,即便那会使得编写过程更难。没可能光写不读,所以使之易读实际也使之易写。\n  这事概无例外。不读周边代码的话就没法写代码。编写代码的难度,取决于读周边代码的难度。要想干得快,要想早点做完,要想轻松写代码,先让代码易读吧。\n\n童子军军规  “让营地比你来时更干净。”\n  换成本书的意思就是，必须时刻保持代码整洁。让代码变得整洁并不是一蹴而就的事情，而是一个漫长的过程，每一次代码的提交都是使代码变整洁的一小步。\n\n\n第2章 有意义的命名\n  软件中随处可见命名。我们给变量、函数、参数、类和封包命名。我们给源代码及源代码所在目录命名。我们给jar文件、war文件和ear文件命名。我们命名、命名,不断命名。\n  既然有这么多命名要做,不妨做好它。下文列出了取个好名字的几条简单规则。\n\n\n名副其实  名副其实说起来简单。我们想要强调,这事很严肃。选个好名字要花时间,但省下来的时间比花掉的多。注意命名,而且一旦发现有更好的名称,就换掉旧的。这么做,读你代码的人(包括你自己)都会更开心。\n  变量、函数或类的名称应该已经答复了所有的大问题。它该告诉你,它为什么会存在,它做什么事,应该怎么用。如果名称需要注释来补充,那就不算是名副其实。\n  例:\n  1int d; // 消逝的时间,以日计\n\n  名称d什么也没说明。它没有引起对时间消逝的感觉,更别说以日计了。我们应该选择指明了计量对象和计量单位的名称:\n  1234int elapsedTimeInDays;int daysSincecreation;int dayssinceModification;int fileAgeInDays;\n\n  例:\n  1234567public List&lt;int []&gt; getThem() tList&lt;int[]&gt; list1 =new ArrayList&lt;int[]&gt;();for (int[] x: theList) &#123;  if (x[0] =4)    list1.add (x);&#125;return list1;\n\n  为什么难以说明上列代码要做什么事?里面并没有复杂的表达式。空格和缩进中规中矩。\n  只用到三个变量和两个常量。甚至没有涉及任何其他类或多态方法,只是(或者看起来是)一个数组的列表而已。\n  问题不在于代码的简洁度,而是在于代码的模糊度:即上下文在代码中未被明确体现的程度。上列代码要求我们了解类似以下问题的答案:\n  (1) thelList中是什么类型的东西?\n  (2) thelist零下标条目的意义是什么?\n  (3)值4的意义是什么?\n  (4)我怎么使用返回的列表?\n  问题的答案没体现在代码段中,可那就是它们该在的地方。比方说,我们在开发一种扫雷游戏,我们发现,盘面是名为theList的单元格列表,那就将其名称改为gameBoard.\n  ​    盘面上每个单元格都用一个简单数组表示。我们还发现,零下标条目是一种状态值,而该种状态值为4表示“已标记”,只要改为有意义的名称,代码就会得到相当程度的改进:\n  1234567public List&lt;int[]&gt; getFlaggedCells()List&lt;int[]&gt; flaggedCells = new ArrayList&lt;int[]&gt;();for (int [] cell : gameBoard)&#123;\tif (cell [STATUS_VALUE] FLAGGED)  \tflaggedCells.add (cell);&#125;return flaggedCells;\n\n  还可以更进一步,不用int数组表示单元格,而是另写一个类。该类包括一个名副其实的函数(称为isFlagged),从而掩盖住那个魔术数。于是得到函数的新版本:\n  12345678public List&lt;Cell&gt; getFlaggedCells() &#123; \tList&lt;Cell&gt; flaggedCells = new ArrayList&lt;Cell&gt;();\tfor (Cell cell : gameBoard) &#123;  \tif (cell.isFlagged ())     \tflaggedCells.add (cell);\t&#125;\treturn flaggedcells; &#125;\n\n  只要简单改一下名称,就能轻易知道发生了什么。这就是选用好名称的力量。\n\n避免误导  避免歧义，不能命名的过于模糊，有很多歧义。\n\n做有意义的区分  类似于这样 命名为 a1 a2\n  1234567891011public static void copyChars(char al[], char a2[])&#123;  for (int i=0; i&lt; al.length; i++) &#123;\t\ta2 [i] =a1 [i];  &#125;&#125; public void test()&#123;  int[] a1;  int[] a2;  copyChars(a1,a2)&#125;\n\n  在调用方来看 无法分辨a1和a2的区别。\n  如果参数名改为source和destination，这个函数就会像样许多。\n\n使用可搜索的名称  单字母名称和数字常量有个问题,就是很难在一大篇文字中找出来。\n  找MAXCLASSES PER STUDENT很容易,但想找数字7就麻烦了,它可能是某些文件名或其他常量定义的一部分,出现在因不同意图而采用的各种表达式中。如果该常量是个长数字,又被人错改过,就会逃过搜索,从而造成错误。\n  同样, e也不是个便于搜索的好变量名。它是英文中最常用的字母,在每个程序、每段代码中都有可能出现。由此而见,长名称胜于短名称,搜得到的名称胜于用自造编码代写就的名称。\n  切以为单字母名称仅用于短方法中的本地变量。名称长短应与其作用域大小相对应。若变量或常量可能在代码中多处使用,则应赋其以便于搜索的名称。\n  例:\n  123int X = 80;// 对比int X_SCALE_MAX_SIZE = 80;\n避免使用编码  编码已经太多,无谓再自找麻烦。把类型或作用域编进名称里面,徒然增加了解码的负担。没理由要求每位新人都在弄清要应付的代码之外(那算是正常的),还要再搞懂另一种编码“语言”。这对于解决问题而言,纯属多余的负担。带编码的名称通常也不便发音,容易打错。\n\n类名  类名和对象名应该是名词或名词短语,如Customer、 WikiPage、 Account和AddressParser。\n  避免使用Manager, Processor, Data或Info这样的类名。类名不应当是动词。\n\n方法名  方法名应当是动词或动词短语,如postPayment, deletePage或save.属性访问器、修改器和断言应该根据其值命名,并依Javabean标准加上get, set和is前缀。\n\n每个概念对应一个词  给每个抽象概念选一个词,并且一以贯之。例如,使用fetch, retrieve和get来给在多个类中的同种方法命名。你怎么记得住哪个类中是哪个方法呢?很悲哀,你总得记住编写库或类的公司、机构或个人,才能想得起来用的是哪个术语。否则,就得耗费大把时间浏览各个文件头及前面的代码。\n  Eclipse和Intelli)之类现代编程环境提供了与环境相关的线索,比如某个对象能调用的方法列表。不过要注意,列表中通常不会给出你为函数名和参数列表编写的注释。如果参数名称来自函数声明,你就太幸运了。函数名称应当独一无二,而且要保持一致,这样你才能不借助多余的浏览就找到正确的方法。\n  同样,在同一堆代码中有controller,又有manager,还有driver,就会令人困惑。DeviceManager和Protocol-Controller之间有何根本区别?为什么不全用controllers或managers?他们都是Drivers吗?这种名称,让人觉得这两个对象是不同类型的,也分属不同的类。\n  对于那些会用到你代码的程序员,一以贯之的命名法简直就是天降福音\n\n使用解决方案领域名称  记住,只有程序员才会读你的代码。所以,尽管用那些计算机科学(Computer Science, CS)术语、算法名、模式名、数学术语吧。依据问题所涉领域来命名可不算是聪明的做法,因为不该让协作者老是跑去问客户每个名称的含义,其实他们早该通过另一名称了解这个概念了。\n  对于熟悉访问者(VISITOR)模式的程序来说,名称AccountVisitor富有意义。哪个程序员会不知道JobQueue的意思呢?程序员要做太多技术性工作。给这些事取个技术性的名称,通常是最靠谱的做法。\n\n使用源自所涉问题领域的名称  如果不能用程序员熟悉的术语来给手头的工作命名,就采用从所涉问题领域而来的名称吧。至少,负责维护代码的程序员就能去请教领域专家了。\n  优秀的程序员和设计师,其工作之一就是分离解决方案领域和问题领域的概念。与所涉问题领域更为贴近的代码,应当采用源自问题领域的名称。\n\n添加有意义的语境  很少有名称是能自我说明的-多数都不能。反之,你需要用有良好命名的类、函数或名称空间来放置名称,给读者提供语境。如果没这么做,给名称添加前缀就是最后一招了。\n  设想你有名为firstName, lastName, street. houseNumber, city, state和zipcode的变量。\n  当它们一块儿的时候,很明确是构成了一个地址。不过,假使只是在某个方法中看见孤零零一个state变量呢?你会理所当然推断那是某个地址的一部分吗?\n  可以添加前缀addrFirstName, addrLastName, addrState等,以此提供语境。至少,读者会明白这些变量是某个更大结构的一部分。当然,更好的方案是创建名为Address的类。这样,即便是编译器也会知道这些变量隶属某个更大的概念了。\n\n不要添加没用的语境  设若有一个名为“加油站豪华版” (Gas Station Deluxe)的应用,在其中给每个类添加GSD前缀就不是什么好点子。说白了,你是在和自己在用的工具过不去。输入G,按下自动完成键,结果会得到系统中全部类的列表,列表恨不得有一英里那么长。这样做聪明吗?为什么要搞得IDE没法帮助你?\n  再比如,你在GSD应用程序中的记账模块创建了一个表示邮件地址的类,然后给该类命名为GSDAccountAddress.。稍后,你的客户联络应用中需要用到邮件地址,你会用GSDAccountAddress吗?这名字听起来没问题吗?在这17个字母里面,有10个字母纯属多余和与当前语境毫无关联。\n  只要短名称足够清楚,就要比长名称好。别给名称添加不必要的语境。\n  对于Address类的实体来说, accountAddress和customerAddress都是不错的名称,不过用在类名上就不太好了。Address是个好类名。如果需要与MAC地址、端口地址和Web地址相区别,我会考虑使用PostalAddress、 MAC和URI。这样的名称更为精确,而精确正是命名的要点。\n\n最后的话  取好名字最难的地方在于需要良好的描述技巧和共有文化背景。与其说这是一种技术、商业或管理问题,还不如说是一种教学问题。其结果是,这个领域内的许多人都没能学会做得很好。\n  我们有时会怕其他开发者反对重命名。如果讨论一下就知道,如果名称改得更好,那大家真的会感激你。多数时候我们并不记忆类名和方法名。我们使用现代工具对付这些细节,好让自己集中精力于把代码写得就像词句篇章、至少像是表和数据结构(词句并非总是呈现数据的最佳手段)。改名可能会让某人吃惊,就像你做到其他代码改善工作一样。别让这种事阻碍你的前进步伐。\n  不妨试试上面这些规则,看你的代码可读性是否有所提升。如果你是在维护别人写的代码,使用重构工具来解决问题。效果立竿见影,而且会持续下去。\n\n\n第3章 函数\n  在编程的早年岁月,系统由程序和子程序组成。后来,在Forran和PL/1的年代,系统由程序、子程序和函数组成。如今,只有函数存活下来。函数是所有程序中的第一组代码。\n  本章将讨论如何写好函数。\n\n\n短小  函数的第一规则是要短小。第二条规则是还要更短小。\n  在20世纪80年代,我们常说函数不该长于一屏。当然,说话时候, VT100屏幕只有24行、80列,而编辑器就得先占去4行空间放菜单。如今,用上了精致的字体和宽大的显示器,一屏里面可以显示100行,每行能容纳150个字符。每行都不应该有150个字符那么长。函数也不该有100行那么长, 20行封顶最佳。\n  函数到底该有多长? 1991年,我去Kent Beck位于奥勒冈州(Oregon)的家中拜访。我们坐到一起写了些代码。他给我看一个叫做Sparkle (火花闪耀)的有趣的Java/Swing小程序。程序在屏幕上描画电影Cinderella (《灰姑娘》)中仙女用魔棒造出的那种视觉效果。只要移动鼠标,光标所在处就会爆发出一团令人欣喜的火花,沿着模拟重力场划落到窗口底部。肯特给我看代码的时候,我惊讶于其中那些函数尺寸之小。我看惯了Swing程序中长度数以里计的函数。但这个程序中每个函数都只有两行、三行或四行长。每个函数都一目了然。每个函数都只说一件事。而且,每个函数都依序把你带到下一个函数。这就是函数应该达到的短小程度!\n\n只做一件事  这也是程序设计的一个重要思想，减少重复每个函数都尽可能的只处理一项任务。\n  例：\n  123456789101112131415161718192021// 原版public void cookAndEatBreakFase(People people)&#123;  // 去厨房  people.gotoKitchen();  // 去冰箱拿鸡蛋  List&lt;Egg&gt; eggs = people.gotoRefrigerator().getEggs();  ...  // 做早餐  ...  // 带着早饭去餐桌  people.gotoDiningTableWidth(breakfast);   // 吃早餐   ...   // &#125;// 简化public void cookAndEatBreakFase(Breakfast people)&#123;  Breakfast breakfast = people.cookBreakfast();  people.eat(breakfast);&#125;\n\n\n每个函数一个抽象层级  要确保函数只做一件事,函数中的语句都要在同一抽象层级上。一眼就能看出，上面原版的代码中不在一个抽象层级中。\n  函数中混杂不同抽象层级,往往让人迷惑。读者可能无法判断某个表达式是基础概念还是细节。更恶劣的是,就像破损的窗户,一旦细节与基础概念混杂,更多的细节就会在函数中纠结起来。\n  自顶向下读代码:向下规则\n  我们想要让代码拥有自顶向下的阅读顺序。’我们想要让每个函数后面都跟着位于下一抽象层级的函数,这样一来,在查看函数列表时,就能循抽象层级向下阅读了。我把这叫做向下规则。\n\n使用描述性的名称  要确保能够从看到函数的名称能猜出大概做了什么事情。\n\n函数参数  最理想的参数数量是零(零参数函数),其次是一(单参数函数),再次是二(双参数函数),应尽量避免三(三参数函数),有足够特殊的理由才能用三个以上参数(多参数函数)-所以无论如何也不要这么做。\n  如果有多个参数，从两个方面尝试修改代码。\n\n 代码逻辑\n 将代码参数有关联的抽象封装起来\n\n  例:\n  12Circle makecircle (double x, double y, double radius);circle makecircle (Point center, double radius);\n\n\n标识参数  标识参数丑陋不堪。向函数传入布尔值简直就是骇人听闻的做法。这样做，方法签名立刻变得复杂起来，大声宣布本函数不止做一件事。如果标识为true将会这样做，标识为false则会那样做。\n  应当拆分方法。使其相互独立。\n\n无副作用  副作用是一种谎言。函数承诺只做一件事,但还是会做其他被藏起来的事。有时,它会对自己类中的变量做出未能预期的改动。有时,它会把变量搞成向函数传递的参数或是系统全局变量。无论哪种情况,都是具有破坏性的,会导致古怪的时序性耦合及顺序依赖。\n\n使用异常替代返回错误码  从指令式函数返回错误码轻微违反了指令与询问分隔的规则。它鼓励了在if语句判断中把指令当作表达式使用。\n  1if (deletePage (page) == E_OK)\n\n  这不会引起动词/形容词混淆,但却导致更深层次的嵌套结构。当返回错误码时,就是在要求调用者立刻处理错误。\n  12345678910111213if (deletePage (page) == E_OK) &#123;\tif (registry.deleteReference (page. name) ==E_OK)&#123;  \tif (configkeys.deleteKey(page.name.makekey ()) ==E_OK)&#123;       logger.log (&quot;page deleted&quot;);    &#125;else&#123;      logger.log (&quot;configKey not deleted&quot;);    &#125;\t&#125;else&#123;\t\tlogger.loq (&quot;deleteReference from registry failed&quot;);      &#125;  &#125;else&#123;  logger.log (&quot;delete failed&quot;);&#125;\n\n  另一方面,如果使用异常替代返回错误码,错误处理代码就能从主路径代码中分离出来,得到简化:\n  1234567try &#123;  deletePage (page);\tregistry.deleteReference (page.name);\tconfigKeys.deleteKey (page.name.makeKey ());&#125; catch (Exception e) &#123;\tlogger.log(e.getMessage ());&#125;;\n抽离TyCatch代码块  Try/catch代码块丑陋不堪。它们搞乱了代码结构,把错误处理与正常流程混为一谈。最好把try和catch代码块的主体部分抽离出来,另外形成函数。\n  123456789101112131415public void delete (Page page)&#123;  try&#123;    deletePageAndAl1References(page);  &#125; catch (Exception e)&#123;      logError(e);  &#125;&#125; private void deletePageAndAl1References (Page page) throws Exception &#123;  deletePage (page);\tregistry.deleteReference (page. name);\tconfigKeys.deleteKey (page.name.makekey (1) );&#125; \n\n\n错误处理就是一件事  函数应该只做一件事。错误处理就是一件事。因此,处理错误的函数不该做其他事。这意味着(如上例所示)如果关键字try在某个函数中存在,它就该是这个函数的第一个单词,而且在catch/finally代码块后面也不该有其他内容。\n\nError.java依赖磁铁  返回错误码通常暗示某处有个类或是枚举,定义了所有错误码。\n  123456789public enum Error &#123;\tOк,\tINVALID,\tNO_SUCH,\tLOCKED,\tOUT_OF-RESOURCES,\tWAITING_FOR EVENT;&#125; \n\n  这样的类就是一块依赖磁铁(dependency magnet);其他许多类都得导入和使用它。当Error枚举修改时,所有这些其他的类都需要重新编译和部署。这对Error类造成了负面压力。\n  程序员不愿增加新的错误代码,因为这样他们就得重新构建和部署所有东西。于是他们就复用旧的错误码,而不添加新的。\n  使用异常替代错误码,新异常就可以从异常类派生出来,无需重新编译或重新部署。\n  定义新的Exception。\n\n别重复自己  不要重复自己的函数。\n  这样的重复还是会导致问题,因为代码因此而臃肿,且当算法改变时需要修改4处地方。而且也会增加4次放过错误的可能性。\n  重复可能是软件中一切邪恶的根源。许多原则与实践规则都是为控制与消除重复而创建,例如,全部考德(Codd) ,数据库范式都是为消灭数据重复而服务。再想想看,面向对象编程是如何将代码集中到基类,从而避免了冗余。面向方面编程(Aspect Oriented Programming).\n  面向组件编程(Component Oriented Programming)多少也都是消除重复的一种策略。看来,自子程序发明以来,软件开发领域的所有创新都是在不断尝试从源代码中消灭重复。\n\n结构化编程  有些程序员遵循Edsger Dijkstra的结构化编程规则。 Djkstra认为,每个函数、函数中的每个代码块都应该有一个入口、一个出口。遵循这些规则,意味着在每个函数中只该有一个return语句,循环中不能有break或continue语句,而且永永远远不能有任何goto语句。\n  我们赞成结构化编程的目标和规范,但对于小函数,这些规则助益不大。只有在大函数中,这些规则才会有明显的好处。\n  所以,只要函数保持短小,偶尔出现的return、 break或continue语句没有坏处,甚至还比单入单出原则更具有表达力。另外一方面, goto只在大函数中才有道理,所以应该尽量避免使用。\n\n如何写出这样的函数  写代码和写别的东西很像。在写论文或文章时,你先想什么就写什么,然后再打磨它。\n  初稿也许粗陋无序,你就斟酌推敲,直至达到你心目中的样子。\n  我写函数时,一开始都冗长而复杂。有太多缩进和嵌套循环。有过长的参数列表。名称是随意取的,也会有重复的代码。不过我会配上一套单元测试,覆盖每行丑陋的代码。\n  然后我打磨这些代码,分解函数、修改名称、消除重复。我缩短和重新安置方法。有时我还拆散类。同时保持测试通过。\n  最后,遵循本章列出的规则,我组装好这些函数。\n  我并不从一开始就按照规则写函数。我想没人做得到。\n\n小结  每个系统都是使用某种领域特定语言搭建,而这种语言是程序员设计来描述那个系统的。\n  函数是语言的动词,类是名词。这并非是退回到那种认为需求文档中的名词和动词就是系统中类和函数的最初设想的可怕的旧观念。其实这是个历史更久的真理。编程艺术是且一直就是语言设计的艺术。\n  大师级程序员把系统当作故事来讲,而不是当作程序来写。他们使用选定编程语言提供的工具构建一种更为丰富且更具表达力的语言,用来讲那个故事。那种领域特定语言的一个部分,就是描述在系统中发生的各种行为的函数层级。在一种狡猾的递归操作中,这些行为使用它们定义的与领域紧密相关的语言讲述自己那个小故事。\n  本章所讲述的是有关编写良好函数的机制。如果你遵循这些规则,函数就会短小,有个好名字,而且被很好地归置。不过永远别忘记,真正的目标在于讲述系统的故事,而你编写的函数必须干净利落地拼装到一起,形成一种精确而清晰的语言,帮助你讲故事。\n\n\n第4章 注释\n  “别给糟糕的代码加注释-重新写吧。” \n  ​                                                    –Brian W. Kernighan与P J. Plaugher\n\n\n能用函数或变量时就别用注释  能够用函数名称或者变量名称能解释的事情，就不要使用注释。\n\n注释掉的代码  直接把代码注释掉是讨厌的做法。别这么干!\n  其他人不敢删除注释掉的代码。他们会想,代码依然放在那儿,一定有其原因,而且这段代码很重要,不能删除。\n  注释掉的代码堆积在一起,就像破酒瓶底的渣滓一般。\n  20世纪60年代,曾经有那么一段时间,注释掉的代码可能有用。但我们已经拥有优良的源代码控制系统如此之久,这些系统可以为我们记住不要的代码。我们无需再用注释来标记,删掉即可,它们丢不了。我担保。\n\nTODO注释  TODO是一种程序员认为应该做,但由于某些原因目前还没做的工作。它可能是要提醒删除某个不必要的特性,或者要求他人注意某个问题。它可能是恳请别人取个好名字,或者提示对依赖于某个计划事件的修改。无论TODO的目的如何,它都不是在系统中留下糟糕的代码的借口。\n  如今,大多数好IDE都提供了特别的手段来定位所有TODO注释,这些注释看来丢不了。\n  你不会愿意代码因为TODO的存在而变成一堆垃圾,所以要定期查看,删除不再需要的。\n\n警示  123456public static simpleDateFormat makestandardHttpDateFormat () 1//simplaDateFormat is not thread safe,//so ve need to create each instance independently.SimpleDateFormat df = new SimpleDateFormat (&quot;EEE, dd MMM yyyy HH:mm:ss z&quot;);df. setTimeZone (TimeZone. getTimeZone (&quot;GMT&quot;));return df;\n\n  例上面的注释绝对有道理存在,它能阻止某位急切的程序员以效率之名使用静态初始器。\n\n对意图的解释  有时,注释不仅提供了有关实现的有用信息,而且还提供了某个决定后面的意图。在下例中,我们看到注释反映出来的一个有趣决定。在对比两个对象时,作者决定将他的类放置在比其他东西更高的位置。\n  1234567891011public int compareTo(object o)  if (o instanceof wikiPagePath)&#123;      WikiPagePath p= (wikiPagePath) o;      string compressedName = Stringutil.join(names, &quot;&quot;);      string compressedArgumentName = stringUtil.join(p.names, &quot;&quot;);      return compressedName.compareTo(compressedArgumentName);    &#125;\treturn 1; // we are greater because we are the right type.&#125;\n\n\n阐释  有时,注释把某些晦涩难明的参数或返回值的意义翻译为某种可读形式,也会是有用的。\n  通常,更好的方法是尽量让参数或返回值自身就足够清楚;但如果参数或返回值是某个标准库的一部分,或是你不能修改的代码,帮助阐释其含义的代码就会有用。\n\n\n第5章 格式\n  以前我最在意的一个细节，每行代码的长度限制、垂直分割行、每个方法之间间隔，这些细节我都会在写代码过程中带有强迫性质的进行修改。\n\n\n格式的目的  增强可读性、连贯性、可维护性。\n\n垂直格式  变量声明。变量声明应尽可能靠近其使用位置。因为函数很短，本地变量应该在函数的顶部出现，偶尔在函数较长时，变量也可以定义在某个代码块顶部。\n  实体变量应该在类的顶部声明。这应该不会增加变量的垂直距离,因为在设计良好的类中,它们如果不是被该类的所有方法也是被大多数方法所用。\n  相关函数。若某个函a数调用了另外一个,就应该把它们放到一起,而且调用者应该尽可能放在被调用者上面。这样,程序就有个自然的顺序。若坚定地遵循这条约定,读者将能够确信函数声明总会在其调用后很快出现。注意顶部的函数是如何调用其下的函数,而这些被调用的函数又是如何调用更下面的函数的。这样就能轻易找到被调用的函数,极大地增强了整个模块的可读性。\n  概念相关。概念相关的代码应该放到一起。相关性越强,彼此之间的距离就该越短。\n  如上所述,相关性应建立在直接依赖的基础上,如函数间调用,或函数使用某个变量。\n  但也有其他相关性的可能。相关性可能来自于执行相似操作的一组函数。\n\n其他格式（缩进，导包，空范围，代码横向长度）  可以依赖公司开发规范，或者参考Alibaba开发手册。\n\n\n第6章 对象和数据结构\n  将变量设置为私有(private)有一个理由:我们不想其他人依赖这些变量。我们还想在心血来潮时能自由修改其类型或实现。那么,为什么还是有那么多程序员给对象自动添加赋值器和取值器,将私有变量公之于众、如同它们根本就是公共变量一般呢?\n\n\n数据抽象  看看代码PointA和代码PointB之间的区别。每段代码都表示笛卡儿平面上的一个点。\n  12345678910111213141516171819public class PointA &#123;        public double x;        public double y;&#125;public interface PointB &#123;        double getX();        double getY();        void setCartesian(double x, double y);        double getR();        double getTheta();        void setPolar(double r, double theta);    &#125;\n\n  PointA曝露了其实现,而PointB则完全隐藏了其实现。\n  PointB的漂亮之处在于,你不知道该实现会是在矩形坐标系中还是在极坐标系中。\n  隐藏实现并非只是在变量之间放上一个函数层那么简单。隐藏实现关乎抽象!\n  类并不简单地用取值器和赋值器将其变量推向外间,而是曝露抽象接口,以便用户无需了解数据的实现就能操作数据本体。\n  12345678910// 具象机动车public interface Vehicle &#123;\tdouble getFuelTankCapacityInGallons ();\tdouble getGallonsOfGasoline ();&#125;// 抽象机动车public interface Vehicle &#123;     double getPercentFuelRemaining();&#125;\n\n  以上两段代码以后者为佳。我们不愿曝露数据细节,更愿意以抽象形态表述数据。这并不只是用接口和/或赋值器、取值器就万事大吉。要以最好的方式呈现某个对象包含的数据，需要做严肃的思考。傻乐着乱加取值器和赋值器，是最坏的选择。\n\n数据对象的反对称性  对象把数据隐藏于抽象之后，暴露操作数据的函数\n  数据结构暴露其数据，而没有提供有意义的函数\n  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556//此种形式为数据结构形式，暴露数据，没有函数public class Square&#123;  public Point topLeft;  public double side;&#125;public class Rectangle&#123;  public Point topLeft;  public double height;  public double width;&#125;public class Gemometry&#123;  public final double PI = 3.141592653589793;  public double area(object shape) throws NoSunShapeException&#123;    if(shape instanceof Square)&#123;      Square s = (Square)shape;      return s.side*s.side;    &#125;    else if(shape instanceof Rectangle)&#123;      Rectangle r = (Rectangel) shape;      return r.hegiht*r.width;    &#125;    throw new NoSuchShapeException();  &#125;&#125;//此种方式为对象方式，隐藏了实现，提供方法（未暴露实现）public class Square implements Shape&#123;  private Point topLeft;  private double side;  public double area()&#123;    return side*side;  &#125;&#125;public class Rectangle implements Shape&#123;  private Point topLeft;  private double height;  private double width;  public double area()&#123;    return height*width;  &#125;&#125;public class Circle implements Shape&#123;  private Point center;  private double radius;  public final double PI = 3.141592653589793;  public double area()&#123;    return PI * radius * radius;          &#125;&#125; \n\n\n数据结构的方法暴露了其本身的数据，但没有提供有意义的函数；面向过程\n\n数据结构可以方便的添加函数，但添加数据结构类型十分不便；\n\n原因在于添加一个数据结构类型需要修改所有已经存在的函数；\n\n对象的方法保护了其私有数据，提供抽象的方法；面向对象\n\n此方法可以方便的添加对象类型，应为每种类型是不相互干扰互相独立的；\n\n但添加方法十分复杂，需要修改所有的对象类；\n\n\n  过程式代码(使用数据结构的代码)便于在不改动既有数据结构的前提下添加新函数。\n  面向对象代码便于在不改动既有函数的前提下添加新类。\n  反过来讲也说得通。\n  过程式代码难以添加新数据结构, 因为必须修改所有函数。\n  面向对象代码难以添加新函数,因为必须修改所有类。\n  在任何一个复杂系统中,都会有需要添加新数据类型而不是新函数的时候。这时,对象和面向对象就比较适合。另一方面,也会有想要添加新函数而不是数据类型的时候。在这种情况下,过程式代码和数据结构更合适。\n\n得墨忒耳律  著名的得墨忒耳律(The Law of Demeter) 认为:\n\n模块不应了解它所操作对象的内部情形。\n\n如上节所见,对象隐藏数据,曝露操作。这意味着对象不应通过存取器曝露其内部结构,因为这样更像是曝露而非隐藏其内部结构。\n\n\n  更准确地说，得墨忒耳律认为，类C的方法 f 只应该调用以下对象的方法：\n\n  C\n\n  由 f 创建的对象；\n\n  作为参数传递给 f 的对象；\n\n  由 C 的实体变量持有的对象。\n\n\n  方法不应调用由任何函数返回的对象的方法。换言之,只跟朋友谈话,不与陌生人谈话。\n  下列代码违反了得墨忒耳律(除了违反其他规则之外),因为它调用了getOptions()返回值的getScratchDir()函数,又调用了getScratchDir()返回值的getAbsolutePath()方法。\n  1final string outputDir =ctxt.getOptions ().getScratchDir() .getAbsolutePath ();\n\n  很多面向对象程序设计语言用”.”表示对象的域的解析算符，因此得墨忒耳定律可以简单地陈述为“只使用一个.算符”。因此，a.b.Method()违反了此定律，而a.Method()不违反此定律。\n  一个简单例子是，人可以命令一条狗行走（walk），但是不应该直接指挥狗的腿行走，应该由狗去指挥控制它的腿如何行走。\n\n数据传输对象  最为精炼的数据结构，是只有公共变量，没有函数的类；这种数据结构被称为数据传送对象，或DTO（Data Transfer Objects）\n\n小结  对象曝露行为,隐藏数据。便于添加新对象类型而无需修改既有行为,同时也难以在既有对象中添加新行为。数据结构曝露数据,没有明显的行为。便于向既有数据结构添加新行为,同时也难以向既有函数添加新数据结构。\n  在任何系统中,我们有时会希望能够灵活地添加新数据类型,所以更喜欢在这部分使用对象。另外一些时候,我们希望能灵活地添加新行为,这时我们更喜欢使用数据类型和过程。\n  优秀的软件开发者不带成见地了解这种情形,并依据手边工作的性质选择其中一种手段。\n\n\n第7章 错误处理\n错误处理很重要，但它不应该搞乱代码的逻辑。\n\n\n使用异常而非返回码使用返回码，自定义错误码、Null；这样的操作会使调用者在调用之后即刻检查错误，但此类操作容易被忽略，容易出现问题，且代码可读性较差，不美观。\n使用抛出异常的方式，调用代码很整洁，其逻辑不会被错误处理搞乱。\n\n先写Try-Catch-Finaly妙处之一是,它们在程序中定义了一个范围。执行try-catch-finally语句中try部分的代码时,你是在表明可随时取消执行,并在catch语句中接续。\n在某种意义上, try代码块就像是事务。catch代码块将程序维持在一种持续状态,无论try代码块中发生了什么均如此。\n在编写可能抛出异常的代码时，最好先写出ty-atch-finally语句，这能帮你定义代码的用户应该期待什么,无论try代码块中执行的代码出什么错都一样。\n\n使用不可控异常以某个大型系统的调用层级为例。顶瑞函数调用它们之下的函数,逐级向下。假设某个位于最底层级的函数被修改为抛出一个异常。如果该异常是可控的,则函数签名就要添加throw子句。这意味着每个调用该函数的函数都要修改,捕获新异常,或在其签名中添加合适的throw子句。以此类推。最终得到的就是一个从软件最底端贯穿到最高端的修改链!封装被打破了,因为在抛出路径中的每个函数都要去了解下一层级的异常细节。既然异常旨在让你能在较远处处理错误,可控异常以这种方式破坏封装简直就是一种耻辱。\n如果你在编写一套关键代码库,则可控异常有时也会有用:你必须捕获异常。但对于一般的应用开发,其依赖成本要高于收益。\n\n给出异常发生是的环境说明你抛出的每个异常,都应当提供足够的环境说明,以便判断错误的来源和处所。\n\n依调用者需要定义异常类12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849ACMEPort port = new ACMEPort(12);//该段代码中包含了较多的重复，并且由各种异常，对此可以对第三方API进行打包，使其返回相同的代码；try&#123;  port.open();&#125;catch(DeviceResponseException e)&#123;  reportPortError(e);  logger.log(&quot;Device response exception&quot;,e);&#125;catch(ATM1212UnlockedException e)&#123;  reportPortError(e);  logger.log(&quot;Unlock exception&quot;,e);&#125;catch(GMXError e)&#123;  reportPortError(e);  logger.log(&quot;Device response exception&quot;,e);&#125;finally&#123;  ...&#125;//以下方法对第三方API进行了打包，同一了向上throw的异常类型LocalPort port = new LocalPort(12);try&#123;  port.open()&#125;catch(PortDeviceFailure e)&#123;  reportError(e);  logger.log(e.getMessage e);&#125;finally&#123;  ...&#125;public class LocalPort&#123;  private ACMEPort innerport;  public LocalPort(int portNumber)&#123;    innerPort = new ACMEPort(portNumber);  &#125;  public void open()&#123;    try&#123;      innerPort.open();    &#125;catch(DeviceResponseException e)&#123;      throw new PortDeviceFailure(e);    &#125;catch(ATM1212UnlockExcetion e)&#123;      throw new PortDeviceFailure(e);    &#125;catch(GMXError e)&#123;      throw new PortDeviceFailure(e);    &#125;  &#125;  ...&#125;\n\n类似我们为ACMEPort定义的这种打包类非常有用。实际上,将第三方API打包是个良好的实践手段。当你打包一个第三方API,你就降低了对它的依赖:未来你可以不太痛苦地改用其他代码库。在你测试自己的代码时,打包也有助于模拟第三方调用。\n\n定义常规流程12345678910111213141516171819// 来看一个例子。下面的笨代码来自某个记账应用的开支总计模块:try&#123;  MealExpense expenses = expenseReportDAO.getMeals(employee.getID());  m_total += expenses.getTotal();&#125;catch(MealExpenseNotFound e)&#123;   m_total += getMealPerDiem();&#125;// 业务逻辑是,如果消耗了餐食,则计入总额中。如果没有消耗,则员工得到当日餐食补贴。异常打断了业务逻辑。如果不去处理特殊情况会不会好一些?那样的话代码看起来会更简洁。就像这样:MealExpensses expenses = expenseReportDAO.getMeals(employee.getID());m_total += expenses.getTotal();// 能把代码写得那样简洁吗?能。可以修改ExpenseReportDA ,使其总是返回MealExpense对象。如果没有餐食消耗,就返回一个返回餐食补贴的MealExpense对象。public class PerDiemMealExpense implements MealExpenses&#123;  public int getTotal()&#123;    //retrun the per diem default  &#125;&#125;\n\n这种手法叫做特例模式(SPECIAL CASE PATTERN, [Fowlerj),创建一个类或配置一个对象,用来处理特例。你来处理特例,客户代码就不用应付异常行为了。异常行为被封装到特例对象中。\n\n别返回null值每一处可能返回null值就要进行返回值检查，这样的检查使得代码凌乱；\n对于返回null的函数最好可以返回特例，避免null判断；次之返回异常进行处理\n\n别传递null值在方法中返回null值是糟糕的做法,但将null值传递给其他方法就更糟糕了。\n除非API要求你向它传递null值,否则就要尽可能避免传递null值。\n\n小结整洁代码是可读的,但也要强固。可读与强固并不冲突。如果将错误处理隔离看待,独立于主要逻辑就能写固而整洁的代码。做到这一步,我们就能单独处理它,也极大地提升了代码的可维护性。\n\n\n第8章 边界\n使用第三方代码在接口提供者和使用者之间,存在与生俱来的张力。第三方程序包和框架提供者追求普适性,这样就能在多个环境中工作,吸引广泛的用户。而使用者则想要集中满足特定需求的接口。\n这种张力会导致系统边界上出现问题。\n1234567891011121314// 此方法将sensors暴露在外部，在函数间传递不安全Map sensors = new HashMap();...Sensor s = (Sensor)sensors.get(sensorId);// 此种方法在使用Sensors时无需考虑其内部实现，避免了对sensors的无意修改；当HashMap修改时，对Sensors 的修改就在此类的内部，做到了很好的隔离public class Sensors&#123;private Map sensors = new HashMap();public Sensor getById(String id)&#123;  return (Sensor) sensors.get(id);&#125;....&#125;\n\n以上的重构方法使HashMap的使用隔离在Sensors类的内部，当HashMap修改时，只需修改Sensors类一处，实现低耦合；\n\n整洁的边界边界会经常需要改动，良好的软件设计无需巨大的投入和重写即可修改；\n在使用控制不了的代码（第三方库）时，需要加倍的小心，确保未来的修改代价不要太大；\n避免代码过多的依赖第三方代码中特定的信息，依靠能控制的好过依靠控制不了的，避免日后受它控制；\n\n\n第9章 单元测试\nTDD三定律定律一：在编写不能通过的单元测试前，不可编写生产代码。\n测试驱动开发主张“测试先行”，这意味着我们必须先写单元测试，并且该单元测试必然失败，才能编写生产代码。\n定律二：只可编写刚好无法通过的单元测试，不能编译也算不通过。测试驱动开发鼓励“简单设计”，以很小的增量进行开发，遇到设计问题时能够及时解决，不要期望一个测试能实现多个功能。\n定律三：只可编写刚好通过当前失败测试的生产代码。\n简洁，尽最大可能减少不必要的工作，也是敏捷基本原则之一。要避免盲目编写将来有可能需要的代码。\n遵循了测试驱动开发的这三条定律，那所有代码都是可测试的了。“可测试”的另一个词是“解耦”，为了单独测试模块，必须将其分离，所以测试驱动开发强迫分离模块，迫使大家创建更好、更少耦合的设计。\n\n保持测试整洁测试代码需要跟着生产代码的修改而修改。\n测试代码和生产代码一样重要，也需要被思考、被设计和被照料。\n\n整洁的测试整洁的测试有什么要素？有三个要素：可读性、可读性和可读性。测试代码要如何才能做到可读？和其他代码一样：明确、简洁还有足够的表达力。\n1234567891011121314151617181920212223242526272829// 这样的测试代码可读性很差public void testGetPageHieratchyAsXml() throws Exception &#123;  crawler.addPage(root, PathParser.parse(&quot;PageOne&quot;));  crawler.addPage(root, PathParser.parse(&quot;PageOne.ChildOne&quot;));  crawler.addPage(root, PathParser.parse(&quot;PageTwo&quot;));  request.setResource(&quot;root&quot;);  request.addInput(&quot;type&quot;, &quot;pages&quot;);  Responder responder = new SerializedPageResponder();  SimpleResponse response = (SimpleResponse) responder.makeResponse(new FitNesseContext(root), request);  string xml = response.getContent();  assertEquals(&quot;text/xml&quot;, response.getContentType());  assertSubstrinq(&quot;&lt;name&gt;PageOne&lt;/name&gt;&quot;, xml);  assertSubstring(&quot;&lt;name&gt;PageTwo&lt;/name&gt;&quot;, xml);  assertSubstring(&quot;&lt;name&gt;Childone&lt;/name&gt;&quot;, xml);&#125;// 应采用构造-操作-检验(BUILD-OPERATE-CHECK) 模式public void testGetPageHierarchyAsXml() throws Exception&#123;  //build  makePages(&quot;PageOne&quot;,&quot;PageOne.ChildOne&quot;,&quot;PageTwo&quot;);  //operate  submitRequest(&quot;root&quot;,&quot;type:pages&quot;);  //check  assertResponseIsXML();  assertResponseContains(&quot;&lt;name&gt;PageOne&lt;/name&gt;&quot;,&quot;&lt;name&gt;PageTwo&lt;/name&gt;&quot;,&quot;&lt;name&gt;ChildOne&lt;/name&gt;&quot;);&#125;\n\n这个测试显然呈现了构造-操作-检验(BUILD-OPERATE-CHECK) 模式。每个测试都清晰地拆分为三个环节。\n第一个环节构造测试数据,\n第二个环节操作测试数据,\n第三个部分检验操作是否得到期望的结果。\n注意,那些恼人的细节大部分消失了。测试直达目的,只用到那些真正需要的数据类型和函数。读测试的人应该都能够很快搞清楚状况,不至于被细节误导或吓倒。\n\n双重标准有些事情可能只会在测试代码中做，而生产代码中可能不会做；所以内存或者CPU的效率在测试代码中可以稍微妥协，以提高代码的可读性；\n\n测试每一个断言遵循given-when-then的约定；\ngiven – some context\nwhen – some actions is carried out\nthen – a particular set of consequences should obtain\n\n这里所说的就是BUILD-OPERATE-CHECK最佳规则也许是应该尽可能减少每个概念的断言数量,每个测试函数只测试一个概念。\n\nF.I.R.S.T快速 Fast(F)：测试应该足够快；如果测试过慢就不愿进行测试，最终导致代码腐败；独立 Independent(I)：测试应该相互独立，某个测试不应为下一个测试设定条件；以任何顺序运行测试条件也是可以的；可重复 Repeatable(R)：测试可以在任何环境中通过；比如生产环境，质检环境；自足验证 Self-Validating(S)：测试应该有布尔值输出；无论成败，可以方便检测。及时 Timely(T)：测试应该及时编写；单元测试应该恰好在使其通过的生产代码之前编写；\n\n小结如果你坐视测试腐坏,那么代码也会跟着腐坏。保持测试整洁吧。\n\n\n第10章 类\n类的组织遵循标准的Java约定,类应该从一组变量列表开始。如果有公共静态常量,应该先出现。\n然后是私有静态变量,以及私有实体变量。很少会有公共变量。\n公共函数应跟在变量列表之后。我们喜欢把由某个公共函数调用的私有工具函数紧随在该公共函数后面。这符合了自顶向下原则,让程序读起来就像一篇报纸文章。\n\n类应该短小类应该短小，单一权原则（SRP）。\n系统应该由许多短小的类而不是少量巨大的类组成.每个小类封装一个权责,只有一个修改的原因，并与少数其他类一起协同达成期望的系统行为。\n内聚性：\n​    所谓内聚是指类中的方法基本围绕在类的变量进行操作，与外界很少接触；这样的类方法具有高内聚；\n​    如果类中变量被每一个方法使用，该类具有最高德内聚性；\n​    高内聚表明方法与变量相互依赖，相互结合成一个逻辑整体；\n\n\n","dateCreated":"2020-10-12T14:49:27+08:00","dateModified":"2021-06-30T06:51:13+08:00","datePublished":"2020-10-12T14:49:27+08:00","description":"\n 阅读本书有两种原因：第一，你是个程序员；第二，你想成为更好的程序员。\n 这是本有关编写好程序的书。它充斥着代码。我们要从各个方向来考察这些代码。从顶向下,从底往上,从里而外。读完后,就能知道许多关于代码的事了。而且,我们还能说出好代码和糟糕的代码之间的差异。我们将了解到如何写出好代码。我们也会知道,如何将糟糕的代码改成好代码。\n","headline":"《代码整洁之道》阅读笔记","image":["https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg","https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.methodref.top/2020/10/12/7.%E3%80%8A%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"},"publisher":{"@type":"Organization","name":"Methodref","sameAs":["https://github.com/methodref","mailto:methodref@163.com"],"image":"picture.png","logo":{"@type":"ImageObject","url":"picture.png"}},"url":"https://blog.methodref.top/2020/10/12/7.%E3%80%8A%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/","keywords":"书籍, 编码, 基础","thumbnailUrl":"https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"}</script>
+    <meta name="description" content="阅读本书有两种原因：第一，你是个程序员；第二，你想成为更好的程序员。  这是本有关编写好程序的书。它充斥着代码。我们要从各个方向来考察这些代码。从顶向下,从底往上,从里而外。读完后,就能知道许多关于代码的事了。而且,我们还能说出好代码和糟糕的代码之间的差异。我们将了解到如何写出好代码。我们也会知道,如何将糟糕的代码改成好代码。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="《代码整洁之道》阅读笔记">
+<meta property="og:url" content="https://blog.methodref.top/2020/10/12/7.%E3%80%8A%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Methodref的博客">
+<meta property="og:description" content="阅读本书有两种原因：第一，你是个程序员；第二，你想成为更好的程序员。  这是本有关编写好程序的书。它充斥着代码。我们要从各个方向来考察这些代码。从顶向下,从底往上,从里而外。读完后,就能知道许多关于代码的事了。而且,我们还能说出好代码和糟糕的代码之间的差异。我们将了解到如何写出好代码。我们也会知道,如何将糟糕的代码改成好代码。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-12T06:49:27.000Z">
+<meta property="article:modified_time" content="2021-06-29T22:51:13.000Z">
+<meta property="article:author" content="Methodref">
+<meta property="article:tag" content="书籍">
+<meta property="article:tag" content="编码">
+<meta property="article:tag" content="基础">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://blog.methodref.top/assets/images/picture.png"/>
+    
+    
+        <meta property="og:image" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+    
+    
+        <meta property="og:image" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+    
+    
+        
+            <meta property="og:image" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+            <meta class="swiftype" name="image" data-type="enum" content="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"/>
+        
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-ogag3wfrwdgvkjxqknf6ajrr0sxsmjeygbcizpxjfzeinr5ay8q5hxzegrvd.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Methodref的博客
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="打开链接: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/picture.png" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="阅读有关作者的更多信息"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/picture.png" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">Methodref</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>建立例行公事需要定义精确的行为,并在特定时间执行它们,以深深扎根的价值观为动力.</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="首页"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="分类"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="标签"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="归档"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="搜索"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="关于"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/methodref"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:methodref@163.com"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="邮箱"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+        <div class="post-header-cover
+                    text-center
+                    post-header-cover--full"
+             style="background-image:url('https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg');"
+             data-behavior="4">
+            
+                <div class="post-header main-content-wrap text-center">
+    
+        <h1 class="post-title">
+            《代码整洁之道》阅读笔记
+        </h1>
+    
+    
+</div>
+
+            
+        </div>
+
+            <div id="main" data-behavior="4"
+                 class="hasCover
+                        hasCoverMetaIn
+                        hasCoverCaption">
+                
+<article class="post">
+    
+        <span class="post-header-cover-caption caption">图片说明</span>
+    
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <ol>
+<li> 阅读本书有两种原因：第一，你是个程序员；第二，你想成为更好的程序员。</li>
+<li> 这是本有关编写好程序的书。它充斥着代码。我们要从各个方向来考察这些代码。从顶向下,从底往上,从里而外。读完后,就能知道许多关于代码的事了。而且,我们还能说出好代码和糟糕的代码之间的差异。我们将了解到如何写出好代码。我们也会知道,如何将糟糕的代码改成好代码。</li>
+</ol>
+<span id="more"></span>
+
+<h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC1%E7%AB%A0-%E6%95%B4%E6%B4%81%E4%BB%A3%E7%A0%81"><span class="toc-text">第1章 整洁代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%9F%E7%B3%95%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-text">糟糕的代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B7%E4%B9%B1%E7%9A%84%E4%BB%A3%E4%BB%B7"><span class="toc-text">混乱的代价</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E6%B4%81%E4%BB%A3%E7%A0%81%E7%9A%84%E8%89%BA%E6%9C%AF"><span class="toc-text">整洁代码的艺术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B4%E6%B4%81%E4%BB%A3%E7%A0%81"><span class="toc-text">什么是整洁代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%88%91%E4%BB%AC%E6%98%AF%E4%BD%9C%E8%80%85"><span class="toc-text">我们是作者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%A5%E5%AD%90%E5%86%9B%E5%86%9B%E8%A7%84"><span class="toc-text">童子军军规</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0-%E6%9C%89%E6%84%8F%E4%B9%89%E7%9A%84%E5%91%BD%E5%90%8D"><span class="toc-text">第2章 有意义的命名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8D%E5%89%AF%E5%85%B6%E5%AE%9E"><span class="toc-text">名副其实</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E8%AF%AF%E5%AF%BC"><span class="toc-text">避免误导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%81%9A%E6%9C%89%E6%84%8F%E4%B9%89%E7%9A%84%E5%8C%BA%E5%88%86"><span class="toc-text">做有意义的区分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%8F%AF%E6%90%9C%E7%B4%A2%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="toc-text">使用可搜索的名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E7%BC%96%E7%A0%81"><span class="toc-text">避免使用编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%90%8D"><span class="toc-text">类名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%90%8D"><span class="toc-text">方法名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AF%8F%E4%B8%AA%E6%A6%82%E5%BF%B5%E5%AF%B9%E5%BA%94%E4%B8%80%E4%B8%AA%E8%AF%8D"><span class="toc-text">每个概念对应一个词</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E9%A2%86%E5%9F%9F%E5%90%8D%E7%A7%B0"><span class="toc-text">使用解决方案领域名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%BA%90%E8%87%AA%E6%89%80%E6%B6%89%E9%97%AE%E9%A2%98%E9%A2%86%E5%9F%9F%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="toc-text">使用源自所涉问题领域的名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%9C%89%E6%84%8F%E4%B9%89%E7%9A%84%E8%AF%AD%E5%A2%83"><span class="toc-text">添加有意义的语境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E8%A6%81%E6%B7%BB%E5%8A%A0%E6%B2%A1%E7%94%A8%E7%9A%84%E8%AF%AD%E5%A2%83"><span class="toc-text">不要添加没用的语境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E7%9A%84%E8%AF%9D"><span class="toc-text">最后的话</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC3%E7%AB%A0-%E5%87%BD%E6%95%B0"><span class="toc-text">第3章 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%AD%E5%B0%8F"><span class="toc-text">短小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AA%E5%81%9A%E4%B8%80%E4%BB%B6%E4%BA%8B"><span class="toc-text">只做一件事</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AF%8F%E4%B8%AA%E5%87%BD%E6%95%B0%E4%B8%80%E4%B8%AA%E6%8A%BD%E8%B1%A1%E5%B1%82%E7%BA%A7"><span class="toc-text">每个函数一个抽象层级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%8F%8F%E8%BF%B0%E6%80%A7%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="toc-text">使用描述性的名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="toc-text">函数参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E5%8F%82%E6%95%B0"><span class="toc-text">标识参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="toc-text">无副作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%BC%82%E5%B8%B8%E6%9B%BF%E4%BB%A3%E8%BF%94%E5%9B%9E%E9%94%99%E8%AF%AF%E7%A0%81"><span class="toc-text">使用异常替代返回错误码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%BD%E7%A6%BBTyCatch%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">抽离TyCatch代码块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%B0%B1%E6%98%AF%E4%B8%80%E4%BB%B6%E4%BA%8B"><span class="toc-text">错误处理就是一件事</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Error-java%E4%BE%9D%E8%B5%96%E7%A3%81%E9%93%81"><span class="toc-text">Error.java依赖磁铁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%AB%E9%87%8D%E5%A4%8D%E8%87%AA%E5%B7%B1"><span class="toc-text">别重复自己</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%8C%96%E7%BC%96%E7%A8%8B"><span class="toc-text">结构化编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E8%BF%99%E6%A0%B7%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">如何写出这样的函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC4%E7%AB%A0-%E6%B3%A8%E9%87%8A"><span class="toc-text">第4章 注释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%BD%E7%94%A8%E5%87%BD%E6%95%B0%E6%88%96%E5%8F%98%E9%87%8F%E6%97%B6%E5%B0%B1%E5%88%AB%E7%94%A8%E6%B3%A8%E9%87%8A"><span class="toc-text">能用函数或变量时就别用注释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A%E6%8E%89%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-text">注释掉的代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TODO%E6%B3%A8%E9%87%8A"><span class="toc-text">TODO注释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AD%A6%E7%A4%BA"><span class="toc-text">警示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E6%84%8F%E5%9B%BE%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="toc-text">对意图的解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%90%E9%87%8A"><span class="toc-text">阐释</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC5%E7%AB%A0-%E6%A0%BC%E5%BC%8F"><span class="toc-text">第5章 格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="toc-text">格式的目的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9E%82%E7%9B%B4%E6%A0%BC%E5%BC%8F"><span class="toc-text">垂直格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%EF%BC%88%E7%BC%A9%E8%BF%9B%EF%BC%8C%E5%AF%BC%E5%8C%85%EF%BC%8C%E7%A9%BA%E8%8C%83%E5%9B%B4%EF%BC%8C%E4%BB%A3%E7%A0%81%E6%A8%AA%E5%90%91%E9%95%BF%E5%BA%A6%EF%BC%89"><span class="toc-text">其他格式（缩进，导包，空范围，代码横向长度）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC6%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">第6章 对象和数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1"><span class="toc-text">数据抽象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%8D%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="toc-text">数据对象的反对称性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%97%E5%A2%A8%E5%BF%92%E8%80%B3%E5%BE%8B"><span class="toc-text">得墨忒耳律</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E5%AF%B9%E8%B1%A1"><span class="toc-text">数据传输对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93-1"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC7%E7%AB%A0-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">第7章 错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%BC%82%E5%B8%B8%E8%80%8C%E9%9D%9E%E8%BF%94%E5%9B%9E%E7%A0%81"><span class="toc-text">使用异常而非返回码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%88%E5%86%99Try-Catch-Finaly"><span class="toc-text">先写Try-Catch-Finaly</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%8F%AF%E6%8E%A7%E5%BC%82%E5%B8%B8"><span class="toc-text">使用不可控异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%99%E5%87%BA%E5%BC%82%E5%B8%B8%E5%8F%91%E7%94%9F%E6%98%AF%E7%9A%84%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="toc-text">给出异常发生是的环境说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%9D%E8%B0%83%E7%94%A8%E8%80%85%E9%9C%80%E8%A6%81%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB"><span class="toc-text">依调用者需要定义异常类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%B8%B8%E8%A7%84%E6%B5%81%E7%A8%8B"><span class="toc-text">定义常规流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%AB%E8%BF%94%E5%9B%9Enull%E5%80%BC"><span class="toc-text">别返回null值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%AB%E4%BC%A0%E9%80%92null%E5%80%BC"><span class="toc-text">别传递null值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93-2"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC8%E7%AB%A0-%E8%BE%B9%E7%95%8C"><span class="toc-text">第8章 边界</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E4%BB%A3%E7%A0%81"><span class="toc-text">使用第三方代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E6%B4%81%E7%9A%84%E8%BE%B9%E7%95%8C"><span class="toc-text">整洁的边界</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC9%E7%AB%A0-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-text">第9章 单元测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TDD%E4%B8%89%E5%AE%9A%E5%BE%8B"><span class="toc-text">TDD三定律</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%9D%E6%8C%81%E6%B5%8B%E8%AF%95%E6%95%B4%E6%B4%81"><span class="toc-text">保持测试整洁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E6%B4%81%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="toc-text">整洁的测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E9%87%8D%E6%A0%87%E5%87%86"><span class="toc-text">双重标准</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%96%AD%E8%A8%80"><span class="toc-text">测试每一个断言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#F-I-R-S-T"><span class="toc-text">F.I.R.S.T</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93-3"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC10%E7%AB%A0-%E7%B1%BB"><span class="toc-text">第10章 类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E7%BB%84%E7%BB%87"><span class="toc-text">类的组织</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%BA%94%E8%AF%A5%E7%9F%AD%E5%B0%8F"><span class="toc-text">类应该短小</span></a></li></ol></li></ol>
+
+<h3 id="第1章-整洁代码"><a href="#第1章-整洁代码" class="headerlink" title="第1章 整洁代码"></a>第1章 整洁代码</h3><ul>
+<li><h4 id="糟糕的代码"><a href="#糟糕的代码" class="headerlink" title="糟糕的代码"></a>糟糕的代码</h4><p>  你当然曾为糟糕的代码所困扰过。那么-为什么要写糟糕的代码呢?</p>
+<p>  是想快点完成吗?是要赶时间吗?有可能。或许你觉得自己要干好所需的时间不够;假使花时间清理代码,老板就会大发雷霆。或许你只是不耐烦再搞这套程序,期望早点结束。</p>
+<p>  或许你看了看自己承诺要做的其他事,意识到得赶紧弄完手上的东西,好接着做下一件工作。</p>
+<p>  这种事我们都干过。</p>
+<p>  我们都曾经瞟一眼自己亲手造成的混乱,决定弃之而不顾,走向新一天。我们都曾经看到自己的烂程序居然能运行,然后断言能运行的烂程序总比什么都没有强。我们都曾经说过有朝一日再回头清理。当然,在那些日子里,我们都没听过勒布朗(LeBlanc)法则:稍后等于永不 (Later equals never),</p>
+</li>
+<li><h4 id="混乱的代价"><a href="#混乱的代价" class="headerlink" title="混乱的代价"></a>混乱的代价</h4><p>  如果代码非常混乱，各种抽象关系、层级依赖关系、调用链混乱，终将导致后期的维护和迭代工作举步维艰。</p>
+<p>  对代码的每次修改都影响到其他两三处代码。修改无小事。每次添加或修改代码,都得对那堆扭纹柴了然于心,这样才能往上扔更多的扭纹柴。这团乱麻越来越大,再也无法理清,最后束手无策。</p>
+<p>  随着混乱的增加,团队生产力也持续下降,趋向于零。当生产力下降时,管理层就只有一独事可做了:增加更多人手到项目中,期望提升生产力。可是新人并不熟悉系统的设计。他们搞不清楚什么样的修改符合设计意图,什么样的修改违背设计意图。而且,他们以及团队中的其他人都背负着提升生产力的可怕压力。于是,他们制造更多的混乱,驱动生产力向零那端不断下降。</p>
+</li>
+<li><h4 id="整洁代码的艺术"><a href="#整洁代码的艺术" class="headerlink" title="整洁代码的艺术"></a>整洁代码的艺术</h4><p>  假设你相信混乱的代码是祸首,假设你接受做得快的唯一方法是保持代码整洁的说法,你一定会自问: “我怎么才能写出整洁的代码? ”不过,如果你不明白整洁对代码有何意义,尝试去写整洁代码就毫无所益!</p>
+<p>  坏消息是写整洁代码很像是绘画。多数人都知道一幅画是好还是坏。但能分辨优劣并不表示懂得绘画。能分辨整洁代码和肮脏代码,也不意味着会写整洁代码!</p>
+<p>  写整洁代码,需要遵循大量的小技巧,贯彻刻苦习得的“整洁感”。这种“代码感”就关键所在。有些人生而有之。有些人费点劲才能得到。它不仅让我们看到代码的优劣,还我们以借戒规之力化劣为优的攻略。</p>
+<p>  缺乏“代码感”的程序员,看混乱是混乱,无处着手。有“代码感”的程序员能从混中看出其他的可能与变化。“代码感”帮助程序员选出最好的方案,并指导程序员制订修改行动计划,按图索骥。</p>
+<p>  简言之,编写整洁代码的程序员就像是艺术家,他能用一系列变换把一块白板变作由优雅代码构成的系统。</p>
+</li>
+<li><h4 id="什么是整洁代码"><a href="#什么是整洁代码" class="headerlink" title="什么是整洁代码"></a>什么是整洁代码</h4><p>  <strong>有多少程序员，就有多少定义。</strong></p>
+<p>  文章截取了多位知名且经验丰富的程序员的描述。</p>
+<blockquote>
+<p>Bjarne Stroustrup, C++语言发明者, C++ ProgrammingLanguage (中译版《C++程序设计语言》)一书作者。</p>
+<p><code>&quot;我喜欢优雅和高效的代码。代码逻辑应当直截了当,叫缺陷难以隐藏;尽量减少依赖关系,使之便于维护;依据某种分层战略完善错误处理代码;性能调至最优,省得引诱别人做没规矩的优化,搞出一堆混乱来。整洁的代码只做好一件事。&quot;</code></p>
+</blockquote>
+<blockquote>
+<p>  Grady Booch, Object Oriented Analysis and Design with Applications (中译版《面向对象分析与设计》)一书作者。</p>
+<p>  <code>  &quot;整洁的代码简单直接。整洁的代码如同优美的散文。整洁的代码从不隐藏设计者的意图,充满了干净利落的抽象和直截了当的控制语句。&quot;</code></p>
+</blockquote>
+<blockquote>
+<p>“老大” Dave Thomas, OTI公司创始人, Eclipse战略</p>
+<p><code>&quot;整洁的代码应可由作者之外的开发者阅读和增补。它应有单元测试和验收测试。它使用有意义的命名。它只提供一种而非多种做一件事的途径。它只有尽量少的依赖关系,要明确地定义和提供清晰、尽量少的API.代码应通过其表达含义,因为不同的语言导致并非所有必需信息均可代码自身清晰表达。&quot;</code></p>
+</blockquote>
+<blockquote>
+<p>Michael Feathers, Working Effectively with LegacyCode (中译版《修改代码的艺术》)一书作者。</p>
+<p><code>&quot;我可以列出我留意到的整洁代码的所有特点,但其中有一条是根本性的。整洁的代码总是看起来像是某位特别在意它的人写的。几乎没有改进的余地。代码作者什么都想到了,如果你企图改进它,总会回到原点,赞叹某人留给你的代码一全心投入的某人留下的代码。&quot;</code></p>
+</blockquote>
+<blockquote>
+<p>Ron Jeffries, Extreme Programming Installed (中译版《极限编程实施》)以及Extreme ProgrammingAdventures in C# (中译版《C#极限编程探险》)作者。</p>
+<p>​    Ron初入行就在战略空军司令部(Strategic AirCommand)编写Fortran程序,此后几乎在每种机器上编写过每种语言的代码。他的言论值得咀嚼。</p>
+<p>“近年来,我开始研究贝克的简单代码规则,差不多也都琢磨透了。简单代码,依其重要顺序:</p>
+<p> 1.能通过所有测试;<br> 2.没有重复代码;<br> 3.体现系统中的全部设计理念;<br> 4.包括尽量少的实体,比如类、方法、函数等。<br>   在以上诸项中,我最在意代码重复。如果同一段代码反复出现,就表示某种想法未在代码中得到良好的体现。我尽力去找出到底那是什么,然后再尽力更清晰地表达出来。<br>   在我看来,有意义的命名是体现表达力的一种方式,我往往会修改好几次才会定下名字来。借助Eclipse这样的现代编码工具,重命名代价极低,所以我无所顾忌。然而,表达力还不只体现在命名上。我也会检查对象或方法是否想做的事太多。如果对象功能太多,最好是切分为两个或多个对象。如果方法功能太多,我总是使用抽取手段(Extract Method )重构之,从而得到一个能较为清晰地说明自身功能的方法,以及另外数个说明如何实现这些功能的方法。<br>   消除重复和提高表达力让我在整洁代码方面获益良多,只要铭记这两点,改进脏代码时就会大有不同。不过,我时常关注的另一规则就不太好解释了<br>   这么多年下来,我发现所有程序都由极为相似的元素构成。例如“在集合中查找某物”不管是雇员记录数据库还是名-值对哈希表,或者某类条目的数组,我们都会发现自己想要从集合中找到某一特定条目。一旦出现这种情况,我通常会把实现手段封装到更抽象的方法或类中。这样做好处多多。<br>   可以先用某种简单的手段,比如哈希表来实现这一功能, 由于对搜索功能的引用指向了我那个小小的抽象,就能随需应变,修改实现手段。这样就既能快速前进,又能为未来的修改预留余地。<br>   另外,该集合抽象常常提醒我留意“真正”在发生的事,避免随意实现集合行为,因为我真正需要的不过是某种简单的查找手段。<br>   减少重复代码,提高表达力,提早构建简单抽象。这就是我写整洁代码的方法。”</p>
+</blockquote>
+<blockquote>
+<p>Ward Cunningham, Wiki发明者, eXtreme Programming(极限编程)的创始人之一, Smalitalk语言和面向对象的思想领袖。所有在意代码者的教父。</p>
+<p><code>&quot;如果每个例程都让你感到深合己意,那就是整洁代码。如果代码让编程语言看起来像是专为解决那个问题而存在,就可以称之为漂亮的代码。&quot;</code></p>
+</blockquote>
+</li>
+<li><h4 id="我们是作者"><a href="#我们是作者" class="headerlink" title="我们是作者"></a>我们是作者</h4><p>  Javadoc中的@author字段告诉我们自己是什么人。我们是作者。作者都有读者。实际上,作者有责任与读者做良好沟通。下次你写代码的时候,记得自己是作者,要为评判你工作的读者写代码。</p>
+<p>  你或许会问:代码真正“读”的成分有多少呢?难道力量主要不是用在“写”上吗?</p>
+<p>  你是否玩过“编辑器回放” ? 20世纪80、90年代, Emac之类编辑器记录每次击键动作。</p>
+<p>  你可以在一小时工作之后,回放击键过程,就像是看一部高速电影。我这么做过,结果很有趣。</p>
+<p>  回放过程显示,多数时间都是在滚动屏幕、浏览其他模块!</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">鲍勃进入模块。</span><br><span class="line">他向下滚动到要修改的函数。</span><br><span class="line">他停下来考虑可以做什么。</span><br><span class="line">哦,他滚动到模块顶端,检查变量初始化。</span><br><span class="line">现在他回到修改处,开始键入。</span><br><span class="line">喔，他删掉了键入的内容。</span><br><span class="line">他重新键入他又删除了!</span><br><span class="line">他键入了一半什么东西，又删除掉。</span><br><span class="line">他滚动到调用要修改函数的另一函数,看看是怎么调用的。</span><br><span class="line">他回到修改处,重新键入刚才删掉的代码。</span><br><span class="line">他停下来。</span><br><span class="line">他再一次删掉代码!</span><br><span class="line">他打开另一个窗口,查看别的子类。那是个复载函数吗?</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>你该明白了。读与写花费时间的比例超过10:1,写新代码时,我们一直在读旧代码。</strong></p>
+<p>  既然比例如此之高,我们就想让读的过程变得轻松,即便那会使得编写过程更难。没可能光写不读,所以使之易读实际也使之易写。</p>
+<p>  这事概无例外。不读周边代码的话就没法写代码。编写代码的难度,取决于读周边代码的难度。要想干得快,要想早点做完,要想轻松写代码,先让代码易读吧。</p>
+</li>
+<li><h4 id="童子军军规"><a href="#童子军军规" class="headerlink" title="童子军军规"></a>童子军军规</h4><p>  <strong>“让营地比你来时更干净。”</strong></p>
+<p>  换成本书的意思就是，必须时刻保持代码整洁。让代码变得整洁并不是一蹴而就的事情，而是一个漫长的过程，每一次代码的提交都是使代码变整洁的一小步。</p>
+</li>
+</ul>
+<h3 id="第2章-有意义的命名"><a href="#第2章-有意义的命名" class="headerlink" title="第2章 有意义的命名"></a>第2章 有意义的命名</h3><blockquote>
+<p>  软件中随处可见命名。我们给变量、函数、参数、类和封包命名。我们给源代码及源代码所在目录命名。我们给jar文件、war文件和ear文件命名。我们命名、命名,不断命名。</p>
+<p>  既然有这么多命名要做,不妨做好它。下文列出了取个好名字的几条简单规则。</p>
+</blockquote>
+<ul>
+<li><h4 id="名副其实"><a href="#名副其实" class="headerlink" title="名副其实"></a>名副其实</h4><p>  名副其实说起来简单。我们想要强调,这事很严肃。选个好名字要花时间,但省下来的时间比花掉的多。注意命名,而且一旦发现有更好的名称,就换掉旧的。这么做,读你代码的人(包括你自己)都会更开心。</p>
+<p>  变量、函数或类的名称应该已经答复了所有的大问题。它该告诉你,它为什么会存在,它做什么事,应该怎么用。如果名称需要注释来补充,那就不算是名副其实。</p>
+<p>  例:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> d; <span class="comment">// 消逝的时间,以日计</span></span><br></pre></td></tr></table></figure>
+
+<p>  名称d什么也没说明。它没有引起对时间消逝的感觉,更别说以日计了。我们应该选择指明了计量对象和计量单位的名称:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> elapsedTimeInDays;</span><br><span class="line"><span class="keyword">int</span> daysSincecreation;</span><br><span class="line"><span class="keyword">int</span> dayssinceModification;</span><br><span class="line"><span class="keyword">int</span> fileAgeInDays;</span><br></pre></td></tr></table></figure>
+
+<p>  例:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;<span class="keyword">int</span> []&gt; getThem() t</span><br><span class="line">List&lt;<span class="keyword">int</span>[]&gt; list1 =<span class="keyword">new</span> ArrayList&lt;<span class="keyword">int</span>[]&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span>[] x: theList) &#123;</span><br><span class="line">  <span class="keyword">if</span> (x[<span class="number">0</span>] =<span class="number">4</span>)</span><br><span class="line">    list1.add (x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> list1;</span><br></pre></td></tr></table></figure>
+
+<p>  为什么难以说明上列代码要做什么事?里面并没有复杂的表达式。空格和缩进中规中矩。</p>
+<p>  只用到三个变量和两个常量。甚至没有涉及任何其他类或多态方法,只是(或者看起来是)一个数组的列表而已。</p>
+<p>  问题不在于代码的简洁度,而是在于代码的模糊度:即上下文在代码中未被明确体现的程度。上列代码要求我们了解类似以下问题的答案:</p>
+<p>  (1) thelList中是什么类型的东西?</p>
+<p>  (2) thelist零下标条目的意义是什么?</p>
+<p>  (3)值4的意义是什么?</p>
+<p>  (4)我怎么使用返回的列表?</p>
+<p>  问题的答案没体现在代码段中,可那就是它们该在的地方。比方说,我们在开发一种扫雷游戏,我们发现,盘面是名为theList的单元格列表,那就将其名称改为gameBoard.</p>
+<p>  ​    盘面上每个单元格都用一个简单数组表示。我们还发现,零下标条目是一种状态值,而该种状态值为4表示“已标记”,只要改为有意义的名称,代码就会得到相当程度的改进:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;<span class="keyword">int</span>[]&gt; getFlaggedCells()</span><br><span class="line">List&lt;<span class="keyword">int</span>[]&gt; flaggedCells = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">int</span>[]&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> [] cell : gameBoard)&#123;</span><br><span class="line">	<span class="keyword">if</span> (cell [STATUS_VALUE] FLAGGED)</span><br><span class="line">  	flaggedCells.add (cell);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> flaggedCells;</span><br></pre></td></tr></table></figure>
+
+<p>  还可以更进一步,不用int数组表示单元格,而是另写一个类。该类包括一个名副其实的函数(称为isFlagged),从而掩盖住那个魔术数。于是得到函数的新版本:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Cell&gt; <span class="title">getFlaggedCells</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> 	List&lt;Cell&gt; flaggedCells = <span class="keyword">new</span> ArrayList&lt;Cell&gt;();</span><br><span class="line">	<span class="keyword">for</span> (Cell cell : gameBoard) &#123;</span><br><span class="line">  	<span class="keyword">if</span> (cell.isFlagged ()) </span><br><span class="line">    	flaggedCells.add (cell);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> flaggedcells; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  只要简单改一下名称,就能轻易知道发生了什么。这就是选用好名称的力量。</p>
+</li>
+<li><h4 id="避免误导"><a href="#避免误导" class="headerlink" title="避免误导"></a>避免误导</h4><p>  避免歧义，不能命名的过于模糊，有很多歧义。</p>
+</li>
+<li><h4 id="做有意义的区分"><a href="#做有意义的区分" class="headerlink" title="做有意义的区分"></a>做有意义的区分</h4><p>  类似于这样 命名为 a1 a2</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyChars</span><span class="params">(<span class="keyword">char</span> al[], <span class="keyword">char</span> a2[])</span></span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt; al.length; i++) &#123;</span><br><span class="line">		a2 [i] =a1 [i];</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span>[] a1;</span><br><span class="line">  <span class="keyword">int</span>[] a2;</span><br><span class="line">  copyChars(a1,a2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  在调用方来看 无法分辨a1和a2的区别。</p>
+<p>  如果参数名改为source和destination，这个函数就会像样许多。</p>
+</li>
+<li><h4 id="使用可搜索的名称"><a href="#使用可搜索的名称" class="headerlink" title="使用可搜索的名称"></a>使用可搜索的名称</h4><p>  单字母名称和数字常量有个问题,就是很难在一大篇文字中找出来。</p>
+<p>  找MAXCLASSES PER STUDENT很容易,但想找数字7就麻烦了,它可能是某些文件名或其他常量定义的一部分,出现在因不同意图而采用的各种表达式中。如果该常量是个长数字,又被人错改过,就会逃过搜索,从而造成错误。</p>
+<p>  同样, e也不是个便于搜索的好变量名。它是英文中最常用的字母,在每个程序、每段代码中都有可能出现。由此而见,长名称胜于短名称,搜得到的名称胜于用自造编码代写就的名称。</p>
+<p>  切以为单字母名称仅用于短方法中的本地变量。名称长短应与其作用域大小相对应。若变量或常量可能在代码中多处使用,则应赋其以便于搜索的名称。</p>
+<p>  例:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> X = <span class="number">80</span>;</span><br><span class="line"><span class="comment">// 对比</span></span><br><span class="line"><span class="keyword">int</span> X_SCALE_MAX_SIZE = <span class="number">80</span>;</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="避免使用编码"><a href="#避免使用编码" class="headerlink" title="避免使用编码"></a>避免使用编码</h4><p>  编码已经太多,无谓再自找麻烦。把类型或作用域编进名称里面,徒然增加了解码的负担。没理由要求每位新人都在弄清要应付的代码之外(那算是正常的),还要再搞懂另一种编码“语言”。这对于解决问题而言,纯属多余的负担。带编码的名称通常也不便发音,容易打错。</p>
+</li>
+<li><h4 id="类名"><a href="#类名" class="headerlink" title="类名"></a>类名</h4><p>  类名和对象名应该是名词或名词短语,如Customer、 WikiPage、 Account和AddressParser。</p>
+<p>  避免使用Manager, Processor, Data或Info这样的类名。类名不应当是动词。</p>
+</li>
+<li><h4 id="方法名"><a href="#方法名" class="headerlink" title="方法名"></a>方法名</h4><p>  方法名应当是动词或动词短语,如postPayment, deletePage或save.属性访问器、修改器和断言应该根据其值命名,并依Javabean标准加上get, set和is前缀。</p>
+</li>
+<li><h4 id="每个概念对应一个词"><a href="#每个概念对应一个词" class="headerlink" title="每个概念对应一个词"></a>每个概念对应一个词</h4><p>  给每个抽象概念选一个词,并且一以贯之。例如,使用fetch, retrieve和get来给在多个类中的同种方法命名。你怎么记得住哪个类中是哪个方法呢?很悲哀,你总得记住编写库或类的公司、机构或个人,才能想得起来用的是哪个术语。否则,就得耗费大把时间浏览各个文件头及前面的代码。</p>
+<p>  Eclipse和Intelli)之类现代编程环境提供了与环境相关的线索,比如某个对象能调用的方法列表。不过要注意,列表中通常不会给出你为函数名和参数列表编写的注释。如果参数名称来自函数声明,你就太幸运了。函数名称应当独一无二,而且要保持一致,这样你才能不借助多余的浏览就找到正确的方法。</p>
+<p>  同样,在同一堆代码中有controller,又有manager,还有driver,就会令人困惑。DeviceManager和Protocol-Controller之间有何根本区别?为什么不全用controllers或managers?他们都是Drivers吗?这种名称,让人觉得这两个对象是不同类型的,也分属不同的类。</p>
+<p>  对于那些会用到你代码的程序员,一以贯之的命名法简直就是天降福音</p>
+</li>
+<li><h4 id="使用解决方案领域名称"><a href="#使用解决方案领域名称" class="headerlink" title="使用解决方案领域名称"></a>使用解决方案领域名称</h4><p>  记住,只有程序员才会读你的代码。所以,尽管用那些计算机科学(Computer Science, CS)术语、算法名、模式名、数学术语吧。依据问题所涉领域来命名可不算是聪明的做法,因为不该让协作者老是跑去问客户每个名称的含义,其实他们早该通过另一名称了解这个概念了。</p>
+<p>  对于熟悉访问者(VISITOR)模式的程序来说,名称AccountVisitor富有意义。哪个程序员会不知道JobQueue的意思呢?程序员要做太多技术性工作。给这些事取个技术性的名称,通常是最靠谱的做法。</p>
+</li>
+<li><h4 id="使用源自所涉问题领域的名称"><a href="#使用源自所涉问题领域的名称" class="headerlink" title="使用源自所涉问题领域的名称"></a>使用源自所涉问题领域的名称</h4><p>  如果不能用程序员熟悉的术语来给手头的工作命名,就采用从所涉问题领域而来的名称吧。至少,负责维护代码的程序员就能去请教领域专家了。</p>
+<p>  优秀的程序员和设计师,其工作之一就是分离解决方案领域和问题领域的概念。与所涉问题领域更为贴近的代码,应当采用源自问题领域的名称。</p>
+</li>
+<li><h4 id="添加有意义的语境"><a href="#添加有意义的语境" class="headerlink" title="添加有意义的语境"></a>添加有意义的语境</h4><p>  很少有名称是能自我说明的-多数都不能。反之,你需要用有良好命名的类、函数或名称空间来放置名称,给读者提供语境。如果没这么做,给名称添加前缀就是最后一招了。</p>
+<p>  设想你有名为firstName, lastName, street. houseNumber, city, state和zipcode的变量。</p>
+<p>  当它们一块儿的时候,很明确是构成了一个地址。不过,假使只是在某个方法中看见孤零零一个state变量呢?你会理所当然推断那是某个地址的一部分吗?</p>
+<p>  可以添加前缀addrFirstName, addrLastName, addrState等,以此提供语境。至少,读者会明白这些变量是某个更大结构的一部分。当然,更好的方案是创建名为Address的类。这样,即便是编译器也会知道这些变量隶属某个更大的概念了。</p>
+</li>
+<li><h4 id="不要添加没用的语境"><a href="#不要添加没用的语境" class="headerlink" title="不要添加没用的语境"></a>不要添加没用的语境</h4><p>  设若有一个名为“加油站豪华版” (Gas Station Deluxe)的应用,在其中给每个类添加GSD前缀就不是什么好点子。说白了,你是在和自己在用的工具过不去。输入G,按下自动完成键,结果会得到系统中全部类的列表,列表恨不得有一英里那么长。这样做聪明吗?为什么要搞得IDE没法帮助你?</p>
+<p>  再比如,你在GSD应用程序中的记账模块创建了一个表示邮件地址的类,然后给该类命名为GSDAccountAddress.。稍后,你的客户联络应用中需要用到邮件地址,你会用GSDAccountAddress吗?这名字听起来没问题吗?在这17个字母里面,有10个字母纯属多余和与当前语境毫无关联。</p>
+<p>  只要短名称足够清楚,就要比长名称好。别给名称添加不必要的语境。</p>
+<p>  对于Address类的实体来说, accountAddress和customerAddress都是不错的名称,不过用在类名上就不太好了。Address是个好类名。如果需要与MAC地址、端口地址和Web地址相区别,我会考虑使用PostalAddress、 MAC和URI。这样的名称更为精确,而精确正是命名的要点。</p>
+</li>
+<li><h4 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h4><p>  取好名字最难的地方在于需要良好的描述技巧和共有文化背景。与其说这是一种技术、商业或管理问题,还不如说是一种教学问题。其结果是,这个领域内的许多人都没能学会做得很好。</p>
+<p>  我们有时会怕其他开发者反对重命名。如果讨论一下就知道,如果名称改得更好,那大家真的会感激你。多数时候我们并不记忆类名和方法名。我们使用现代工具对付这些细节,好让自己集中精力于把代码写得就像词句篇章、至少像是表和数据结构(词句并非总是呈现数据的最佳手段)。改名可能会让某人吃惊,就像你做到其他代码改善工作一样。别让这种事阻碍你的前进步伐。</p>
+<p>  不妨试试上面这些规则,看你的代码可读性是否有所提升。如果你是在维护别人写的代码,使用重构工具来解决问题。效果立竿见影,而且会持续下去。</p>
+</li>
+</ul>
+<h3 id="第3章-函数"><a href="#第3章-函数" class="headerlink" title="第3章 函数"></a>第3章 函数</h3><blockquote>
+<p>  在编程的早年岁月,系统由程序和子程序组成。后来,在Forran和PL/1的年代,系统由程序、子程序和函数组成。如今,只有函数存活下来。函数是所有程序中的第一组代码。</p>
+<p>  本章将讨论如何写好函数。</p>
+</blockquote>
+<ul>
+<li><h4 id="短小"><a href="#短小" class="headerlink" title="短小"></a>短小</h4><p>  函数的第一规则是要短小。第二条规则是还要更短小。</p>
+<p>  在20世纪80年代,我们常说函数不该长于一屏。当然,说话时候, VT100屏幕只有24行、80列,而编辑器就得先占去4行空间放菜单。如今,用上了精致的字体和宽大的显示器,一屏里面可以显示100行,每行能容纳150个字符。每行都不应该有150个字符那么长。函数也不该有100行那么长, 20行封顶最佳。</p>
+<p>  函数到底该有多长? 1991年,我去Kent Beck位于奥勒冈州(Oregon)的家中拜访。我们坐到一起写了些代码。他给我看一个叫做Sparkle (火花闪耀)的有趣的Java/Swing小程序。程序在屏幕上描画电影Cinderella (《灰姑娘》)中仙女用魔棒造出的那种视觉效果。只要移动鼠标,光标所在处就会爆发出一团令人欣喜的火花,沿着模拟重力场划落到窗口底部。肯特给我看代码的时候,我惊讶于其中那些函数尺寸之小。我看惯了Swing程序中长度数以里计的函数。但这个程序中每个函数都只有两行、三行或四行长。每个函数都一目了然。每个函数都只说一件事。而且,每个函数都依序把你带到下一个函数。这就是函数应该达到的短小程度!</p>
+</li>
+<li><h4 id="只做一件事"><a href="#只做一件事" class="headerlink" title="只做一件事"></a>只做一件事</h4><p>  这也是程序设计的一个重要思想，减少重复每个函数都尽可能的只处理一项任务。</p>
+<p>  例：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原版</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cookAndEatBreakFase</span><span class="params">(People people)</span></span>&#123;</span><br><span class="line">  <span class="comment">// 去厨房</span></span><br><span class="line">  people.gotoKitchen();</span><br><span class="line">  <span class="comment">// 去冰箱拿鸡蛋</span></span><br><span class="line">  List&lt;Egg&gt; eggs = people.gotoRefrigerator().getEggs();</span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">// 做早餐</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">// 带着早饭去餐桌</span></span><br><span class="line">  people.gotoDiningTableWidth(breakfast);</span><br><span class="line">   <span class="comment">// 吃早餐</span></span><br><span class="line">   ...</span><br><span class="line">   <span class="comment">// </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 简化</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cookAndEatBreakFase</span><span class="params">(Breakfast people)</span></span>&#123;</span><br><span class="line">  Breakfast breakfast = people.cookBreakfast();</span><br><span class="line">  people.eat(breakfast);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><h4 id="每个函数一个抽象层级"><a href="#每个函数一个抽象层级" class="headerlink" title="每个函数一个抽象层级"></a>每个函数一个抽象层级</h4><p>  要确保函数只做一件事,函数中的语句都要在同一抽象层级上。一眼就能看出，上面原版的代码中不在一个抽象层级中。</p>
+<p>  函数中混杂不同抽象层级,往往让人迷惑。读者可能无法判断某个表达式是基础概念还是细节。更恶劣的是,就像破损的窗户,一旦细节与基础概念混杂,更多的细节就会在函数中纠结起来。</p>
+<p>  自顶向下读代码:向下规则</p>
+<p>  我们想要让代码拥有自顶向下的阅读顺序。’我们想要让每个函数后面都跟着位于下一抽象层级的函数,这样一来,在查看函数列表时,就能循抽象层级向下阅读了。我把这叫做向下规则。</p>
+</li>
+<li><h4 id="使用描述性的名称"><a href="#使用描述性的名称" class="headerlink" title="使用描述性的名称"></a>使用描述性的名称</h4><p>  要确保能够从看到函数的名称能猜出大概做了什么事情。</p>
+</li>
+<li><h4 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h4><p>  最理想的参数数量是零(零参数函数),其次是一(单参数函数),再次是二(双参数函数),应尽量避免三(三参数函数),有足够特殊的理由才能用三个以上参数(多参数函数)-所以无论如何也不要这么做。</p>
+<p>  如果有多个参数，从两个方面尝试修改代码。</p>
+<ol>
+<li> 代码逻辑</li>
+<li> 将代码参数有关联的抽象封装起来</li>
+</ol>
+<p>  例:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Circle <span class="title">makecircle</span> <span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y, <span class="keyword">double</span> radius)</span></span>;</span><br><span class="line"><span class="function">circle <span class="title">makecircle</span> <span class="params">(Point center, <span class="keyword">double</span> radius)</span></span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><h4 id="标识参数"><a href="#标识参数" class="headerlink" title="标识参数"></a>标识参数</h4><p>  标识参数丑陋不堪。向函数传入布尔值简直就是骇人听闻的做法。这样做，方法签名立刻变得复杂起来，大声宣布本函数不止做一件事。如果标识为true将会这样做，标识为false则会那样做。</p>
+<p>  应当拆分方法。使其相互独立。</p>
+</li>
+<li><h4 id="无副作用"><a href="#无副作用" class="headerlink" title="无副作用"></a>无副作用</h4><p>  副作用是一种谎言。函数承诺只做一件事,但还是会做其他被藏起来的事。有时,它会对自己类中的变量做出未能预期的改动。有时,它会把变量搞成向函数传递的参数或是系统全局变量。无论哪种情况,都是具有破坏性的,会导致古怪的时序性耦合及顺序依赖。</p>
+</li>
+<li><h4 id="使用异常替代返回错误码"><a href="#使用异常替代返回错误码" class="headerlink" title="使用异常替代返回错误码"></a>使用异常替代返回错误码</h4><p>  从指令式函数返回错误码轻微违反了指令与询问分隔的规则。它鼓励了在if语句判断中把指令当作表达式使用。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (deletePage (page) == E_OK)</span><br></pre></td></tr></table></figure>
+
+<p>  这不会引起动词/形容词混淆,但却导致更深层次的嵌套结构。当返回错误码时,就是在要求调用者立刻处理错误。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (deletePage (page) == E_OK) &#123;</span><br><span class="line">	<span class="keyword">if</span> (registry.deleteReference (page. name) ==E_OK)&#123;</span><br><span class="line">  	<span class="keyword">if</span> (configkeys.deleteKey(page.name.makekey ()) ==E_OK)&#123;</span><br><span class="line">       logger.log (<span class="string">&quot;page deleted&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      logger.log (<span class="string">&quot;configKey not deleted&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		logger.loq (<span class="string">&quot;deleteReference from registry failed&quot;</span>);    </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  logger.log (<span class="string">&quot;delete failed&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  另一方面,如果使用异常替代返回错误码,错误处理代码就能从主路径代码中分离出来,得到简化:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  deletePage (page);</span><br><span class="line">	registry.deleteReference (page.name);</span><br><span class="line">	configKeys.deleteKey (page.name.makeKey ());</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	logger.log(e.getMessage ());</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="抽离TyCatch代码块"><a href="#抽离TyCatch代码块" class="headerlink" title="抽离TyCatch代码块"></a>抽离TyCatch代码块</h4><p>  Try/catch代码块丑陋不堪。它们搞乱了代码结构,把错误处理与正常流程混为一谈。最好把try和catch代码块的主体部分抽离出来,另外形成函数。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span> <span class="params">(Page page)</span></span>&#123;</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">    deletePageAndAl1References(page);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">      logError(e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">deletePageAndAl1References</span> <span class="params">(Page page)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">  deletePage (page);</span><br><span class="line">	registry.deleteReference (page. name);</span><br><span class="line">	configKeys.deleteKey (page.name.makekey (<span class="number">1</span>) );</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><h4 id="错误处理就是一件事"><a href="#错误处理就是一件事" class="headerlink" title="错误处理就是一件事"></a>错误处理就是一件事</h4><p>  函数应该只做一件事。错误处理就是一件事。因此,处理错误的函数不该做其他事。这意味着(如上例所示)如果关键字try在某个函数中存在,它就该是这个函数的第一个单词,而且在catch/finally代码块后面也不该有其他内容。</p>
+</li>
+<li><h4 id="Error-java依赖磁铁"><a href="#Error-java依赖磁铁" class="headerlink" title="Error.java依赖磁铁"></a>Error.java依赖磁铁</h4><p>  返回错误码通常暗示某处有个类或是枚举,定义了所有错误码。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Error</span> </span>&#123;</span><br><span class="line">	Oк,</span><br><span class="line">	INVALID,</span><br><span class="line">	NO_SUCH,</span><br><span class="line">	LOCKED,</span><br><span class="line">	OUT_OF-RESOURCES,</span><br><span class="line">	WAITING_FOR EVENT;</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>  这样的类就是一块依赖磁铁(dependency magnet);其他许多类都得导入和使用它。当Error枚举修改时,所有这些其他的类都需要重新编译和部署。这对Error类造成了负面压力。</p>
+<p>  程序员不愿增加新的错误代码,因为这样他们就得重新构建和部署所有东西。于是他们就复用旧的错误码,而不添加新的。</p>
+<p>  使用异常替代错误码,新异常就可以从异常类派生出来,无需重新编译或重新部署。</p>
+<p>  定义新的Exception。</p>
+</li>
+<li><h4 id="别重复自己"><a href="#别重复自己" class="headerlink" title="别重复自己"></a>别重复自己</h4><p>  不要重复自己的函数。</p>
+<p>  这样的重复还是会导致问题,因为代码因此而臃肿,且当算法改变时需要修改4处地方。而且也会增加4次放过错误的可能性。</p>
+<p>  重复可能是软件中一切邪恶的根源。许多原则与实践规则都是为控制与消除重复而创建,例如,全部考德(Codd) ,数据库范式都是为消灭数据重复而服务。再想想看,面向对象编程是如何将代码集中到基类,从而避免了冗余。面向方面编程(Aspect Oriented Programming).</p>
+<p>  面向组件编程(Component Oriented Programming)多少也都是消除重复的一种策略。看来,自子程序发明以来,软件开发领域的所有创新都是在不断尝试从源代码中消灭重复。</p>
+</li>
+<li><h4 id="结构化编程"><a href="#结构化编程" class="headerlink" title="结构化编程"></a>结构化编程</h4><p>  有些程序员遵循Edsger Dijkstra的结构化编程规则。 Djkstra认为,每个函数、函数中的每个代码块都应该有一个入口、一个出口。遵循这些规则,意味着在每个函数中只该有一个return语句,循环中不能有break或continue语句,而且永永远远不能有任何goto语句。</p>
+<p>  我们赞成结构化编程的目标和规范,但对于小函数,这些规则助益不大。只有在大函数中,这些规则才会有明显的好处。</p>
+<p>  所以,只要函数保持短小,偶尔出现的return、 break或continue语句没有坏处,甚至还比单入单出原则更具有表达力。另外一方面, goto只在大函数中才有道理,所以应该尽量避免使用。</p>
+</li>
+<li><h4 id="如何写出这样的函数"><a href="#如何写出这样的函数" class="headerlink" title="如何写出这样的函数"></a>如何写出这样的函数</h4><p>  写代码和写别的东西很像。在写论文或文章时,你先想什么就写什么,然后再打磨它。</p>
+<p>  初稿也许粗陋无序,你就斟酌推敲,直至达到你心目中的样子。</p>
+<p>  我写函数时,一开始都冗长而复杂。有太多缩进和嵌套循环。有过长的参数列表。名称是随意取的,也会有重复的代码。不过我会配上一套单元测试,覆盖每行丑陋的代码。</p>
+<p>  然后我打磨这些代码,分解函数、修改名称、消除重复。我缩短和重新安置方法。有时我还拆散类。同时保持测试通过。</p>
+<p>  最后,遵循本章列出的规则,我组装好这些函数。</p>
+<p>  我并不从一开始就按照规则写函数。我想没人做得到。</p>
+</li>
+<li><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>  每个系统都是使用某种领域特定语言搭建,而这种语言是程序员设计来描述那个系统的。</p>
+<p>  函数是语言的动词,类是名词。这并非是退回到那种认为需求文档中的名词和动词就是系统中类和函数的最初设想的可怕的旧观念。其实这是个历史更久的真理。编程艺术是且一直就是语言设计的艺术。</p>
+<p>  大师级程序员把系统当作故事来讲,而不是当作程序来写。他们使用选定编程语言提供的工具构建一种更为丰富且更具表达力的语言,用来讲那个故事。那种领域特定语言的一个部分,就是描述在系统中发生的各种行为的函数层级。在一种狡猾的递归操作中,这些行为使用它们定义的与领域紧密相关的语言讲述自己那个小故事。</p>
+<p>  本章所讲述的是有关编写良好函数的机制。如果你遵循这些规则,函数就会短小,有个好名字,而且被很好地归置。不过永远别忘记,真正的目标在于讲述系统的故事,而你编写的函数必须干净利落地拼装到一起,形成一种精确而清晰的语言,帮助你讲故事。</p>
+</li>
+</ul>
+<h3 id="第4章-注释"><a href="#第4章-注释" class="headerlink" title="第4章 注释"></a>第4章 注释</h3><blockquote>
+<p>  “别给糟糕的代码加注释-重新写吧。” </p>
+<p>  ​                                                    –Brian W. Kernighan与P J. Plaugher</p>
+</blockquote>
+<ul>
+<li><h4 id="能用函数或变量时就别用注释"><a href="#能用函数或变量时就别用注释" class="headerlink" title="能用函数或变量时就别用注释"></a>能用函数或变量时就别用注释</h4><p>  能够用函数名称或者变量名称能解释的事情，就不要使用注释。</p>
+</li>
+<li><h4 id="注释掉的代码"><a href="#注释掉的代码" class="headerlink" title="注释掉的代码"></a>注释掉的代码</h4><p>  直接把代码注释掉是讨厌的做法。别这么干!</p>
+<p>  其他人不敢删除注释掉的代码。他们会想,代码依然放在那儿,一定有其原因,而且这段代码很重要,不能删除。</p>
+<p>  注释掉的代码堆积在一起,就像破酒瓶底的渣滓一般。</p>
+<p>  20世纪60年代,曾经有那么一段时间,注释掉的代码可能有用。但我们已经拥有优良的源代码控制系统如此之久,这些系统可以为我们记住不要的代码。我们无需再用注释来标记,删掉即可,它们丢不了。我担保。</p>
+</li>
+<li><h4 id="TODO注释"><a href="#TODO注释" class="headerlink" title="TODO注释"></a>TODO注释</h4><p>  TODO是一种程序员认为应该做,但由于某些原因目前还没做的工作。它可能是要提醒删除某个不必要的特性,或者要求他人注意某个问题。它可能是恳请别人取个好名字,或者提示对依赖于某个计划事件的修改。无论TODO的目的如何,它都不是在系统中留下糟糕的代码的借口。</p>
+<p>  如今,大多数好IDE都提供了特别的手段来定位所有TODO注释,这些注释看来丢不了。</p>
+<p>  你不会愿意代码因为TODO的存在而变成一堆垃圾,所以要定期查看,删除不再需要的。</p>
+</li>
+<li><h4 id="警示"><a href="#警示" class="headerlink" title="警示"></a>警示</h4>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> simpleDateFormat <span class="title">makestandardHttpDateFormat</span> <span class="params">()</span> 1</span></span><br><span class="line"><span class="function"><span class="comment">//simplaDateFormat is not thread safe,</span></span></span><br><span class="line"><span class="function"><span class="comment">//so ve need to create each instance independently.</span></span></span><br><span class="line"><span class="function">SimpleDateFormat df </span>= <span class="keyword">new</span> SimpleDateFormat (<span class="string">&quot;EEE, dd MMM yyyy HH:mm:ss z&quot;</span>);</span><br><span class="line">df. setTimeZone (TimeZone. getTimeZone (<span class="string">&quot;GMT&quot;</span>));</span><br><span class="line"><span class="keyword">return</span> df;</span><br></pre></td></tr></table></figure>
+
+<p>  例上面的注释绝对有道理存在,它能阻止某位急切的程序员以效率之名使用静态初始器。</p>
+</li>
+<li><h4 id="对意图的解释"><a href="#对意图的解释" class="headerlink" title="对意图的解释"></a>对意图的解释</h4><p>  有时,注释不仅提供了有关实现的有用信息,而且还提供了某个决定后面的意图。在下例中,我们看到注释反映出来的一个有趣决定。在对比两个对象时,作者决定将他的类放置在比其他东西更高的位置。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(object o)</span></span></span><br><span class="line"><span class="function">  <span class="title">if</span> <span class="params">(o <span class="keyword">instanceof</span> wikiPagePath)</span></span>&#123;</span><br><span class="line">      WikiPagePath p= (wikiPagePath) o;</span><br><span class="line">      string compressedName = Stringutil.join(names, <span class="string">&quot;&quot;</span>);</span><br><span class="line">      string compressedArgumentName = stringUtil.join(p.names, <span class="string">&quot;&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span> compressedName.compareTo(compressedArgumentName);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>; <span class="comment">// we are greater because we are the right type.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><h4 id="阐释"><a href="#阐释" class="headerlink" title="阐释"></a>阐释</h4><p>  有时,注释把某些晦涩难明的参数或返回值的意义翻译为某种可读形式,也会是有用的。</p>
+<p>  通常,更好的方法是尽量让参数或返回值自身就足够清楚;但如果参数或返回值是某个标准库的一部分,或是你不能修改的代码,帮助阐释其含义的代码就会有用。</p>
+</li>
+</ul>
+<h3 id="第5章-格式"><a href="#第5章-格式" class="headerlink" title="第5章 格式"></a>第5章 格式</h3><blockquote>
+<p>  以前我最在意的一个细节，每行代码的长度限制、垂直分割行、每个方法之间间隔，这些细节我都会在写代码过程中带有强迫性质的进行修改。</p>
+</blockquote>
+<ul>
+<li><h4 id="格式的目的"><a href="#格式的目的" class="headerlink" title="格式的目的"></a>格式的目的</h4><p>  增强可读性、连贯性、可维护性。</p>
+</li>
+<li><h4 id="垂直格式"><a href="#垂直格式" class="headerlink" title="垂直格式"></a>垂直格式</h4><p>  <strong>变量声明</strong>。变量声明应尽可能靠近其使用位置。因为函数很短，本地变量应该在函数的顶部出现，偶尔在函数较长时，变量也可以定义在某个代码块顶部。</p>
+<p>  <strong>实体变量</strong>应该在类的顶部声明。这应该不会增加变量的垂直距离,因为在设计良好的类中,它们如果不是被该类的所有方法也是被大多数方法所用。</p>
+<p>  <strong>相关函数</strong>。若某个函a数调用了另外一个,就应该把它们放到一起,而且调用者应该尽可能放在被调用者上面。这样,程序就有个自然的顺序。若坚定地遵循这条约定,读者将能够确信函数声明总会在其调用后很快出现。注意顶部的函数是如何调用其下的函数,而这些被调用的函数又是如何调用更下面的函数的。这样就能轻易找到被调用的函数,极大地增强了整个模块的可读性。</p>
+<p>  <strong>概念相关</strong>。概念相关的<strong>代码</strong>应该放到一起。相关性越强,彼此之间的距离就该越短。</p>
+<p>  如上所述,相关性应建立在直接依赖的基础上,如函数间调用,或函数使用某个变量。</p>
+<p>  但也有其他相关性的可能。相关性可能来自于执行相似操作的一组函数。</p>
+</li>
+<li><h4 id="其他格式（缩进，导包，空范围，代码横向长度）"><a href="#其他格式（缩进，导包，空范围，代码横向长度）" class="headerlink" title="其他格式（缩进，导包，空范围，代码横向长度）"></a>其他格式（缩进，导包，空范围，代码横向长度）</h4><p>  可以依赖公司开发规范，或者参考Alibaba开发手册。</p>
+</li>
+</ul>
+<h3 id="第6章-对象和数据结构"><a href="#第6章-对象和数据结构" class="headerlink" title="第6章 对象和数据结构"></a>第6章 对象和数据结构</h3><blockquote>
+<p>  将变量设置为私有(private)有一个理由:我们不想其他人依赖这些变量。我们还想在心血来潮时能自由修改其类型或实现。那么,为什么还是有那么多程序员给对象自动添加赋值器和取值器,将私有变量公之于众、如同它们根本就是公共变量一般呢?</p>
+</blockquote>
+<ul>
+<li><h4 id="数据抽象"><a href="#数据抽象" class="headerlink" title="数据抽象"></a>数据抽象</h4><p>  看看代码PointA和代码PointB之间的区别。每段代码都表示笛卡儿平面上的一个点。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PointA</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">double</span> x;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">double</span> y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PointB</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">double</span> <span class="title">getX</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">double</span> <span class="title">getY</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setCartesian</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">double</span> <span class="title">getR</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">double</span> <span class="title">getTheta</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setPolar</span><span class="params">(<span class="keyword">double</span> r, <span class="keyword">double</span> theta)</span></span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>  PointA曝露了其实现,而PointB则完全隐藏了其实现。</p>
+<p>  PointB的漂亮之处在于,你不知道该实现会是在矩形坐标系中还是在极坐标系中。</p>
+<p>  <strong>隐藏实现并非只是在变量之间放上一个函数层那么简单。隐藏实现关乎抽象!</strong></p>
+<p>  <strong>类并不简单地用取值器和赋值器将其变量推向外间,而是曝露抽象接口,以便用户无需了解数据的实现就能操作数据本体。</strong></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 具象机动车</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">getFuelTankCapacityInGallons</span> <span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">getGallonsOfGasoline</span> <span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽象机动车</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">getPercentFuelRemaining</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  以上两段代码以后者为佳。我们不愿曝露数据细节,更愿意以抽象形态表述数据。这并不只是用接口和/或赋值器、取值器就万事大吉。要以最好的方式呈现某个对象包含的数据，需要做严肃的思考。傻乐着乱加取值器和赋值器，是最坏的选择。</p>
+</li>
+<li><h4 id="数据对象的反对称性"><a href="#数据对象的反对称性" class="headerlink" title="数据对象的反对称性"></a>数据对象的反对称性</h4><p>  <strong>对象把数据隐藏于抽象之后，暴露操作数据的函数</strong></p>
+<p>  <strong>数据结构暴露其数据，而没有提供有意义的函数</strong></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//此种形式为数据结构形式，暴露数据，没有函数</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> Point topLeft;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">double</span> side;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> Point topLeft;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">double</span> height;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">double</span> width;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Gemometry</span></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">double</span> PI = <span class="number">3.141592653589793</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">area</span><span class="params">(object shape)</span> <span class="keyword">throws</span> NoSunShapeException</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(shape <span class="keyword">instanceof</span> Square)&#123;</span><br><span class="line">      Square s = (Square)shape;</span><br><span class="line">      <span class="keyword">return</span> s.side*s.side;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(shape <span class="keyword">instanceof</span> Rectangle)&#123;</span><br><span class="line">      Rectangle r = (Rectangel) shape;</span><br><span class="line">      <span class="keyword">return</span> r.hegiht*r.width;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchShapeException();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//此种方式为对象方式，隐藏了实现，提供方法（未暴露实现）</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Point topLeft;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> side;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">area</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> side*side;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Point topLeft;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> height;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> width;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">area</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> height*width;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Point center;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> radius;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">double</span> PI = <span class="number">3.141592653589793</span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">area</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> PI * radius * radius;        </span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>数据结构的方法暴露了其本身的数据，但没有提供有意义的函数；<strong>面向过程</strong></p>
+</li>
+<li><p>数据结构可以方便的添加函数，但添加数据结构类型十分不便；</p>
+</li>
+<li><p>原因在于添加一个数据结构类型需要修改所有已经存在的函数；</p>
+</li>
+<li><p>对象的方法保护了其私有数据，提供抽象的方法；<strong>面向对象</strong></p>
+</li>
+<li><p>此方法可以方便的添加对象类型，应为每种类型是不相互干扰互相独立的；</p>
+</li>
+<li><p>但添加方法十分复杂，需要修改所有的对象类；</p>
+</li>
+</ul>
+<p>  <code>过程式代码(使用数据结构的代码)便于在不改动既有数据结构的前提下添加新函数。</code></p>
+<p>  <code>面向对象代码便于在不改动既有函数的前提下添加新类。</code></p>
+<p>  反过来讲也说得通。</p>
+<p>  <code>过程式代码难以添加新数据结构, 因为必须修改所有函数。</code></p>
+<p>  <code>面向对象代码难以添加新函数,因为必须修改所有类。</code></p>
+<p>  在任何一个复杂系统中,都会有需要添加新数据类型而不是新函数的时候。这时,对象和面向对象就比较适合。另一方面,也会有想要添加新函数而不是数据类型的时候。在这种情况下,过程式代码和数据结构更合适。</p>
+</li>
+<li><h4 id="得墨忒耳律"><a href="#得墨忒耳律" class="headerlink" title="得墨忒耳律"></a>得墨忒耳律</h4><p>  著名的得墨忒耳律(The Law of Demeter) 认为:</p>
+<ul>
+<li><p>模块不应了解它所操作对象的内部情形。</p>
+</li>
+<li><p>如上节所见,对象隐藏数据,曝露操作。这意味着对象不应通过存取器曝露其内部结构,因为这样更像是曝露而非隐藏其内部结构。</p>
+</li>
+</ul>
+<p>  更准确地说，得墨忒耳律认为，类C的方法 f 只应该调用以下对象的方法：</p>
+<ul>
+<li><p>  C</p>
+</li>
+<li><p>  由 f 创建的对象；</p>
+</li>
+<li><p>  作为参数传递给 f 的对象；</p>
+</li>
+<li><p>  由 C 的实体变量持有的对象。</p>
+</li>
+</ul>
+<p>  <strong>方法不应调用由任何函数返回的对象的方法。换言之,只跟朋友谈话,不与陌生人谈话。</strong></p>
+<p>  下列代码违反了得墨忒耳律(除了违反其他规则之外),因为它调用了getOptions()返回值的getScratchDir()函数,又调用了getScratchDir()返回值的getAbsolutePath()方法。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> string outputDir =ctxt.getOptions ().getScratchDir() .getAbsolutePath ();</span><br></pre></td></tr></table></figure>
+
+<p>  很多面向对象程序设计语言用”.”表示对象的域的解析算符，因此得墨忒耳定律可以简单地陈述为“只使用一个.算符”。因此，a.b.Method()违反了此定律，而a.Method()不违反此定律。</p>
+<p>  <strong>一个简单例子是，人可以命令一条狗行走（walk），但是不应该直接指挥狗的腿行走，应该由狗去指挥控制它的腿如何行走。</strong></p>
+</li>
+<li><h4 id="数据传输对象"><a href="#数据传输对象" class="headerlink" title="数据传输对象"></a>数据传输对象</h4><p>  最为精炼的数据结构，是只有公共变量，没有函数的类；这种数据结构被称为数据传送对象，或DTO（Data Transfer Objects）</p>
+</li>
+<li><h4 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h4><p>  对象曝露行为,隐藏数据。便于添加新对象类型而无需修改既有行为,同时也难以在既有对象中添加新行为。数据结构曝露数据,没有明显的行为。便于向既有数据结构添加新行为,同时也难以向既有函数添加新数据结构。</p>
+<p>  在任何系统中,我们有时会希望能够灵活地添加新数据类型,所以更喜欢在这部分使用对象。另外一些时候,我们希望能灵活地添加新行为,这时我们更喜欢使用数据类型和过程。</p>
+<p>  优秀的软件开发者不带成见地了解这种情形,并依据手边工作的性质选择其中一种手段。</p>
+</li>
+</ul>
+<h3 id="第7章-错误处理"><a href="#第7章-错误处理" class="headerlink" title="第7章 错误处理"></a>第7章 错误处理</h3><blockquote>
+<p>错误处理很重要，但它不应该搞乱代码的逻辑。</p>
+</blockquote>
+<ul>
+<li><h4 id="使用异常而非返回码"><a href="#使用异常而非返回码" class="headerlink" title="使用异常而非返回码"></a>使用异常而非返回码</h4><p>使用返回码，自定义错误码、Null；这样的操作会使调用者在调用之后即刻检查错误，但此类操作容易被忽略，容易出现问题，且代码可读性较差，不美观。</p>
+<p>使用抛出异常的方式，调用代码很整洁，其逻辑不会被错误处理搞乱。</p>
+</li>
+<li><h4 id="先写Try-Catch-Finaly"><a href="#先写Try-Catch-Finaly" class="headerlink" title="先写Try-Catch-Finaly"></a>先写Try-Catch-Finaly</h4><p>妙处之一是,它们在程序中定义了一个范围。执行try-catch-finally语句中try部分的代码时,你是在表明可随时取消执行,并在catch语句中接续。</p>
+<p>在某种意义上, try代码块就像是事务。catch代码块将程序维持在一种持续状态,无论try代码块中发生了什么均如此。</p>
+<p>在编写可能抛出异常的代码时，最好先写出ty-atch-finally语句，这能帮你定义代码的用户应该期待什么,无论try代码块中执行的代码出什么错都一样。</p>
+</li>
+<li><h4 id="使用不可控异常"><a href="#使用不可控异常" class="headerlink" title="使用不可控异常"></a>使用不可控异常</h4><p>以某个大型系统的调用层级为例。顶瑞函数调用它们之下的函数,逐级向下。假设某个位于最底层级的函数被修改为抛出一个异常。如果该异常是可控的,则函数签名就要添加throw子句。这意味着每个调用该函数的函数都要修改,捕获新异常,或在其签名中添加合适的throw子句。以此类推。最终得到的就是一个从软件最底端贯穿到最高端的修改链!封装被打破了,因为在抛出路径中的每个函数都要去了解下一层级的异常细节。既然异常旨在让你能在较远处处理错误,可控异常以这种方式破坏封装简直就是一种耻辱。</p>
+<p>如果你在编写一套关键代码库,则可控异常有时也会有用:你必须捕获异常。但对于一般的应用开发,其依赖成本要高于收益。</p>
+</li>
+<li><h4 id="给出异常发生是的环境说明"><a href="#给出异常发生是的环境说明" class="headerlink" title="给出异常发生是的环境说明"></a>给出异常发生是的环境说明</h4><p>你抛出的每个异常,都应当提供足够的环境说明,以便判断错误的来源和处所。</p>
+</li>
+<li><h4 id="依调用者需要定义异常类"><a href="#依调用者需要定义异常类" class="headerlink" title="依调用者需要定义异常类"></a>依调用者需要定义异常类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">ACMEPort port = <span class="keyword">new</span> ACMEPort(<span class="number">12</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//该段代码中包含了较多的重复，并且由各种异常，对此可以对第三方API进行打包，使其返回相同的代码；</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  port.open();</span><br><span class="line">&#125;<span class="keyword">catch</span>(DeviceResponseException e)&#123;</span><br><span class="line">  reportPortError(e);</span><br><span class="line">  logger.log(<span class="string">&quot;Device response exception&quot;</span>,e);</span><br><span class="line">&#125;<span class="keyword">catch</span>(ATM1212UnlockedException e)&#123;</span><br><span class="line">  reportPortError(e);</span><br><span class="line">  logger.log(<span class="string">&quot;Unlock exception&quot;</span>,e);</span><br><span class="line">&#125;<span class="keyword">catch</span>(GMXError e)&#123;</span><br><span class="line">  reportPortError(e);</span><br><span class="line">  logger.log(<span class="string">&quot;Device response exception&quot;</span>,e);</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//以下方法对第三方API进行了打包，同一了向上throw的异常类型</span></span><br><span class="line">LocalPort port = <span class="keyword">new</span> LocalPort(<span class="number">12</span>);</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  port.open()</span><br><span class="line">&#125;<span class="keyword">catch</span>(PortDeviceFailure e)&#123;</span><br><span class="line">  reportError(e);</span><br><span class="line">  logger.log(e.getMessage e);</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalPort</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> ACMEPort innerport;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">LocalPort</span><span class="params">(<span class="keyword">int</span> portNumber)</span></span>&#123;</span><br><span class="line">    innerPort = <span class="keyword">new</span> ACMEPort(portNumber);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      innerPort.open();</span><br><span class="line">    &#125;<span class="keyword">catch</span>(DeviceResponseException e)&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> PortDeviceFailure(e);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ATM1212UnlockExcetion e)&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> PortDeviceFailure(e);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(GMXError e)&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> PortDeviceFailure(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类似我们为ACMEPort定义的这种打包类非常有用。实际上,将第三方API打包是个良好的实践手段。当你打包一个第三方API,你就降低了对它的依赖:未来你可以不太痛苦地改用其他代码库。在你测试自己的代码时,打包也有助于模拟第三方调用。</p>
+</li>
+<li><h4 id="定义常规流程"><a href="#定义常规流程" class="headerlink" title="定义常规流程"></a>定义常规流程</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 来看一个例子。下面的笨代码来自某个记账应用的开支总计模块:</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  MealExpense expenses = expenseReportDAO.getMeals(employee.getID());</span><br><span class="line">  m_total += expenses.getTotal();</span><br><span class="line">&#125;<span class="keyword">catch</span>(MealExpenseNotFound e)&#123; </span><br><span class="line">  m_total += getMealPerDiem();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 业务逻辑是,如果消耗了餐食,则计入总额中。如果没有消耗,则员工得到当日餐食补贴。异常打断了业务逻辑。如果不去处理特殊情况会不会好一些?那样的话代码看起来会更简洁。就像这样:</span></span><br><span class="line"></span><br><span class="line">MealExpensses expenses = expenseReportDAO.getMeals(employee.getID());</span><br><span class="line">m_total += expenses.getTotal();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 能把代码写得那样简洁吗?能。可以修改ExpenseReportDA ,使其总是返回MealExpense对象。如果没有餐食消耗,就返回一个返回餐食补贴的MealExpense对象。</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PerDiemMealExpense</span> <span class="keyword">implements</span> <span class="title">MealExpenses</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getTotal</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//retrun the per diem default</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种手法叫做特例模式(SPECIAL CASE PATTERN, [Fowlerj),创建一个类或配置一个对象,用来处理特例。你来处理特例,客户代码就不用应付异常行为了。异常行为被封装到特例对象中。</p>
+</li>
+<li><h4 id="别返回null值"><a href="#别返回null值" class="headerlink" title="别返回null值"></a>别返回null值</h4><p>每一处可能返回null值就要进行返回值检查，这样的检查使得代码凌乱；</p>
+<p>对于返回null的函数最好可以返回特例，避免null判断；次之返回异常进行处理</p>
+</li>
+<li><h4 id="别传递null值"><a href="#别传递null值" class="headerlink" title="别传递null值"></a>别传递null值</h4><p>在方法中返回null值是糟糕的做法,但将null值传递给其他方法就更糟糕了。</p>
+<p>除非API要求你向它传递null值,否则就要尽可能避免传递null值。</p>
+</li>
+<li><h4 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h4><p>整洁代码是可读的,但也要强固。可读与强固并不冲突。如果将错误处理隔离看待,独立于主要逻辑就能写固而整洁的代码。做到这一步,我们就能单独处理它,也极大地提升了代码的可维护性。</p>
+</li>
+</ul>
+<h3 id="第8章-边界"><a href="#第8章-边界" class="headerlink" title="第8章 边界"></a>第8章 边界</h3><ul>
+<li><h4 id="使用第三方代码"><a href="#使用第三方代码" class="headerlink" title="使用第三方代码"></a>使用第三方代码</h4><p>在接口提供者和使用者之间,存在与生俱来的张力。第三方程序包和框架提供者追求普适性,这样就能在多个环境中工作,吸引广泛的用户。而使用者则想要集中满足特定需求的接口。</p>
+<p>这种张力会导致系统边界上出现问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 此方法将sensors暴露在外部，在函数间传递不安全</span></span><br><span class="line">Map sensors = <span class="keyword">new</span> HashMap();</span><br><span class="line">...</span><br><span class="line">Sensor s = (Sensor)sensors.get(sensorId);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 此种方法在使用Sensors时无需考虑其内部实现，避免了对sensors的无意修改；当HashMap修改时，对Sensors 的修改就在此类的内部，做到了很好的隔离</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sensors</span></span>&#123;</span><br><span class="line"><span class="keyword">private</span> Map sensors = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Sensor <span class="title">getById</span><span class="params">(String id)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (Sensor) sensors.get(id);</span><br><span class="line">&#125;</span><br><span class="line">....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上的重构方法使<strong>HashMap</strong>的使用<strong>隔离</strong>在<strong>Sensors类的内部</strong>，当HashMap修改时，只需修改Sensors类一处，实现低耦合；</p>
+</li>
+<li><h4 id="整洁的边界"><a href="#整洁的边界" class="headerlink" title="整洁的边界"></a>整洁的边界</h4><p>边界会经常需要改动，良好的软件设计无需巨大的投入和重写即可修改；</p>
+<p>在使用控制不了的代码（第三方库）时，需要加倍的小心，确保未来的修改代价不要太大；</p>
+<p>避免代码过多的依赖第三方代码中特定的信息，<strong>依靠能控制的</strong>好过依靠控制不了的，避免日后受它控制；</p>
+</li>
+</ul>
+<h3 id="第9章-单元测试"><a href="#第9章-单元测试" class="headerlink" title="第9章 单元测试"></a>第9章 单元测试</h3><ul>
+<li><h4 id="TDD三定律"><a href="#TDD三定律" class="headerlink" title="TDD三定律"></a>TDD三定律</h4><p><strong>定律一：在编写不能通过的单元测试前，不可编写生产代码。</strong></p>
+<p>测试驱动开发主张“测试先行”，这意味着我们必须先写单元测试，并且该单元测试必然失败，才能编写生产代码。</p>
+<p><strong>定律二：只可编写刚好无法通过的单元测试，不能编译也算不通过。</strong><br>测试驱动开发鼓励“简单设计”，以很小的增量进行开发，遇到设计问题时能够及时解决，不要期望一个测试能实现多个功能。</p>
+<p><strong>定律三：只可编写刚好通过当前失败测试的生产代码。</strong></p>
+<p>简洁，尽最大可能减少不必要的工作，也是敏捷基本原则之一。要避免盲目编写将来有可能需要的代码。</p>
+<p>遵循了测试驱动开发的这三条定律，那所有代码都是可测试的了。“可测试”的另一个词是“解耦”，为了单独测试模块，必须将其分离，所以测试驱动开发强迫分离模块，迫使大家创建更好、更少耦合的设计。</p>
+</li>
+<li><h4 id="保持测试整洁"><a href="#保持测试整洁" class="headerlink" title="保持测试整洁"></a>保持测试整洁</h4><p>测试代码需要跟着生产代码的修改而修改。</p>
+<p>测试代码和生产代码一样重要，也需要被思考、被设计和被照料。</p>
+</li>
+<li><h4 id="整洁的测试"><a href="#整洁的测试" class="headerlink" title="整洁的测试"></a>整洁的测试</h4><p><strong>整洁的测试有什么要素？有三个要素：可读性、可读性和可读性。</strong><br><strong>测试代码要如何才能做到可读？和其他代码一样：明确、简洁还有足够的表达力。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这样的测试代码可读性很差</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetPageHieratchyAsXml</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">  crawler.addPage(root, PathParser.parse(<span class="string">&quot;PageOne&quot;</span>));</span><br><span class="line">  crawler.addPage(root, PathParser.parse(<span class="string">&quot;PageOne.ChildOne&quot;</span>));</span><br><span class="line">  crawler.addPage(root, PathParser.parse(<span class="string">&quot;PageTwo&quot;</span>));</span><br><span class="line">  request.setResource(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">  request.addInput(<span class="string">&quot;type&quot;</span>, <span class="string">&quot;pages&quot;</span>);</span><br><span class="line">  Responder responder = <span class="keyword">new</span> SerializedPageResponder();</span><br><span class="line">  SimpleResponse response = (SimpleResponse) responder.makeResponse(<span class="keyword">new</span> FitNesseContext(root), request);</span><br><span class="line">  string xml = response.getContent();</span><br><span class="line">  assertEquals(<span class="string">&quot;text/xml&quot;</span>, response.getContentType());</span><br><span class="line">  assertSubstrinq(<span class="string">&quot;&lt;name&gt;PageOne&lt;/name&gt;&quot;</span>, xml);</span><br><span class="line">  assertSubstring(<span class="string">&quot;&lt;name&gt;PageTwo&lt;/name&gt;&quot;</span>, xml);</span><br><span class="line">  assertSubstring(<span class="string">&quot;&lt;name&gt;Childone&lt;/name&gt;&quot;</span>, xml);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 应采用构造-操作-检验(BUILD-OPERATE-CHECK) 模式</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetPageHierarchyAsXml</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">  <span class="comment">//build</span></span><br><span class="line">  makePages(<span class="string">&quot;PageOne&quot;</span>,<span class="string">&quot;PageOne.ChildOne&quot;</span>,<span class="string">&quot;PageTwo&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//operate</span></span><br><span class="line">  submitRequest(<span class="string">&quot;root&quot;</span>,<span class="string">&quot;type:pages&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//check</span></span><br><span class="line">  assertResponseIsXML();</span><br><span class="line">  assertResponseContains(<span class="string">&quot;&lt;name&gt;PageOne&lt;/name&gt;&quot;</span>,<span class="string">&quot;&lt;name&gt;PageTwo&lt;/name&gt;&quot;</span>,<span class="string">&quot;&lt;name&gt;ChildOne&lt;/name&gt;&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这个测试显然呈现了构造-操作-检验(BUILD-OPERATE-CHECK) 模式。每个测试都清晰地拆分为三个环节。</p>
+<p>第一个环节构造测试数据,</p>
+<p>第二个环节操作测试数据,</p>
+<p>第三个部分检验操作是否得到期望的结果。</p>
+<p>注意,那些恼人的细节大部分消失了。测试直达目的,只用到那些真正需要的数据类型和函数。读测试的人应该都能够很快搞清楚状况,不至于被细节误导或吓倒。</p>
+</li>
+<li><h4 id="双重标准"><a href="#双重标准" class="headerlink" title="双重标准"></a>双重标准</h4><p>有些事情可能只会在测试代码中做，而生产代码中可能不会做；所以内存或者CPU的效率在测试代码中可以稍微妥协，以提高代码的可读性；</p>
+</li>
+<li><h4 id="测试每一个断言"><a href="#测试每一个断言" class="headerlink" title="测试每一个断言"></a>测试每一个断言</h4><p><strong>遵循given-when-then的约定；</strong></p>
+<pre><code>given – some context
+when – some actions is carried out
+then – a particular set of consequences should obtain
+</code></pre>
+<p><strong>这里所说的就是BUILD-OPERATE-CHECK</strong><br><strong>最佳规则也许是应该尽可能减少每个概念的断言数量,每个测试函数只测试一个概念。</strong></p>
+</li>
+<li><h4 id="F-I-R-S-T"><a href="#F-I-R-S-T" class="headerlink" title="F.I.R.S.T"></a>F.I.R.S.T</h4><p><strong>快速 Fast(F)：测试应该足够快；如果测试过慢就不愿进行测试，最终导致代码腐败；</strong><br><strong>独立 Independent(I)：测试应该相互独立，某个测试不应为下一个测试设定条件；以任何顺序运行测试条件也是可以的；</strong><br><strong>可重复 Repeatable(R)：测试可以在任何环境中通过；比如生产环境，质检环境；</strong><br><strong>自足验证 Self-Validating(S)：测试应该有布尔值输出；无论成败，可以方便检测。</strong><br><strong>及时 Timely(T)：测试应该及时编写；单元测试应该恰好在使其通过的生产代码之前编写；</strong></p>
+</li>
+<li><h4 id="小结-3"><a href="#小结-3" class="headerlink" title="小结"></a>小结</h4><p>如果你坐视测试腐坏,那么代码也会跟着腐坏。保持测试整洁吧。</p>
+</li>
+</ul>
+<h3 id="第10章-类"><a href="#第10章-类" class="headerlink" title="第10章 类"></a>第10章 类</h3><ul>
+<li><h4 id="类的组织"><a href="#类的组织" class="headerlink" title="类的组织"></a>类的组织</h4><p>遵循标准的Java约定,类应该从一组变量列表开始。<strong>如果有公共静态常量,应该先出现。</strong></p>
+<p><strong>然后是私有静态变量,以及私有实体变量。很少会有公共变量。</strong></p>
+<p><strong>公共函数应跟在变量列表之后。</strong>我们喜欢把由某个公共函数调用的私有工具函数紧随在该公共函数后面。这符合了自顶向下原则,让程序读起来就像一篇报纸文章。</p>
+</li>
+<li><h4 id="类应该短小"><a href="#类应该短小" class="headerlink" title="类应该短小"></a>类应该短小</h4><p><strong>类应该短小，单一权原则（SRP）。</strong></p>
+<p><strong>系统应该由许多短小的类而不是少量巨大的类组成.每个小类封装一个权责,只有一个修改的原因，并与少数其他类一起协同达成期望的系统行为。</strong></p>
+<p><strong>内聚性：</strong></p>
+<p>​    <strong>所谓内聚是指类中的方法基本围绕在类的变量进行操作，与外界很少接触；这样的类方法具有高内聚；</strong></p>
+<p>​    <strong>如果类中变量被每一个方法使用，该类具有最高德内聚性；</strong></p>
+<p>​    <strong>高内聚表明方法与变量相互依赖，相互结合成一个逻辑整体；</strong></p>
+</li>
+</ul>
+
+            
+
+    
+    <div class="image-gallery">
+        <div class="image-gallery-metabar">
+            <span>画廊: 图片</span>
+        </div>
+        <div class="image-gallery-photos ">
+            
+            
+            <div class="photo-box">
+                <a
+                    class="photo-box-inner fancybox"
+                    data-fancybox="gallery-ckr24xiub001f0tpv5j1wcss8"
+                    data-caption="city"
+                    title="city"
+                    target="_blank" rel="noopener" href="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"
+                    aria-label=""
+                >
+                    
+
+                        <img
+                                class="photo" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg"
+                        >
+                    
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/%E4%B9%A6%E7%B1%8D/" rel="tag">书籍</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E7%BC%96%E7%A0%81/" rel="tag">编码</a>
+
+            </div>
+        
+        
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Methodref. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/picture.png" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">Methodref</h4>
+        
+            <div id="about-card-bio"><p>建立例行公事需要定义精确的行为,并在特定时间执行它们,以深深扎根的价值观为动力.</p>
+</div>
+        
+<!--        -->
+<!--            <div id="about-card-job">-->
+<!--                <i class="fa fa-briefcase"></i>-->
+<!--                <br/>-->
+<!--                -->
+<!--            </div>-->
+<!--        -->
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="/assets/images/logo-algolia-nebula-blue-full.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/05/02/template/"
+                            aria-label=": template"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/05/02/template/"
+                            aria-label=": template"
+                        >
+                            <h3 class="media-heading">template</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年5月2日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p><code>&lt;!-- excerpt --&gt;</code></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/14/1.%E5%8D%9A%E5%AE%A2%E4%BC%8A%E5%A7%8B/"
+                            aria-label=": 博客伊始"
+                        >
+                            <img class="media-image" src="https://i.loli.net/2021/05/05/HlyQfdkGYBRhD7u.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/14/1.%E5%8D%9A%E5%AE%A2%E4%BC%8A%E5%A7%8B/"
+                            aria-label=": 博客伊始"
+                        >
+                            <h3 class="media-heading">博客伊始</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年9月14日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>为什么要建立博客和博客的内容。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/"
+                            aria-label=": 博客的搭建"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/17/2.%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BB%BA%E7%AB%8B/"
+                            aria-label=": 博客的搭建"
+                        >
+                            <h3 class="media-heading">博客的搭建</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年9月17日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>博客的建立记录。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/21/3.%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98Tranquilpeak/"
+                            aria-label=": 博客主题Tranquilpeak"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/21/3.%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98Tranquilpeak/"
+                            aria-label=": 博客主题Tranquilpeak"
+                        >
+                            <h3 class="media-heading">博客主题Tranquilpeak</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年9月21日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p><a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak">Tranquilpeak</a> 安装与使用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/25/4.%E5%8D%9A%E5%AE%A2%E6%8F%92%E4%BB%B6hexo-algoliasearch/"
+                            aria-label=": 博客插件hexo-algoliasearch"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/09/25/4.%E5%8D%9A%E5%AE%A2%E6%8F%92%E4%BB%B6hexo-algoliasearch/"
+                            aria-label=": 博客插件hexo-algoliasearch"
+                        >
+                            <h3 class="media-heading">博客插件hexo-algoliasearch</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年9月25日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Hexo博客的搜索插件<a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/hexo-algoliasearch">hexo-algoliasearch</a>介绍及其安装和使用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/02/5.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%B8%80%3E/"
+                            aria-label=": 经典排序算法图解&lt;一&gt;"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/02/5.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%B8%80%3E/"
+                            aria-label=": 经典排序算法图解&lt;一&gt;"
+                        >
+                            <h3 class="media-heading">经典排序算法图解&lt;一&gt;</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年10月2日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>基于&lt;&lt;算法 第四版&gt;中标准绘图库stdDraw实现的算法图解。</p>
+<p>简单：冒泡排序、选择排序、插入排序</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/05/6.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%BA%8C%3E/"
+                            aria-label=": 经典排序算法图解&lt;二&gt;"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/05/6.%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%3C%E4%BA%8C%3E/"
+                            aria-label=": 经典排序算法图解&lt;二&gt;"
+                        >
+                            <h3 class="media-heading">经典排序算法图解&lt;二&gt;</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年10月5日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>基于&lt;&lt;算法 第四版&gt;中标准绘图库stdDraw实现的算法图解。</p>
+<p>进阶：希尔排序、归并排序、快速排序</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/12/7.%E3%80%8A%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+                            aria-label=": 《代码整洁之道》阅读笔记"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/12/7.%E3%80%8A%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+                            aria-label=": 《代码整洁之道》阅读笔记"
+                        >
+                            <h3 class="media-heading">《代码整洁之道》阅读笔记</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年10月12日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><ol>
+<li> 阅读本书有两种原因：第一，你是个程序员；第二，你想成为更好的程序员。</li>
+<li> 这是本有关编写好程序的书。它充斥着代码。我们要从各个方向来考察这些代码。从顶向下,从底往上,从里而外。读完后,就能知道许多关于代码的事了。而且,我们还能说出好代码和糟糕的代码之间的差异。我们将了解到如何写出好代码。我们也会知道,如何将糟糕的代码改成好代码。</li>
+</ol></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/18/8.%E6%94%B9%E5%8F%98%E4%B9%A0%E6%83%AF%E7%9A%84%E6%AD%A5%E9%AA%A4%E6%96%B9%E6%B3%95/"
+                            aria-label=": 改变习惯的步骤方法"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/18/8.%E6%94%B9%E5%8F%98%E4%B9%A0%E6%83%AF%E7%9A%84%E6%AD%A5%E9%AA%A4%E6%96%B9%E6%B3%95/"
+                            aria-label=": 改变习惯的步骤方法"
+                        >
+                            <h3 class="media-heading">改变习惯的步骤方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年10月18日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>来自于《习惯的力量》中改变习惯的步骤和方法。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/22/9.%E5%A4%84%E7%90%86%E4%B8%AA%E4%BA%BA%E4%BA%8B%E5%8A%A1%E5%B7%A5%E4%BD%9C%E6%B5%81/"
+                            aria-label=": 处理个人事务工作流"
+                        >
+                            <img class="media-image" src="https://d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://blog.methodref.top/2020/10/22/9.%E5%A4%84%E7%90%86%E4%B8%AA%E4%BA%BA%E4%BA%8B%E5%8A%A1%E5%B7%A5%E4%BD%9C%E6%B5%81/"
+                            aria-label=": 处理个人事务工作流"
+                        >
+                            <h3 class="media-heading">处理个人事务工作流</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2020年10月22日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>出自《GTD搞定无压的艺术》横向管理工作流的五个阶段。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 10 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-njw25bucthu2f7qwpa8p9tx7qtm7hhyiws0ncjz3zhbidrhycjkznacvmly7.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+
+
+    
+<script src="/assets/js/moment-with-locales.js"></script>
+
+    
+<script src="/assets/js/algoliasearch.js"></script>
+
+    <script>
+      var algoliaClient = algoliasearch('QCZ8N9HXLU', '4d5e165ab83cea691baf843cf9e470ad');
+      var algoliaIndex = algoliaClient.initIndex('my-hexo-blog');
+    </script>
+
+
+    </body>
+</html>
